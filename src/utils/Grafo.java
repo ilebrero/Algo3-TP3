@@ -1,17 +1,24 @@
-package exercises3;
+package utils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+//Grafo sobre Lista de Adyacencia
+
 public class Grafo {
 	private ArrayList<Materia> materias;
+	
 	public Grafo() {
 		materias = new ArrayList<Materia>();
 	}
 	
 	public void addMateria(Materia m1){
-		materias.add(m1);	
+		int id = materias.size();
+		m1.setId(id);
+		materias.add(m1);
+		
 	}
 	
 	public void connectMateria(int m1, int m2) {
@@ -22,9 +29,13 @@ public class Grafo {
 	public int size() {
 		return materias.size();
 	}
-	public TreeSet<Materia> materias(){
-		return new TreeSet<Materia>(materias) {
-		};
+	
+	public Materia getMateria(int i){
+		return materias.get(i);
+	}
+
+	public List<Materia> getMaterias(){
+		return materias;
 	}
 	
 	private boolean esta(Materia m){
@@ -35,5 +46,20 @@ public class Grafo {
 		}
 		return false;
 	}
+	
+	/*
+	 * TODO: revizar el tema del grafo invertido
+	 */
+	/*
+	public static Grafo grafoInvertido(Grafo g) {
+		Grafo invertido = new Grafo();
+		
+		List<Materia> nodos = g.getMaterias();
+		for (Materia m : nodos) {
+			invertido.addMateria(m);
+		}
+		
+		return invertido;
+	}*/
 }
 

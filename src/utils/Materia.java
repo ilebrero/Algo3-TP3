@@ -1,7 +1,8 @@
-package exercises3;
+package utils;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Materia {
 	private int id;
@@ -11,8 +12,7 @@ public class Materia {
 	private int c1;
 	private int c2;
 			
-	public Materia(int id, int c1, int c2) {
-		this.id = id;
+	public Materia(int c1, int c2) {
 		this.c1 = c1;
 		this.c2 = c2;
 		nodos = new Nodo[2];
@@ -51,27 +51,41 @@ public class Materia {
 			nodos[1].connect(m2.getNodoC2());
 		}
 	}
+	
+	
 	public int getC1() {
 		return c1;
 	}
+	
 	public int getC2() {
 		return c2;
 	}
+	
 	public Nodo getNodoC1() {
 		return nodos[0];
 	}
+	
 	public Nodo getNodoC2() {
 		return nodos[1];
 	}
+	
 	public Nodo getNodoNegadoC1() {
 		return nodos[0];
 	}
+	
 	public Nodo getNodoNegadoC2() {
 		return nodos[1];
 	}
+	
 	public int getId() {
 		return id;
 	}
 	
-	
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public List<Materia> getAdyacentes() {
+		return this.adyacentes;
+	}
 }
