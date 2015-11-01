@@ -45,23 +45,20 @@ public class Ejercicio1 {
 
 	}
 	
+	/*
+	 * esta implementacion de dfs es recursiva!!! 
+	 * TODO: ver si se puede implementar iterativamente, puede quedar como experimentacion ver tiempos de corrida iterativo vs recursivo
+	 */
 	private void dfs(Grafo g, boolean[] usado, List<Materia> m, int i) {
-		Stack<Materia> materias = new Stack<Materia>();
-		materias.push( g.getMateria(i) );
+		Materia actual = g.getMateria(i); 
+		usado[ actual.getId() ] = true;
 		
-		while(materias.size() != 0) {
-			Materia actual = materias.pop();
-			List<Materia> adyacentes = actual.getAdyacentes();
-
-			//recorre todos los vecinos no recorridos
-			for (Materia vecino : adyacentes) {
-				if (!usado[ vecino.getId() ]) {
-					materias.push(vecino);
-				}
+		for (Materia vecino : actual.getAdyacentes()) {
+			if (!usado[ vecino.getId() ]) {
+				dfs(g, usado, m, vecino.getId());
 			}
-
-			//si no puede avanzar mas, se encola
-			m.add(actual);
 		}
+		
+		m.add(actual);
 	}
 }
