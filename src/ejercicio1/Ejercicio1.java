@@ -3,6 +3,7 @@ package ejercicio1;
 import java.util.List;
 import java.util.Stack;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import utils.GrafoMaterias;
 import utils.Materia;
@@ -59,5 +60,10 @@ public class Ejercicio1 {
 		}
 		
 		m.add(actual);
+	}
+
+	public boolean solve() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

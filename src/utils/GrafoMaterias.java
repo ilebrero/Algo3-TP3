@@ -22,8 +22,8 @@ public class GrafoMaterias {
 	}
 	
 	public void connectMateria(int m1, int m2) {
-		materias.get(m1).addMateria(materias.get(m2));
-		materias.get(m2).addMateria(materias.get(m1));
+//		materias.get(m1).addMateria(materias.get(m2));
+//		materias.get(m2).addMateria(materias.get(m1));
 	}
 	
 	public int size() {

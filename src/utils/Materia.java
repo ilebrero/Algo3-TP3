@@ -24,13 +24,15 @@ public class Materia {
 	}
 	
 	public int getC1() {
-		return c1;
+		return colores.get(0);
 	}
 	
 	public int getC2() {
-		return c2;
+		return colores.get(1);
 	}
-	
+	public ArrayList<Integer> getColores() {
+		return colores;
+	}
 	public int getId() {
 		return id;
 	}
@@ -41,5 +43,10 @@ public class Materia {
 
 	public List<Materia> getAdyacentes() {
 		return this.adyacentes;
+	}
+
+	public void setColor(Integer integer) {
+		// TODO Auto-generated method stub
+		
 	}
 }

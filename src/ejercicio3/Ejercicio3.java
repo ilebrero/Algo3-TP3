@@ -1,5 +1,6 @@
 package ejercicio3;
 
+import utils.GrafoMaterias;
 import utils.Materia;
 import utils.Nodo;
 
@@ -15,29 +16,70 @@ public class Ejercicio3 {
 	}
 	
 	public int solve(){
-		for (Materia materia : grafo.getNodos()) {
-			if (materia.getColores().getSize() == 1){
-				coloreo[materia.getId()] = materia.GetColores().get(0);
+		for (Materia materia : grafo.getMaterias()) {
+			if (materia.getColores().size() == 1){
+				coloreo[materia.getId()] = materia.getColores().get(0);
 			} else {
 				boolean seteeColor = false;
 				int i; int color;
-				for(i = 0 ; i < materia.getColores() && !seteeColor ;i++){
-					boolean mismoColor = false;
+				for(i = 0 ; i < materia.getColores().size() && !seteeColor ;i++){
+					boolean colorValido = true;
 					color =  materia.getColores().get(i);
 					for (Materia vecino :materia.getAdyacentes()){
-						if(vecino.getColores().contains(color)){
-							mismoColor = true;
+						if(vecino.getColores().size() == 1 && vecino.getColores().contains(color)){
+							colorValido = false;
 						}
 					}
-					if (!mismoColor){
+					if (colorValido){
 						seteeColor = true;
 						coloreo[materia.getId()] = color;
 					}
 				}
 				if (! seteeColor){
-					// El goloso se encuentra con un comflicto.
+					// El goloso se encuentra con un conflicto.
 					// Seteo el ultimo color.
 					coloreo[materia.getId()] = color;
+				}
+			}
+		}
+		return 0;
+	}
+	
+	public int solve2(){
+		for (Materia materia : grafo.getMaterias()) {
+			if (materia.getColores().size() == 1){
+				coloreo[materia.getId()] = materia.getColores().get(0);
+			} else {
+				boolean seteeColor = false; int colorFactible;
+				int i; int color; int posibilidades;int mayorPosibilidad = 0;
+				for(i = 0 ; i < materia.getColores().size() ;i++){
+					posibilidades = 0;
+					boolean colorValido = true;
+					color =  materia.getColores().get(i);
+					for (Materia vecino :materia.getAdyacentes()){
+						if(vecino.getColores().size() == 1 && vecino.getColores().contains(color)){
+							colorValido = false;
+						}
+						
+						if (! vecino.getColores().contains(color)){
+							posibilidades += vecino.getColores().size();
+						} else {
+							posibilidades += vecino.getColores().size() - 1;
+						}
+					}
+					if (colorValido && posibilidades > mayorPosibilidad){
+						mayorPosibilidad = posibilidades;
+						coloreo[materia.getId()] = color;
+						seteeColor = true;
+					}
+					if (posibilidades > mayorPosibilidad){
+						colorFactible = color;
+					}
+				}
+				if (! seteeColor){
+					// El goloso se encuentra con un conflicto.
+					// Seteo el ultimo color.
+					coloreo[materia.getId()] = colorFactible;
 				}
 			}
 		}
