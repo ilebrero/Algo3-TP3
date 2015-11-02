@@ -1,14 +1,14 @@
-package utils;
+package ejercicio1;
 
 import java.util.ArrayList;
 
-public class Nodo {
+public class NodoEstado {
 	private int color;
-	private ArrayList<Nodo> nextNodos;
+	private ArrayList<NodoEstado> nextNodos;
 	private boolean esNegado = false;
 	
-	public Nodo() {
-		nextNodos = new ArrayList<Nodo>();
+	public NodoEstado() {
+		nextNodos = new ArrayList<NodoEstado>();
 	}
 	
 	public void setNegado(boolean negado) {
@@ -18,7 +18,7 @@ public class Nodo {
 		this.color = c;
 	}
 
-	public void connect(Nodo n) {
+	public void connect(NodoEstado n) {
 		nextNodos.add(n);
 	}
 }

@@ -7,10 +7,10 @@ import java.util.TreeSet;
 
 //Grafo sobre Lista de Adyacencia
 
-public class Grafo {
-	private ArrayList<Materia> materias;
+public class GrafoMaterias {
+	protected ArrayList<Materia> materias;
 	
-	public Grafo() {
+	public GrafoMaterias() {
 		materias = new ArrayList<Materia>();
 	}
 	

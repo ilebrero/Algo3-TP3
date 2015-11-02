@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Collections;
-import utils.Grafo;
+import utils.GrafoMaterias;
 import utils.Materia;
 
 public class Ejercicio1 {
-	private Grafo grafo;
+	private GrafoMaterias grafo;
 	
 	public Ejercicio1() {
-		grafo  = new Grafo();
+		grafo  = new GrafoMaterias();
 	}
 	
-	private ArrayList< ArrayList<Materia> > kosaraju(Grafo grafo){
+	private ArrayList< ArrayList<Materia> > kosaraju(GrafoMaterias grafo){
 		ArrayList<Materia> orden = new ArrayList<Materia>();
 		ArrayList<Materia> componente = new ArrayList<Materia>();
 		ArrayList< ArrayList<Materia> > componentes = new ArrayList< ArrayList<Materia> >();
@@ -27,13 +27,13 @@ public class Ejercicio1 {
 			}
 		}
 		
-		//El grafo que usamos da igual invertido
 		//revertir el grafo
 		//Grafo grafoRevertido = reverseGraf(grafo);
 		
-		//recorrer grafo invertido por dfs, ordenado por nodos recorridos y no usado y devolver css's
 		Collections.reverse(orden);
+		Arrays.fill(usado, false);
 		
+		//recorrer grafo invertido por dfs, ordenado por nodos recorridos y no usado y devolver css's
 		for (Materia m : orden) {
 			if (!usado[ m.getId() ]){
 				dfs(grafo, usado, componente, m.getId());
@@ -42,14 +42,13 @@ public class Ejercicio1 {
 		}
 		
 		return componentes;
-
 	}
 	
 	/*
 	 * esta implementacion de dfs es recursiva!!! 
 	 * TODO: ver si se puede implementar iterativamente, puede quedar como experimentacion ver tiempos de corrida iterativo vs recursivo
 	 */
-	private void dfs(Grafo g, boolean[] usado, List<Materia> m, int i) {
+	private void dfs(GrafoMaterias g, boolean[] usado, List<Materia> m, int i) {
 		Materia actual = g.getMateria(i); 
 		usado[ actual.getId() ] = true;
 		
