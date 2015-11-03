@@ -8,58 +8,43 @@ import java.util.TreeSet;
 //Grafo sobre Lista de Adyacencia
 
 public class GrafoMaterias {
-	protected ArrayList<Materia> materias;
+	protected ArrayList<Materia> grafoMateria;
 	
 	public GrafoMaterias() {
-		materias = new ArrayList<Materia>();
+		grafoMateria = new ArrayList<Materia>();
 	}
 	
-	public void addMateria(Materia m1){
-		int id = materias.size();
-		m1.setId(id);
-		materias.add(m1);
+	public void addMateria(Materia m) {
+		int id = grafoMateria.size();
+		m.setId(id);
 		
+		grafoMateria.add(m);
 	}
 	
 	public void connectMateria(int m1, int m2) {
-//		materias.get(m1).addMateria(materias.get(m2));
-//		materias.get(m2).addMateria(materias.get(m1));
+		grafoMateria.get(m1).addAdyacente(grafoMateria.get(m2));
+		grafoMateria.get(m2).addAdyacente(grafoMateria.get(m1));
 	}
 	
 	public int size() {
-		return materias.size();
+		return grafoMateria.size();
 	}
 	
 	public Materia getMateria(int i){
-		return materias.get(i);
+		return grafoMateria.get(i);
 	}
 
 	public List<Materia> getMaterias(){
-		return materias;
+		return grafoMateria;
 	}
 	
 	private boolean esta(Materia m){
-		for (Materia materia : materias) {
+		for (Materia materia : grafoMateria) {
 			if (m.getId() == materia.getId()){
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	/*
-	 * TODO: revizar el tema del grafo invertido
-	 */
-	/*
-	public static Grafo grafoInvertido(Grafo g) {
-		Grafo invertido = new Grafo();
-		
-		List<Materia> nodos = g.getMaterias();
-		for (Materia m : nodos) {
-			invertido.addMateria(m);
-		}
-		
-		return invertido;
-	}*/
 }
 

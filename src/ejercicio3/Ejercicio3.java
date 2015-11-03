@@ -2,7 +2,6 @@ package ejercicio3;
 
 import utils.GrafoMaterias;
 import utils.Materia;
-import utils.Nodo;
 
 public class Ejercicio3 {
 	private GrafoMaterias grafo;

@@ -1,8 +1,6 @@
 package ejercicio2;
 
 import java.util.ArrayList;
-import java.util.Collection;
-
 import ejercicio1.Ejercicio1;
 import utils.GrafoMaterias;
 import utils.Materia;
@@ -10,15 +8,17 @@ import utils.Materia;
 public class Ejercicio2 {
 	private GrafoMaterias grafo;
 	private Ejercicio1 ejercicio1;
+	
 	public Ejercicio2() {
 		grafo = new GrafoMaterias();
-		
 	}
 	
 	private boolean backTrack(ArrayList<Materia> materiasColores){
 		Materia materia = materiasColores.get(0); // Materias con mas de 2 colores.
 		materiasColores.remove(0);
-		boolean solucion = false; int i = 0;
+		boolean solucion = false;
+		int i = 0;
+		
 		if (poda2(materia) != -1){
 			materia.setColor(materia.getColores().get(i)); // Seteo el color de backtrack
 			if (backTrack(materiasColores)){
@@ -42,20 +42,25 @@ public class Ejercicio2 {
 		}
 		return ejercicio1.solve();
 	}
+	
 	private boolean poda1(Materia materia, int color){
 		for (Materia materiaVecina : materia.getAdyacentes()) {
 			if (materiaVecina.getColores().size() == 1 && materiaVecina.getColores().contains(color)){
 				return false;
 			}
 		}
+		
 		return true;
 	}
+	
 	private Integer poda2(Materia materia){
 		ArrayList<Integer> coloresPosibles = new ArrayList<Integer>(materia.getColores());
-		ArrayList<Integer> coloresVecinos = new ArrayList<Integer>();
+		ArrayList<Integer> coloresVecinos  = new ArrayList<Integer>();
+	
 		for (Materia materiaVecina : materia.getAdyacentes()) {
 			coloresVecinos.addAll(materiaVecina.getColores());
 		}
+		
 		coloresPosibles.retainAll(coloresVecinos);
 		if (coloresPosibles.size() == materia.getColores().size()){
 			return -1;
@@ -66,6 +71,7 @@ public class Ejercicio2 {
 				}
 			}
 		}
+		
 		return -1;
 	}
 }
