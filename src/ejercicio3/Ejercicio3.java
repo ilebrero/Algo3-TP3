@@ -37,7 +37,7 @@ public class Ejercicio3 {
 				if (! seteeColor){
 					// El goloso se encuentra con un conflicto.
 					// Seteo el ultimo color.
-					coloreo[materia.getId()] = color;
+					//coloreo[materia.getId()] = color;
 				}
 			}
 		}
@@ -78,7 +78,7 @@ public class Ejercicio3 {
 				if (! seteeColor){
 					// El goloso se encuentra con un conflicto.
 					// Seteo el ultimo color.
-					coloreo[materia.getId()] = colorFactible;
+					//coloreo[materia.getId()] = colorFactible;
 				}
 			}
 		}

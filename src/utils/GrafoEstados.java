@@ -1,12 +1,16 @@
 package utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //Grafo sobre Lista de Adyacencia
 
 public class GrafoEstados extends GrafoMaterias{
 	private final int OFFSET_NEGADO = 2;
+
+	private final int OFFSET_COLOR1 = 0;
+	private final int OFFSET_COLOR2 = 1;
+	private final int OFFSET_COLOR1_NEGADO = 2;
+	private final int OFFSET_COLOR2_NEGADO = 3;
 
 	private ArrayList<NodoEstado> grafoEstados;
 	private ArrayList<Conexion>   conexiones;
@@ -54,7 +58,7 @@ public class GrafoEstados extends GrafoMaterias{
 	}
 
 	public void generarNodosEstado(NodoMateria m) {
-		ArrayList<NodoEstado> estadosActuales = new ArrayList<NodoEstado>();
+		ArrayList<NodoEstado> estadosActuales;
 		int id, idPadre, c1, c2;
 		
 		idPadre = m.getId();
@@ -62,13 +66,30 @@ public class GrafoEstados extends GrafoMaterias{
 		c1 = m.getColor(0);
 		c2 = m.getColor(1);
 		
-		estadosActuales.add( new NodoEstado(id	  , idPadre, c1, false) );
-		estadosActuales.add( new NodoEstado(id + 1, idPadre, c2, false) );
-		estadosActuales.add( new NodoEstado(id + 2, idPadre, c1, true ) );
-		estadosActuales.add( new NodoEstado(id + 3, idPadre, c2, true ) );
+		estadosActuales = crearNodos(id, idPadre, c1, c2);
+		conectarEstadosInternos( estadosActuales );
 
 		grafoEstados.addAll( estadosActuales );
 		m.addEstados( estadosActuales );
+	}
+
+	private ArrayList<NodoEstado> crearNodos(int id, int idPadre, int c1, int c2) {
+		ArrayList<NodoEstado> estadosActuales = new ArrayList<NodoEstado>();
+
+		estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1		 , idPadre, c1, false) );
+		estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2		 , idPadre, c2, false) );
+		estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1_NEGADO, idPadre, c1, true ) );
+		estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2_NEGADO, idPadre, c2, true ) );
+
+		return estadosActuales;
+	}
+
+	private void conectarEstadosInternos(ArrayList<NodoEstado> estados) {
+		estados.get(OFFSET_COLOR1).connect(estados.get(OFFSET_COLOR2_NEGADO));
+		estados.get(OFFSET_COLOR2_NEGADO).connect(estados.get(OFFSET_COLOR1));
+
+		estados.get(OFFSET_COLOR2).connect(estados.get(OFFSET_COLOR1_NEGADO));
+		estados.get(OFFSET_COLOR1_NEGADO).connect(estados.get(OFFSET_COLOR2));
 	}
 
 	public void conectarEstados (Conexion c) {
@@ -80,17 +101,11 @@ public class GrafoEstados extends GrafoMaterias{
 				if (n1.getColor(i) == n2.getColor(j)) {
 					n1.getEstado(i).connect(n2.getEstado(j + OFFSET_NEGADO));
 					n2.getEstado(j).connect(n1.getEstado(i + OFFSET_NEGADO));
-				} else {
-					n1.getEstado(i).connect(n2.getEstado(j));
-					n2.getEstado(j).connect(n1.getEstado(i));
-				}
+				} 
 			}
 		}
 	}
 	
-	/*
-	 * TODO: revizar el tema del grafo invertido, todavia no hace nada
-	 */	
 	public ArrayList<NodoEstado> grafoInvertido() {
 		ArrayList<NodoEstado> invertido = copiarNodosVacios();
 
@@ -117,4 +132,3 @@ public class GrafoEstados extends GrafoMaterias{
 		return resultado;
 	}
 }
-

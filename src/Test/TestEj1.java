@@ -11,7 +11,7 @@ import utils.NodoMateria;
 
 public class TestEj1 {
 	
-	@Test
+	//@Test
 	public void testkosarajuConSolucion() {
 		GrafoEstados grafo = new GrafoEstados();
 		
