@@ -29,6 +29,18 @@ public class GrafoEstados extends GrafoMaterias{
 		conexiones.add(c);
 	}
 
+	public int size() {
+		return grafoEstados.size();
+	}
+	
+	public ArrayList<NodoEstado> getNodosEstado() {
+		return this.grafoEstados;
+	}
+	
+	public NodoEstado getNodoEstado(int i) {
+		return grafoEstados.get(i);
+	}
+	
 	public void generarGrafoDeEstados() {
 		grafoEstados = new ArrayList<NodoEstado>();
 	
@@ -37,7 +49,7 @@ public class GrafoEstados extends GrafoMaterias{
 		}
 
 		for (Conexion c : conexiones) {
-			generarConexiones(c);
+			conectarEstados(c);
 		}
 	}
 
@@ -50,7 +62,6 @@ public class GrafoEstados extends GrafoMaterias{
 		c1 = m.getColor(0);
 		c2 = m.getColor(1);
 		
-		
 		estadosActuales.add( new NodoEstado(id	  , idPadre, c1, false) );
 		estadosActuales.add( new NodoEstado(id + 1, idPadre, c2, false) );
 		estadosActuales.add( new NodoEstado(id + 2, idPadre, c1, true ) );
@@ -60,7 +71,7 @@ public class GrafoEstados extends GrafoMaterias{
 		m.addEstados( estadosActuales );
 	}
 
-	public void generarConexiones(Conexion c) {
+	public void conectarEstados (Conexion c) {
 		Materia n1 = grafoMateria.get(c.getM1());
 		Materia n2 = grafoMateria.get(c.getM2());
 
@@ -89,14 +100,6 @@ public class GrafoEstados extends GrafoMaterias{
 		}
 		
 		return invertido;
-	}
-
-	public ArrayList<NodoEstado> getGrafoEstados() {
-		return this.grafoEstados;
-	}
-	
-	public NodoEstado getEstado(int i) {
-		return grafoEstados.get(i);
 	}
 }
 

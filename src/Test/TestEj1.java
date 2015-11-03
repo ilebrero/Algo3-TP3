@@ -66,7 +66,7 @@ public class TestEj1 {
 		grafo.generarGrafoDeEstados();
 		
 		String s = "";
-		for (NodoEstado e : grafo.getGrafoEstados()) {
+		for (NodoEstado e : grafo.getNodosEstado()) {
 			s = s + "id: " + e.getId() + " | color: " + e.getColor() + " | negado? -> " + e.getNegado();
 			s = s + "  conecta con:";
 			for (NodoEstado r : e.getAdyacentes()) {

@@ -3,7 +3,6 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Materia {
 	private int id;
 	private ArrayList<NodoEstado> estados;

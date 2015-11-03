@@ -1,14 +1,13 @@
 package ejercicio1;
 
-import java.util.List;
-import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import utils.GrafoEstados;
 import utils.GrafoMaterias;
-import utils.Materia;
+import utils.NodoEstado;
 
 public class Ejercicio1 {
 	private GrafoMaterias grafo;
@@ -17,10 +16,10 @@ public class Ejercicio1 {
 		grafo  = new GrafoMaterias();
 	}
 	
-	private ArrayList< ArrayList<Materia> > kosaraju(GrafoEstados grafo){
-		ArrayList<Materia> orden = new ArrayList<Materia>();
-		ArrayList<Materia> componente = new ArrayList<Materia>();
-		ArrayList< ArrayList<Materia> > componentes = new ArrayList< ArrayList<Materia> >();
+	private ArrayList< ArrayList<NodoEstado> > kosaraju(GrafoEstados grafo){
+		ArrayList<NodoEstado> orden = new ArrayList<NodoEstado>();
+		ArrayList<NodoEstado> componente = new ArrayList<NodoEstado>();
+		ArrayList< ArrayList<NodoEstado> > componentes = new ArrayList< ArrayList<NodoEstado> >();
 		boolean [] usado = new boolean[grafo.size()];
 		
 		//recorre grafo por dfs, obtiene el numero de cada nodo
@@ -37,7 +36,7 @@ public class Ejercicio1 {
 		Arrays.fill(usado, false);
 		
 		//recorrer grafo invertido por dfs, ordenado por nodos recorridos y no usado y devolver css's
-		for (Materia m : orden) {
+		for (NodoEstado m : orden) {
 			if (!usado[ m.getId() ]){
 				dfs(grafo, usado, componente, m.getId());
 				componentes.add(componente);
@@ -51,11 +50,11 @@ public class Ejercicio1 {
 	 * esta implementacion de dfs es recursiva!!! 
 	 * TODO: ver si se puede implementar iterativamente, puede quedar como experimentacion ver tiempos de corrida iterativo vs recursivo
 	 */
-	private void dfs(GrafoMaterias g, boolean[] usado, List<Materia> m, int i) {
-		Materia actual = g.getMateria(i); 
+	private void dfs(GrafoEstados g, boolean[] usado, List<NodoEstado> m, int i) {
+		NodoEstado actual = g.getNodoEstado(i); 
 		usado[ actual.getId() ] = true;
 		
-		for (Materia vecino : actual.getAdyacentes()) {
+		for (NodoEstado vecino : actual.getAdyacentes()) {
 			if (!usado[ vecino.getId() ]) {
 				dfs(g, usado, m, vecino.getId());
 			}
