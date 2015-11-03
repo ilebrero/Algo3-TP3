@@ -16,21 +16,21 @@ public class Ejercicio1 {
 		grafo  = new GrafoMaterias();
 	}
 	
-	private ArrayList< ArrayList<NodoEstado> > kosaraju(GrafoEstados grafo){
-		ArrayList<NodoEstado> orden = new ArrayList<NodoEstado>();
+	public static ArrayList< ArrayList<NodoEstado> > kosaraju(GrafoEstados grafo){
+		boolean [] usado = new boolean[grafo.size()];
+		ArrayList<NodoEstado> orden		 = new ArrayList<NodoEstado>();
 		ArrayList<NodoEstado> componente = new ArrayList<NodoEstado>();
 		ArrayList< ArrayList<NodoEstado> > componentes = new ArrayList< ArrayList<NodoEstado> >();
-		boolean [] usado = new boolean[grafo.size()];
 		
 		//recorre grafo por dfs, obtiene el numero de cada nodo
 		for (int i = 0; i < usado.length; i++) {
 			if (!usado[i]){
-				dfs(grafo, usado, orden, i);
+				dfs(grafo.getNodosEstado(), usado, orden, i);
 			}
 		}
 		
 		//revertir el grafo
-		//Grafo grafoRevertido = reverseGraf(grafo);
+		ArrayList<NodoEstado> grafoInvertido = grafo.grafoInvertido();
 		
 		Collections.reverse(orden);
 		Arrays.fill(usado, false);
@@ -38,8 +38,9 @@ public class Ejercicio1 {
 		//recorrer grafo invertido por dfs, ordenado por nodos recorridos y no usado y devolver css's
 		for (NodoEstado m : orden) {
 			if (!usado[ m.getId() ]){
-				dfs(grafo, usado, componente, m.getId());
+				dfs(grafoInvertido, usado, componente, m.getId());
 				componentes.add(componente);
+				componente = new ArrayList<NodoEstado>();
 			}
 		}
 		
@@ -50,8 +51,8 @@ public class Ejercicio1 {
 	 * esta implementacion de dfs es recursiva!!! 
 	 * TODO: ver si se puede implementar iterativamente, puede quedar como experimentacion ver tiempos de corrida iterativo vs recursivo
 	 */
-	private void dfs(GrafoEstados g, boolean[] usado, List<NodoEstado> m, int i) {
-		NodoEstado actual = g.getNodoEstado(i); 
+	private static void dfs(ArrayList<NodoEstado> g, boolean[] usado, List<NodoEstado> m, int i) {
+		NodoEstado actual = g.get(i); 
 		usado[ actual.getId() ] = true;
 		
 		for (NodoEstado vecino : actual.getAdyacentes()) {

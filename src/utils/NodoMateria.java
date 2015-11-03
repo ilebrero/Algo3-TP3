@@ -3,22 +3,22 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Materia {
+public class NodoMateria {
 	private int id;
 	private ArrayList<NodoEstado> estados;
-	private ArrayList<Materia> adyacentes;
+	private ArrayList<NodoMateria> adyacentes;
 	private ArrayList<Integer> colores;
 
-	public Materia(List<Integer> nuevosColores) {
+	public NodoMateria(List<Integer> nuevosColores) {
 		colores    = new ArrayList<Integer>();
-		adyacentes = new ArrayList<Materia>();
+		adyacentes = new ArrayList<NodoMateria>();
 		
 		for (Integer i : nuevosColores) {
 			this.colores.add(i);
 		}		
 	}
 	
-	public void addAdyacente(Materia m) {
+	public void addAdyacente(NodoMateria m) {
 		adyacentes.add(m);
 	}
 	
@@ -46,7 +46,7 @@ public class Materia {
 		return colores;
 	}
 
-	public List<Materia> getAdyacentes() {
+	public List<NodoMateria> getAdyacentes() {
 		return this.adyacentes;
 	}
 	

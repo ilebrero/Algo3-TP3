@@ -8,13 +8,13 @@ import java.util.TreeSet;
 //Grafo sobre Lista de Adyacencia
 
 public class GrafoMaterias {
-	protected ArrayList<Materia> grafoMateria;
+	protected ArrayList<NodoMateria> grafoMateria;
 	
 	public GrafoMaterias() {
-		grafoMateria = new ArrayList<Materia>();
+		grafoMateria = new ArrayList<NodoMateria>();
 	}
 	
-	public void addMateria(Materia m) {
+	public void addMateria(NodoMateria m) {
 		int id = grafoMateria.size();
 		m.setId(id);
 		
@@ -30,16 +30,16 @@ public class GrafoMaterias {
 		return grafoMateria.size();
 	}
 	
-	public Materia getMateria(int i){
+	public NodoMateria getMateria(int i){
 		return grafoMateria.get(i);
 	}
 
-	public List<Materia> getMaterias(){
+	public List<NodoMateria> getMaterias(){
 		return grafoMateria;
 	}
 	
-	private boolean esta(Materia m){
-		for (Materia materia : grafoMateria) {
+	private boolean esta(NodoMateria m){
+		for (NodoMateria materia : grafoMateria) {
 			if (m.getId() == materia.getId()){
 				return true;
 			}

@@ -1,7 +1,7 @@
 package ejercicio3;
 
 import utils.GrafoMaterias;
-import utils.Materia;
+import utils.NodoMateria;
 
 public class Ejercicio3 {
 	private GrafoMaterias grafo;
@@ -15,7 +15,7 @@ public class Ejercicio3 {
 	}
 	
 	public int solve(){
-		for (Materia materia : grafo.getMaterias()) {
+		for (NodoMateria materia : grafo.getMaterias()) {
 			if (materia.getColores().size() == 1){
 				coloreo[materia.getId()] = materia.getColores().get(0);
 			} else {
@@ -24,7 +24,7 @@ public class Ejercicio3 {
 				for(i = 0 ; i < materia.getColores().size() && !seteeColor ;i++){
 					boolean colorValido = true;
 					color =  materia.getColores().get(i);
-					for (Materia vecino :materia.getAdyacentes()){
+					for (NodoMateria vecino :materia.getAdyacentes()){
 						if(vecino.getColores().size() == 1 && vecino.getColores().contains(color)){
 							colorValido = false;
 						}
@@ -45,7 +45,7 @@ public class Ejercicio3 {
 	}
 	
 	public int solve2(){
-		for (Materia materia : grafo.getMaterias()) {
+		for (NodoMateria materia : grafo.getMaterias()) {
 			if (materia.getColores().size() == 1){
 				coloreo[materia.getId()] = materia.getColores().get(0);
 			} else {
@@ -55,7 +55,7 @@ public class Ejercicio3 {
 					posibilidades = 0;
 					boolean colorValido = true;
 					color =  materia.getColores().get(i);
-					for (Materia vecino :materia.getAdyacentes()){
+					for (NodoMateria vecino :materia.getAdyacentes()){
 						if(vecino.getColores().size() == 1 && vecino.getColores().contains(color)){
 							colorValido = false;
 						}

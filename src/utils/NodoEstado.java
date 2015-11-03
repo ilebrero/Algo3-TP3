@@ -32,6 +32,10 @@ public class NodoEstado {
 	public int getId() {
 		return this.id;
 	}
+
+	public int getPadreId() {
+		return this.idPadre;
+	}
 	
 	public ArrayList<NodoEstado> getAdyacentes() {
 		return this.nextNodos;

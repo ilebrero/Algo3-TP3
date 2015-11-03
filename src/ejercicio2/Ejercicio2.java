@@ -3,7 +3,7 @@ package ejercicio2;
 import java.util.ArrayList;
 import ejercicio1.Ejercicio1;
 import utils.GrafoMaterias;
-import utils.Materia;
+import utils.NodoMateria;
 
 public class Ejercicio2 {
 	private GrafoMaterias grafo;
@@ -13,8 +13,8 @@ public class Ejercicio2 {
 		grafo = new GrafoMaterias();
 	}
 	
-	private boolean backTrack(ArrayList<Materia> materiasColores){
-		Materia materia = materiasColores.get(0); // Materias con mas de 2 colores.
+	private boolean backTrack(ArrayList<NodoMateria> materiasColores){
+		NodoMateria materia = materiasColores.get(0); // Materias con mas de 2 colores.
 		materiasColores.remove(0);
 		boolean solucion = false;
 		int i = 0;
@@ -43,8 +43,8 @@ public class Ejercicio2 {
 		return ejercicio1.solve();
 	}
 	
-	private boolean poda1(Materia materia, int color){
-		for (Materia materiaVecina : materia.getAdyacentes()) {
+	private boolean poda1(NodoMateria materia, int color){
+		for (NodoMateria materiaVecina : materia.getAdyacentes()) {
 			if (materiaVecina.getColores().size() == 1 && materiaVecina.getColores().contains(color)){
 				return false;
 			}
@@ -53,11 +53,11 @@ public class Ejercicio2 {
 		return true;
 	}
 	
-	private Integer poda2(Materia materia){
+	private Integer poda2(NodoMateria materia){
 		ArrayList<Integer> coloresPosibles = new ArrayList<Integer>(materia.getColores());
 		ArrayList<Integer> coloresVecinos  = new ArrayList<Integer>();
 	
-		for (Materia materiaVecina : materia.getAdyacentes()) {
+		for (NodoMateria materiaVecina : materia.getAdyacentes()) {
 			coloresVecinos.addAll(materiaVecina.getColores());
 		}
 		

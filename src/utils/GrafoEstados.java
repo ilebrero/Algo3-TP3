@@ -16,7 +16,7 @@ public class GrafoEstados extends GrafoMaterias{
 	}
 
 	public void connectMateria(int m1, int m2) {
-		Materia  materia1, materia2;
+		NodoMateria  materia1, materia2;
 		Conexion c;
 
 		materia1 = grafoMateria.get(m1);
@@ -44,7 +44,7 @@ public class GrafoEstados extends GrafoMaterias{
 	public void generarGrafoDeEstados() {
 		grafoEstados = new ArrayList<NodoEstado>();
 	
-		for (Materia m : grafoMateria) {
+		for (NodoMateria m : grafoMateria) {
 			generarNodosEstado(m);
 		}
 
@@ -53,7 +53,7 @@ public class GrafoEstados extends GrafoMaterias{
 		}
 	}
 
-	public void generarNodosEstado(Materia m) {
+	public void generarNodosEstado(NodoMateria m) {
 		ArrayList<NodoEstado> estadosActuales = new ArrayList<NodoEstado>();
 		int id, idPadre, c1, c2;
 		
@@ -72,8 +72,8 @@ public class GrafoEstados extends GrafoMaterias{
 	}
 
 	public void conectarEstados (Conexion c) {
-		Materia n1 = grafoMateria.get(c.getM1());
-		Materia n2 = grafoMateria.get(c.getM2());
+		NodoMateria n1 = grafoMateria.get(c.getM1());
+		NodoMateria n2 = grafoMateria.get(c.getM2());
 
 		for (int i = 0; i < 2; ++i) {
 			for (int j = 0; j < 2; ++j) {
@@ -91,15 +91,30 @@ public class GrafoEstados extends GrafoMaterias{
 	/*
 	 * TODO: revizar el tema del grafo invertido, todavia no hace nada
 	 */	
-	public static GrafoEstados grafoInvertido(GrafoEstados g) {
-		GrafoEstados invertido = new GrafoEstados();
-		
-		List<Materia> nodos = g.getMaterias();
-		for (Materia m : nodos) {
-			invertido.addMateria(m);
+	public ArrayList<NodoEstado> grafoInvertido() {
+		ArrayList<NodoEstado> invertido = copiarNodosVacios();
+
+		for (NodoEstado actual : grafoEstados) {
+			NodoEstado nuevoIn = invertido.get( actual.getId() );
+			
+			for (NodoEstado vecino : actual.getAdyacentes()) {
+				NodoEstado nuevoOut = invertido.get( vecino.getId() );
+				nuevoOut.connect(nuevoIn);
+			}
 		}
 		
 		return invertido;
+	}
+
+	private ArrayList<NodoEstado> copiarNodosVacios() {
+		ArrayList<NodoEstado> resultado = new ArrayList<NodoEstado>();
+		
+		for (NodoEstado e : grafoEstados) {
+			NodoEstado copiaSinVecinos = new NodoEstado(e.getId(), e.getPadreId(), e.getColor(), e.getNegado()); 
+			resultado.add(copiaSinVecinos);
+		}
+
+		return resultado;
 	}
 }
 
