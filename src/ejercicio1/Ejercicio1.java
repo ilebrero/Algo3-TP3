@@ -5,6 +5,8 @@ import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+
+import utils.GrafoEstados;
 import utils.GrafoMaterias;
 import utils.Materia;
 
@@ -15,11 +17,11 @@ public class Ejercicio1 {
 		grafo  = new GrafoMaterias();
 	}
 	
-	private ArrayList< ArrayList<Materia> > kosaraju(GrafoMaterias grafo){
+	private ArrayList< ArrayList<Materia> > kosaraju(GrafoEstados grafo){
 		ArrayList<Materia> orden = new ArrayList<Materia>();
 		ArrayList<Materia> componente = new ArrayList<Materia>();
 		ArrayList< ArrayList<Materia> > componentes = new ArrayList< ArrayList<Materia> >();
-		boolean []usado = new boolean[grafo.size()];
+		boolean [] usado = new boolean[grafo.size()];
 		
 		//recorre grafo por dfs, obtiene el numero de cada nodo
 		for (int i = 0; i < usado.length; i++) {

@@ -5,14 +5,16 @@ import java.util.ArrayList;
 public class NodoEstado {
 	private int color;
 	private int id;
+	private int idPadre;
 	private boolean esNegado;
 	private ArrayList<NodoEstado> nextNodos;
 	
-	public NodoEstado(int id, int c, boolean negado) {
-		nextNodos  = new ArrayList<NodoEstado>();
+	public NodoEstado(int id, int idPadre, int c, boolean negado) {
+		this.nextNodos = new ArrayList<NodoEstado>();
+		this.esNegado = negado;
+		this.idPadre  = idPadre;
 		this.id    = id;
 		this.color = c;
-		this.esNegado = negado;
 	}
 	
 	public void connect(NodoEstado n) {

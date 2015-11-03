@@ -43,16 +43,18 @@ public class GrafoEstados extends GrafoMaterias{
 
 	public void generarNodosEstado(Materia m) {
 		ArrayList<NodoEstado> estadosActuales = new ArrayList<NodoEstado>();
-		int id, c1, c2;
+		int id, idPadre, c1, c2;
 		
-		id = m.getId();
+		idPadre = m.getId();
+		id = grafoEstados.size();
 		c1 = m.getColor(0);
 		c2 = m.getColor(1);
-
-		estadosActuales.add( new NodoEstado(id, c1, false) );
-		estadosActuales.add( new NodoEstado(id, c2, false) );
-		estadosActuales.add( new NodoEstado(id, c1, true ) );
-		estadosActuales.add( new NodoEstado(id, c2, true ) );
+		
+		
+		estadosActuales.add( new NodoEstado(id	  , idPadre, c1, false) );
+		estadosActuales.add( new NodoEstado(id + 1, idPadre, c2, false) );
+		estadosActuales.add( new NodoEstado(id + 2, idPadre, c1, true ) );
+		estadosActuales.add( new NodoEstado(id + 3, idPadre, c2, true ) );
 
 		grafoEstados.addAll( estadosActuales );
 		m.addEstados( estadosActuales );
@@ -91,6 +93,10 @@ public class GrafoEstados extends GrafoMaterias{
 
 	public ArrayList<NodoEstado> getGrafoEstados() {
 		return this.grafoEstados;
+	}
+	
+	public NodoEstado getEstado(int i) {
+		return grafoEstados.get(i);
 	}
 }
 
