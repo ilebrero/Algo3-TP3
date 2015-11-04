@@ -65,26 +65,30 @@ public class Ejercicio1 {
 		m.add(actual);
 	}
 
-	private boolean hasSolution(ArrayList< ArrayList<NodoEstado> > componentes){
+	private boolean tieneSolucion(ArrayList< ArrayList<NodoEstado> > componentes, ArrayList< ArrayList<NodoEstado> > coloreos){
 		boolean result = true;
 
 		for (ArrayList<NodoEstado> componente : componentes) {
-			result = result && truthValue(componente);
+			ArrayList<NodoEstado> coloreo = new ArrayList<NodoEstado>();
+			
+			result = result && valordeVerdad(componente, coloreo);
+			coloreos.add(coloreo);
 		}
 
 		return result;
 	}
 
-	private boolean truthValue(ArrayList<NodoEstado> componente) {
-		boolean result  = true;
+	private boolean valordeVerdad(ArrayList<NodoEstado> componente, ArrayList<Integer> coloreo) {
 		HashMap<Integer, Boolean> usados = new HashMap<Integer, Boolean>();
-		for (NodoEstado n : componente) usados.put(n.getId(), false);
-		
+		Stack<NodoEstado> proximos 		 = new Stack<NodoEstado>();
 		int primerColor = componente.get(0).getColor();
 		int primerId    = componente.get(0).getPadreId();
+		boolean result  = true;
+		
+		for (NodoEstado n : componente) usados.put(n.getId(), false);
+		
 		usados.put(componente.get(0).getId(), true);
 		
-		Stack<NodoEstado> proximos = new Stack<NodoEstado>();
 		proximos.push(componente.get(0));
 		
 		while (proximos.size() > 0 && result) {
@@ -95,6 +99,7 @@ public class Ejercicio1 {
 					usados.put(n.getId(), true);
 					proximos.push(n);
 					
+					if (!n.getNegado()) coloreo.add(n.getColor);
 					if (n.getPadreId() == primerId && n.getColor() == primerColor && n.getNegado()) result = false;
 				}
 			}
