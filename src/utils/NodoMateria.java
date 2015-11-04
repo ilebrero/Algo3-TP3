@@ -8,13 +8,13 @@ public class NodoMateria {
 	private ArrayList<NodoEstado> estados;
 	private ArrayList<NodoMateria> adyacentes;
 	private ArrayList<Integer> colores;
-
+	private ArrayList<Integer> coloresPosibles;
 	public NodoMateria(List<Integer> nuevosColores) {
 		colores    = new ArrayList<Integer>();
 		adyacentes = new ArrayList<NodoMateria>();
-		
+		coloresPosibles = new ArrayList<Integer>();
 		for (Integer i : nuevosColores) {
-			this.colores.add(i);
+			this.coloresPosibles.add(i);
 		}		
 	}
 	
@@ -28,6 +28,13 @@ public class NodoMateria {
 	
 	public void setColor(Integer i) {
 		colores.add(i);
+	}
+	
+	public void clearColors(){
+		colores = new ArrayList<Integer>();
+	}
+	public ArrayList<Integer> getColoresPosibles() {
+		return coloresPosibles;
 	}
 	
 	public void setId(int id) {

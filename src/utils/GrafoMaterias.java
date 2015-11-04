@@ -38,7 +38,7 @@ public class GrafoMaterias {
 		return grafoMateria;
 	}
 	
-	private boolean esta(NodoMateria m){
+	protected boolean esta(NodoMateria m){
 		for (NodoMateria materia : grafoMateria) {
 			if (m.getId() == materia.getId()){
 				return true;

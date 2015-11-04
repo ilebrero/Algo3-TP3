@@ -11,7 +11,7 @@ import utils.NodoMateria;
 
 public class TestEj1 {
 	
-	//@Test
+	@Test
 	public void testkosarajuConSolucion() {
 		GrafoEstados grafo = new GrafoEstados();
 		
@@ -25,6 +25,13 @@ public class TestEj1 {
 		
 		grafo.addMateria(new NodoMateria(coloresMateria1));
 		grafo.addMateria(new NodoMateria(coloresMateria2));
+		
+		for (NodoMateria materia : grafo.getMaterias()) {
+			for (Integer i : materia.getColoresPosibles()) {
+				materia.setColor(i);
+			}
+		}
+		
 		grafo.connectMateria(0, 1);
 		grafo.generarGrafoDeEstados();
 		
@@ -39,7 +46,7 @@ public class TestEj1 {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void testkosarajuSinSolucion() {
 		GrafoEstados grafo = new GrafoEstados();
 		
@@ -58,10 +65,19 @@ public class TestEj1 {
 		grafo.addMateria(new NodoMateria(coloresMateria1));
 		grafo.addMateria(new NodoMateria(coloresMateria2));
 		grafo.addMateria(new NodoMateria(coloresMateria3));
+		
+		for (NodoMateria materia : grafo.getMaterias()) {
+			for (Integer i : materia.getColoresPosibles()) {
+				materia.setColor(i);
+			}
+		}
+		
 		grafo.connectMateria(0, 1);
 		grafo.connectMateria(1, 2);
 		grafo.connectMateria(0, 2);
 		grafo.generarGrafoDeEstados();
+		
+		
 		
 		ArrayList< ArrayList<NodoEstado> > resultado = Ejercicio1.kosaraju(grafo);
 		

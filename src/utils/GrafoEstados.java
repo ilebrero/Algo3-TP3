@@ -5,15 +5,15 @@ import java.util.ArrayList;
 //Grafo sobre Lista de Adyacencia
 
 public class GrafoEstados extends GrafoMaterias{
-	private final int OFFSET_NEGADO = 2;
+	protected final int OFFSET_NEGADO = 2;
 
-	private final int OFFSET_COLOR1 = 0;
-	private final int OFFSET_COLOR2 = 1;
-	private final int OFFSET_COLOR1_NEGADO = 2;
-	private final int OFFSET_COLOR2_NEGADO = 3;
+	protected final int OFFSET_COLOR1 = 0;
+	protected final int OFFSET_COLOR2 = 1;
+	protected final int OFFSET_COLOR1_NEGADO = 2;
+	protected final int OFFSET_COLOR2_NEGADO = 3;
 
-	private ArrayList<NodoEstado> grafoEstados;
-	private ArrayList<Conexion>   conexiones;
+	protected ArrayList<NodoEstado> grafoEstados;
+	protected ArrayList<Conexion>   conexiones;
 
 	public GrafoEstados() {
 		conexiones = new ArrayList<Conexion>();

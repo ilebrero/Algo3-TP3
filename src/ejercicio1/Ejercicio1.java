@@ -10,6 +10,7 @@ import java.util.Stack;
 import utils.GrafoEstados;
 import utils.GrafoMaterias;
 import utils.NodoEstado;
+import utils.NodoMateria;
 
 public class Ejercicio1 {
 	private GrafoMaterias grafo;
@@ -65,12 +66,12 @@ public class Ejercicio1 {
 		m.add(actual);
 	}
 
-	private boolean tieneSolucion(ArrayList< ArrayList<NodoEstado> > componentes, ArrayList< ArrayList<NodoEstado> > coloreos){
+	private static boolean tieneSolucion(ArrayList< ArrayList<NodoEstado> > componentes, ArrayList< ArrayList<Integer> > coloreos){
 		boolean result = true;
 
 		for (ArrayList<NodoEstado> componente : componentes) {
-			ArrayList<NodoEstado> coloreo = new ArrayList<NodoEstado>();
-			
+			ArrayList<Integer> coloreo = new ArrayList<Integer>();
+
 			result = result && valordeVerdad(componente, coloreo);
 			coloreos.add(coloreo);
 		}
@@ -78,7 +79,7 @@ public class Ejercicio1 {
 		return result;
 	}
 
-	private boolean valordeVerdad(ArrayList<NodoEstado> componente, ArrayList<Integer> coloreo) {
+	private static boolean valordeVerdad(ArrayList<NodoEstado> componente, ArrayList<Integer> coloreo) {
 		HashMap<Integer, Boolean> usados = new HashMap<Integer, Boolean>();
 		Stack<NodoEstado> proximos 		 = new Stack<NodoEstado>();
 		int primerColor = componente.get(0).getColor();
@@ -99,7 +100,7 @@ public class Ejercicio1 {
 					usados.put(n.getId(), true);
 					proximos.push(n);
 					
-					if (!n.getNegado()) coloreo.add(n.getColor);
+					if (!n.getNegado()) coloreo.add(n.getColor());
 					if (n.getPadreId() == primerId && n.getColor() == primerColor && n.getNegado()) result = false;
 				}
 			}
@@ -108,8 +109,15 @@ public class Ejercicio1 {
 		return result;
 	}
 
-	public boolean solve() {
-		// TODO Auto-generated method stub
-		return false;
+	public static ArrayList<ArrayList<Integer>> solve(GrafoEstados grafo) {
+		grafo.generarGrafoDeEstados();
+		ArrayList< ArrayList<NodoEstado> > cc =kosaraju(grafo);
+		ArrayList< ArrayList<Integer> > solucion = new ArrayList<ArrayList<Integer>>();
+		;
+		if (tieneSolucion(cc, solucion)){
+			return solucion;
+		} else {
+			return null;
+		}
 	}
 }
