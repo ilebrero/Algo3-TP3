@@ -11,7 +11,7 @@ import utils.NodoMateria;
 
 public class TestEj1 {
 	
-	@Test
+	//@Test
 	public void testkosarajuConSolucion() {
 		GrafoEstados grafo = new GrafoEstados();
 		
@@ -21,11 +21,15 @@ public class TestEj1 {
 		
 		ArrayList<Integer> coloresMateria2 = new ArrayList<Integer>();
 		coloresMateria2.add(1);
-		coloresMateria2.add(3);
+		coloresMateria2.add(0);
 		
-		grafo.addMateria(new NodoMateria(coloresMateria1));
-		grafo.addMateria(new NodoMateria(coloresMateria2));
+		NodoMateria m1 = new NodoMateria(coloresMateria1);
+		NodoMateria m2 = new NodoMateria(coloresMateria2);
 		
+		grafo.addMateria(m1);
+		grafo.addMateria(m2);		
+		
+
 		for (NodoMateria materia : grafo.getMaterias()) {
 			for (Integer i : materia.getColoresPosibles()) {
 				materia.setColor(i);
@@ -46,7 +50,7 @@ public class TestEj1 {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void testkosarajuSinSolucion() {
 		GrafoEstados grafo = new GrafoEstados();
 		
@@ -59,7 +63,7 @@ public class TestEj1 {
 		coloresMateria2.add(2);
 		
 		ArrayList<Integer> coloresMateria3 = new ArrayList<Integer>();
-		coloresMateria3.add(2);
+		coloresMateria3.add(3);
 		coloresMateria3.add(1);
 		
 		grafo.addMateria(new NodoMateria(coloresMateria1));

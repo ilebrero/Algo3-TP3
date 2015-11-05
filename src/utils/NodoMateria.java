@@ -9,17 +9,19 @@ public class NodoMateria {
 	private ArrayList<NodoMateria> adyacentes;
 	private ArrayList<Integer> colores;
 	private ArrayList<Integer> coloresPosibles;
+	
 	public NodoMateria(List<Integer> nuevosColores) {
 		colores    = new ArrayList<Integer>();
 		adyacentes = new ArrayList<NodoMateria>();
 		coloresPosibles = new ArrayList<Integer>();
+		
 		for (Integer i : nuevosColores) {
 			this.coloresPosibles.add(i);
 		}		
 	}
 	
 	public void addAdyacente(NodoMateria m) {
-		adyacentes.add(m);
+		this.adyacentes.add(m);
 	}
 	
 	public void addEstados(ArrayList<NodoEstado> estados) {
@@ -27,14 +29,15 @@ public class NodoMateria {
 	}
 	
 	public void setColor(Integer i) {
-		colores.add(i);
+		this.colores.add(i);
 	}
 	
 	public void clearColors(){
-		colores = new ArrayList<Integer>();
+		this.colores = new ArrayList<Integer>();
 	}
+	
 	public ArrayList<Integer> getColoresPosibles() {
-		return coloresPosibles;
+		return this.coloresPosibles;
 	}
 	
 	public void setId(int id) {
@@ -42,7 +45,7 @@ public class NodoMateria {
 	}
 	
 	public int getId() {
-		return id;
+		return this.id;
 	}
 	
 	public int getColor(int i) {
@@ -50,7 +53,7 @@ public class NodoMateria {
 	}
 	
 	public ArrayList<Integer> getColores() {
-		return colores;
+		return this.colores;
 	}
 
 	public List<NodoMateria> getAdyacentes() {

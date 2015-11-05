@@ -5,8 +5,6 @@ import java.util.ArrayList;
 //Grafo sobre Lista de Adyacencia
 
 public class GrafoEstados extends GrafoMaterias{
-	protected final int OFFSET_NEGADO = 2;
-
 	protected final int OFFSET_COLOR1 = 0;
 	protected final int OFFSET_COLOR2 = 1;
 	protected final int OFFSET_COLOR1_NEGADO = 2;
@@ -47,7 +45,8 @@ public class GrafoEstados extends GrafoMaterias{
 	
 	public void generarGrafoDeEstados() {
 		grafoEstados = new ArrayList<NodoEstado>();
-	
+		
+		
 		for (NodoMateria m : grafoMateria) {
 			generarNodosEstado(m);
 		}
@@ -58,49 +57,72 @@ public class GrafoEstados extends GrafoMaterias{
 	}
 
 	public void generarNodosEstado(NodoMateria m) {
-		ArrayList<NodoEstado> estadosActuales;
-		int id, idPadre, c1, c2;
-		
-		idPadre = m.getId();
-		id = grafoEstados.size();
-		c1 = m.getColor(0);
-		c2 = m.getColor(1);
-		
-		estadosActuales = crearNodos(id, idPadre, c1, c2);
-		conectarEstadosInternos( estadosActuales );
-
-		grafoEstados.addAll( estadosActuales );
-		m.addEstados( estadosActuales );
+		if (m.getColores().size() > 0) {
+			ArrayList<NodoEstado> estadosActuales;
+			int id, idPadre, color[], cantidadColores;
+			
+			id 		= grafoEstados.size();
+			color 	= new int[2];
+			idPadre = m.getId();
+			cantidadColores = m.getColores().size();
+			
+			
+			
+			for(int i = 0; i < cantidadColores; ++i) {
+				color[i] = m.getColor(i);
+			}
+			
+			estadosActuales = crearNodos(id, idPadre, color, cantidadColores);
+			conectarEstadosInternos( estadosActuales );
+	
+			grafoEstados.addAll( estadosActuales );
+			m.addEstados( estadosActuales );
+		}
 	}
 
-	private ArrayList<NodoEstado> crearNodos(int id, int idPadre, int c1, int c2) {
+	private ArrayList<NodoEstado> crearNodos(int id, int idPadre, int [] color, int cantidad) {
 		ArrayList<NodoEstado> estadosActuales = new ArrayList<NodoEstado>();
-
-		estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1		 , idPadre, c1, false) );
-		estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2		 , idPadre, c2, false) );
-		estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1_NEGADO, idPadre, c1, true ) );
-		estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2_NEGADO, idPadre, c2, true ) );
-
+		
+		switch (cantidad) {
+		case (2) :
+			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1		 , idPadre, color[0], false) );
+			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2		 , idPadre, color[1], false) );
+			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1_NEGADO, idPadre, color[0], true ) );
+			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2_NEGADO, idPadre, color[1], true ) );
+			break;
+		case (1) : //esto quedo medio harcodeado
+			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1 , idPadre, color[0], false) );
+			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2 , idPadre, color[0], true ) );
+		}
+		
 		return estadosActuales;
 	}
 
 	private void conectarEstadosInternos(ArrayList<NodoEstado> estados) {
-		estados.get(OFFSET_COLOR1).connect(estados.get(OFFSET_COLOR2_NEGADO));
-		estados.get(OFFSET_COLOR2_NEGADO).connect(estados.get(OFFSET_COLOR1));
-
-		estados.get(OFFSET_COLOR2).connect(estados.get(OFFSET_COLOR1_NEGADO));
-		estados.get(OFFSET_COLOR1_NEGADO).connect(estados.get(OFFSET_COLOR2));
+		if (estados.size() == 4) {
+			estados.get(OFFSET_COLOR1).connect(estados.get(OFFSET_COLOR2_NEGADO));
+			estados.get(OFFSET_COLOR2_NEGADO).connect(estados.get(OFFSET_COLOR1));
+	
+			estados.get(OFFSET_COLOR2).connect(estados.get(OFFSET_COLOR1_NEGADO));
+			estados.get(OFFSET_COLOR1_NEGADO).connect(estados.get(OFFSET_COLOR2));
+		}
 	}
 
 	public void conectarEstados (Conexion c) {
 		NodoMateria n1 = grafoMateria.get(c.getM1());
 		NodoMateria n2 = grafoMateria.get(c.getM2());
-
-		for (int i = 0; i < 2; ++i) {
-			for (int j = 0; j < 2; ++j) {
+		int cantN1 = n1.getColores().size();
+		int cantN2 = n2.getColores().size();
+		
+		for (int i = 0; i < cantN1; ++i) {
+			for (int j = 0; j < cantN2; ++j) {
 				if (n1.getColor(i) == n2.getColor(j)) {
-					n1.getEstado(i).connect(n2.getEstado(j + OFFSET_NEGADO));
-					n2.getEstado(j).connect(n1.getEstado(i + OFFSET_NEGADO));
+					
+					n1.getEstado(i).connect(n2.getEstado(j + cantN2));
+					//n1.getEstado(i + cantN1).connect(n2.getEstado(j));
+					
+					n2.getEstado(j).connect(n1.getEstado(i + cantN1));
+					//n2.getEstado(j + cantN2).connect(n1.getEstado(i));
 				} 
 			}
 		}
