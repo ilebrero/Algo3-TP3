@@ -9,24 +9,27 @@ import utils.NodoMateria;
 public class Ejercicio2 {
 	private GrafoEstados grafo;
 	private Ejercicio1 ejercicio1;
-	private ArrayList<ArrayList<Integer>> solucion;
+	private ArrayList<Integer> solucion;
 	public Ejercicio2() {
 		grafo = new GrafoEstados();
 	}
 	
-	public ArrayList<ArrayList<Integer>> getSolucion() {
+	public ArrayList<Integer> getSolucion() {
 		return solucion;
 	}
 	
 	public boolean solverWithBacktrack(){
 		ArrayList<NodoMateria> nodos = new ArrayList<NodoMateria>();
+		ejercicio1 = new Ejercicio1(grafo.size());
+		
 		for (NodoMateria nodoMateria : grafo.getMaterias()) {
 			if (nodoMateria.getColores().size() > 2){
 				nodos.add(nodoMateria);
 			}
 		}
+		
 		if (nodos.isEmpty()){
-			return (solucion = Ejercicio1.solve(grafo)) != null;
+			return (solucion = ejercicio1.solve(grafo)) != null;
 		} else {
 			return backTrack(nodos);			
 		}
@@ -41,7 +44,7 @@ public class Ejercicio2 {
 		if (poda2(materia) != -1){
 			materia.setColor(materia.getColores().get(i)); // Seteo el color de backtrack
 			if (materiasColores.size() == 0){
-				if ((solucion = Ejercicio1.solve(grafo)) != null){
+				if ((solucion = ejercicio1.solve(grafo)) != null){
 					return true;
 				}
 			} else {
@@ -55,7 +58,7 @@ public class Ejercicio2 {
 				materia.setColor(materia.getColores().get(i)); // Seteo el color de backtrack
 				if (poda1(materia,materia.getColores().get(i))){
 					if (materiasColores.size() == 0){
-						if ((solucion = Ejercicio1.solve(grafo)) != null){
+						if ((solucion = ejercicio1.solve(grafo)) != null){
 							return true;
 						}
 					} else {

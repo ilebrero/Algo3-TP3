@@ -17,12 +17,12 @@ public class TestEj1 {
 		GrafoEstados grafo = new GrafoEstados();
 		
 		ArrayList<Integer> coloresMateria1 = new ArrayList<Integer>();
-		coloresMateria1.add(0);
+		coloresMateria1.add(2);
 		coloresMateria1.add(1);
 		
 		ArrayList<Integer> coloresMateria2 = new ArrayList<Integer>();
 		coloresMateria2.add(1);
-		coloresMateria2.add(0);
+		coloresMateria2.add(2);
 		
 		NodoMateria m1 = new NodoMateria(coloresMateria1);
 		NodoMateria m2 = new NodoMateria(coloresMateria2);
@@ -38,15 +38,16 @@ public class TestEj1 {
 		
 		grafo.connectMateria(0, 1);
 		grafo.generarGrafoDeEstados();
-		
-		ArrayList< Componente > resultado = Ejercicio1.kosaraju(grafo);
-		ArrayList< ArrayList <Integer> > solucion = Ejercicio1.solve(grafo);
+
+		Ejercicio1 ej = new Ejercicio1(grafo.size());
+		ArrayList< Componente > resultado = ej.kosaraju(grafo);
+		ArrayList <Integer> solucion = ej.solve(grafo);
 		
 		mostrarResultado(solucion);
-		mostrarComponentes(resultado);
+		//mostrarComponentes(resultado);
 	}
 	
-	@Test
+	//@Test
 	public void testkosarajuSinSolucion() {
 		GrafoEstados grafo = new GrafoEstados();
 		
@@ -74,17 +75,18 @@ public class TestEj1 {
 		
 		grafo.connectMateria(0, 1);
 		grafo.connectMateria(1, 2);
-		grafo.connectMateria(0, 2);
+		//grafo.connectMateria(0, 2);
 		grafo.generarGrafoDeEstados();
 		
-		ArrayList< Componente > resultado = Ejercicio1.kosaraju(grafo);
-		ArrayList< ArrayList <Integer> > solucion = Ejercicio1.solve(grafo);
+		Ejercicio1 ej = new Ejercicio1(grafo.size());
+		ArrayList< Componente > resultado = ej.kosaraju(grafo);
+		ArrayList <Integer> solucion = ej.solve(grafo);
 
 		mostrarComponentes(resultado);
 		mostrarResultado(solucion);
 	}
 	
-	@Test
+	//@Test
 	public void testkosarajuConSolu2() {
 		GrafoEstados grafo = new GrafoEstados();
 		
@@ -125,8 +127,10 @@ public class TestEj1 {
 		grafo.connectMateria(6, 7);
 		grafo.generarGrafoDeEstados();
 		
-		ArrayList< Componente > resultado = Ejercicio1.kosaraju(grafo);
-		ArrayList< ArrayList<Integer> > solucion = Ejercicio1.solve(grafo);
+		Ejercicio1 ej = new Ejercicio1(grafo.size());
+		
+		ArrayList< Componente > resultado = ej.kosaraju(grafo);
+		ArrayList<Integer> solucion = ej.solve(grafo);
 		
 		mostrarComponentes(resultado);
 		mostrarResultado(solucion);
@@ -142,9 +146,9 @@ public class TestEj1 {
 		}
 	}
 	
-	private void mostrarResultado(ArrayList< ArrayList <Integer> > solucion) {
+	private void mostrarResultado(ArrayList <Integer> solucion) {
 		if (solucion != null) {
-			System.out.println(solucion);			
+			System.out.println("hay solucion y es: " + solucion);			
 		} else {
 			System.out.println("no hay solicion :(");
 		}

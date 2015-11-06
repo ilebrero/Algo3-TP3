@@ -31,7 +31,7 @@ public class GrafoEstados extends GrafoMaterias{
 		conexiones.add(c);
 	}
 
-	public int size() {
+	public int sizeEstados() {
 		return grafoEstados.size();
 	}
 	
@@ -103,6 +103,8 @@ public class GrafoEstados extends GrafoMaterias{
 	
 			estados.get(OFFSET_COLOR2).connect(estados.get(OFFSET_COLOR1_NEGADO));
 			estados.get(OFFSET_COLOR1_NEGADO).connect(estados.get(OFFSET_COLOR2));
+		} else if (estados.size() == 2) {
+			estados.get(OFFSET_COLOR2).connect(estados.get(OFFSET_COLOR1));
 		}
 	}
 
@@ -115,12 +117,8 @@ public class GrafoEstados extends GrafoMaterias{
 		for (int i = 0; i < cantN1; ++i) {
 			for (int j = 0; j < cantN2; ++j) {
 				if (n1.getColor(i) == n2.getColor(j)) {
-					
 					n1.getEstado(i).connect(n2.getEstado(j + cantN2));
-					//n1.getEstado(i + cantN1).connect(n2.getEstado(j));
-					
 					n2.getEstado(j).connect(n1.getEstado(i + cantN1));
-					//n2.getEstado(j + cantN2).connect(n1.getEstado(i));
 				} 
 			}
 		}

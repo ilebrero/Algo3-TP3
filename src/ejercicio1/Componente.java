@@ -8,8 +8,8 @@ public class Componente {
 		
 	ArrayList<NodoEstado> nodos;
 	ArrayList<Componente> vecinos;
-	int id;
 	boolean valorDeVerdad;
+	int id;
 	
 	public Componente(ArrayList<NodoEstado> nodos, int id){
 		this.nodos = nodos;
@@ -17,7 +17,7 @@ public class Componente {
 		this.id = id;
 	}
 	
-	private boolean calcularValordeVerdad(ArrayList<Integer> coloreo) {
+	private boolean calcularValordeVerdad() {
 		boolean result = false;
 		int[] idPadresUsados = new int [maxPadreId() + 1];
 		Arrays.fill(idPadresUsados, Integer.MAX_VALUE);
@@ -47,7 +47,7 @@ public class Componente {
 		return result;
 	}
 
-	private int maxPadreId() {
+	public int maxPadreId() {
 		int max = 0;
 		for (NodoEstado n : nodos) {
 			if (n.getPadreId() > max) max = n.getPadreId(); 
@@ -56,8 +56,8 @@ public class Componente {
 		return max;
 	}
 	
-	public void valordeVerdad(ArrayList<Integer> coloreo) {
-		this.valorDeVerdad = calcularValordeVerdad(coloreo);
+	public void valordeVerdad() {
+		this.valorDeVerdad = calcularValordeVerdad();
 	}
 	
 	public void addVecino(Componente v) {
