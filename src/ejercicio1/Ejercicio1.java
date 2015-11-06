@@ -7,17 +7,9 @@ import java.util.List;
 import java.util.Stack;
 
 import utils.GrafoEstados;
-import utils.GrafoMaterias;
 import utils.NodoEstado;
 
 public class Ejercicio1 {
-	private GrafoMaterias grafo;
-	
-	public Ejercicio1() {
-		grafo  = new GrafoMaterias();
-	}
-
-	//TODO: pasar a privado	
 	public static ArrayList< Componente > kosaraju(GrafoEstados grafo){
 		boolean [] usado = new boolean[grafo.size()];
 		ArrayList<NodoEstado> orden	= new ArrayList<NodoEstado>();
@@ -39,7 +31,6 @@ public class Ejercicio1 {
 			if (!usado[ m.getId() ]){
 				ArrayList<NodoEstado> componenteActual = new ArrayList<NodoEstado>(); 
 				dfs(grafoInvertido, usado, componenteActual, m.getId());
-				System.out.println("size: " + componentes.size());
 				for (NodoEstado n : componenteActual) n.setCC( componentes.size() );
 				componentes.add(new Componente(componenteActual, componentes.size()));
 			}
@@ -66,53 +57,29 @@ public class Ejercicio1 {
 	
 	private static boolean tieneSolucion(ArrayList< Componente > componentes, ArrayList< ArrayList<Integer> > coloreos){
 		for (Componente c : componentes) {
-			ArrayList<Integer> coloreo = new ArrayList<Integer>();
-			
 			coloreos.add(new ArrayList<Integer>());
 			c.valordeVerdad( coloreos.get( coloreos.size() - 1 ) );	
 		}
 		
 		armarGrafoDeComponentesConexas(componentes);
 		
-		System.out.println("valores:");
-		for (Componente c : componentes) {
-			System.out.println(c.valorDeVerdad);
-		}
-		
-		return dfs2(componentes);
+		return checkThruthValues(componentes);
 	}
 
-	/*private static boolean df2recu() {
-		
-	}*/
-	
-	private static boolean dfs2(ArrayList<Componente> componentes) {
-		Stack<Componente> pila = new Stack<Componente>();
-		boolean usados[] = new boolean[ componentes.size() ];
+	private static boolean checkThruthValues(ArrayList<Componente> componentes) {
 		boolean result = true;
 		
-		Arrays.fill(usados, false);
-		
-		pila.push(componentes.get(0));
-		result = componentes.get(0).valorDeVerdad;
-		
-		if (componentes.size() == 1) result = componentes.get(0).valorDeVerdad;
-		
-		while (!pila.isEmpty()) {
-			Componente actual = pila.pop();
-			usados[ actual.getId() ] = true;
-			boolean valorActual = result;
-			for (Componente c : actual.vecinos) {
-				System.out.println("");
-				if (!usados[ c.getId() ]) {					
-					System.out.println(actual.valorDeVerdad+ " con " + c.valorDeVerdad);
-					if (actual.valorDeVerdad && !c.valorDeVerdad) result = false;
-					pila.push(c);
-				}
+		if (componentes.size() == 1) result = !componentes.get(0).valorDeVerdad; 
+			
+		for (Componente c : componentes) {
+			System.out.println(c.valorDeVerdad);
+			for (Componente vecino : c.getVecinos()) {
+				System.out.println(c.id + " con valor: " + c.valorDeVerdad + " contra " + vecino.id + " con valor: " + vecino.valorDeVerdad );
+				if (c.valorDeVerdad && !vecino.valorDeVerdad) result = false;
 			}
 		}
 		
-		return !result;
+		return result;
 	}
 	
 	private static void armarGrafoDeComponentesConexas(ArrayList<Componente> componentes) {
