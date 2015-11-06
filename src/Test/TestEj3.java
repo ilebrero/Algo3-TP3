@@ -40,7 +40,8 @@ public class TestEj3 {
 	      }
 	  
 		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafo).checkColoreo()); 
-		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
+		System.out.println("Conflictos con grafo 2:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
+		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreo()); 
 	}
 	@Test
 	public void test2() {
@@ -52,14 +53,29 @@ public class TestEj3 {
 
 private GrafoMaterias grafoTest2(){
 	GrafoMaterias grafo = new GrafoMaterias();
-	grafo.addMateria(new NodoMateria(0, 1)); //coloreo valido :  	1
-	grafo.addMateria(new NodoMateria(0, 1)); //coloreo valido :  	0
-	grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
-	grafo.addMateria(new NodoMateria(0, 2)); //coloreo valido :	2
-	grafo.connectMateria(0, 1);
-	grafo.connectMateria(1, 2);
-	grafo.connectMateria(0, 3);
-
+	int i = 0;
+		grafo.addMateria(new NodoMateria(0, 1)); //coloreo valido :  	1
+		grafo.addMateria(new NodoMateria(0, 1)); //coloreo valido :  	0
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 2)); //coloreo valido :		2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(0, 0)); //coloreo valido :  	2
+		grafo.connectMateria(i, i+1);
+		grafo.connectMateria(i+1, i+2);
+		grafo.connectMateria(i, i+3);
+		for (int j = 4; j < 13; j++){
+			grafo.connectMateria(1, j);
+		}
 	return grafo;
 }
 	
