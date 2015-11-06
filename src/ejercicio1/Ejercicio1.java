@@ -3,14 +3,12 @@ package ejercicio1;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
 import utils.GrafoEstados;
 import utils.GrafoMaterias;
 import utils.NodoEstado;
-import utils.NodoMateria;
 
 public class Ejercicio1 {
 	private GrafoMaterias grafo;
@@ -19,13 +17,11 @@ public class Ejercicio1 {
 		grafo  = new GrafoMaterias();
 	}
 
-
 	//TODO: pasar a privado	
-	public static ArrayList< ArrayList<NodoEstado> > kosaraju(GrafoEstados grafo){
+	public static ArrayList< Componente > kosaraju(GrafoEstados grafo){
 		boolean [] usado = new boolean[grafo.size()];
-		ArrayList<NodoEstado> orden		 = new ArrayList<NodoEstado>();
-		ArrayList<NodoEstado> componente = new ArrayList<NodoEstado>();
-		ArrayList< ArrayList<NodoEstado> > componentes = new ArrayList< ArrayList<NodoEstado> >();
+		ArrayList<NodoEstado> orden	= new ArrayList<NodoEstado>();
+		ArrayList< Componente > componentes = new ArrayList< Componente >();
 		
 		//obtiene orden para recorrer
 		for (int i = 0; i < usado.length; i++) {
@@ -41,18 +37,20 @@ public class Ejercicio1 {
 		//encuentra las componentes por separado
 		for (NodoEstado m : orden) {
 			if (!usado[ m.getId() ]){
-				dfs(grafoInvertido, usado, componente, m.getId());
-				componentes.add(componente);
-				componente = new ArrayList<NodoEstado>();
+				ArrayList<NodoEstado> componenteActual = new ArrayList<NodoEstado>(); 
+				dfs(grafoInvertido, usado, componenteActual, m.getId());
+				System.out.println("size: " + componentes.size());
+				for (NodoEstado n : componenteActual) n.setCC( componentes.size() );
+				componentes.add(new Componente(componenteActual, componentes.size()));
 			}
 		}
 		
 		return componentes;
 	}
 	
-	/*
+	/*/
 	 * TODO: ver si se puede implementar iterativamente, puede quedar como experimentacion ver tiempos de corrida iterativo vs recursivo
-	 */
+	/*/
 	private static void dfs(ArrayList<NodoEstado> g, boolean[] usado, List<NodoEstado> m, int i) {
 		NodoEstado actual = g.get(i); 
 		usado[ actual.getId() ] = true;
@@ -65,55 +63,75 @@ public class Ejercicio1 {
 		
 		m.add(actual);
 	}
-
-	private static boolean tieneSolucion(ArrayList< ArrayList<NodoEstado> > componentes, ArrayList< ArrayList<Integer> > coloreos){
-		boolean result = true;
-
-		for (ArrayList<NodoEstado> componente : componentes) {
+	
+	private static boolean tieneSolucion(ArrayList< Componente > componentes, ArrayList< ArrayList<Integer> > coloreos){
+		for (Componente c : componentes) {
 			ArrayList<Integer> coloreo = new ArrayList<Integer>();
-
-			result = result && valordeVerdad(componente, coloreo);
-			coloreos.add(coloreo);
+			
+			coloreos.add(new ArrayList<Integer>());
+			c.valordeVerdad( coloreos.get( coloreos.size() - 1 ) );	
 		}
-
-		return result;
+		
+		armarGrafoDeComponentesConexas(componentes);
+		
+		System.out.println("valores:");
+		for (Componente c : componentes) {
+			System.out.println(c.valorDeVerdad);
+		}
+		
+		return dfs2(componentes);
 	}
 
-	private static boolean valordeVerdad(ArrayList<NodoEstado> componente, ArrayList<Integer> coloreo) {
-		HashMap<Integer, Boolean> usados = new HashMap<Integer, Boolean>();
-		Stack<NodoEstado> proximos 		 = new Stack<NodoEstado>();
-		int primerColor = componente.get(0).getColor();
-		int primerId    = componente.get(0).getPadreId();
-		boolean result  = true;
+	/*private static boolean df2recu() {
 		
-		for (NodoEstado n : componente) usados.put(n.getId(), false);
+	}*/
+	
+	private static boolean dfs2(ArrayList<Componente> componentes) {
+		Stack<Componente> pila = new Stack<Componente>();
+		boolean usados[] = new boolean[ componentes.size() ];
+		boolean result = true;
 		
-		usados.put(componente.get(0).getId(), true);
+		Arrays.fill(usados, false);
 		
-		proximos.push(componente.get(0));
+		pila.push(componentes.get(0));
+		result = componentes.get(0).valorDeVerdad;
 		
-		while (proximos.size() > 0 && result) {
-			NodoEstado actual = proximos.pop();
-			
-			for (NodoEstado n : actual.getAdyacentes()) {
-				if (usados.containsKey(n.getId()) && !usados.get(n.getId())) {
-					usados.put(n.getId(), true);
-					proximos.push(n);
-					
-					if (!n.getNegado()) coloreo.add(n.getColor());
-					if (n.getPadreId() == primerId && n.getColor() == primerColor && n.getNegado()) result = false;
+		if (componentes.size() == 1) result = componentes.get(0).valorDeVerdad;
+		
+		while (!pila.isEmpty()) {
+			Componente actual = pila.pop();
+			usados[ actual.getId() ] = true;
+			boolean valorActual = result;
+			for (Componente c : actual.vecinos) {
+				System.out.println("");
+				if (!usados[ c.getId() ]) {					
+					System.out.println(actual.valorDeVerdad+ " con " + c.valorDeVerdad);
+					if (actual.valorDeVerdad && !c.valorDeVerdad) result = false;
+					pila.push(c);
 				}
 			}
 		}
 		
-		return result;
+		return !result;
+	}
+	
+	private static void armarGrafoDeComponentesConexas(ArrayList<Componente> componentes) {
+		for (Componente c : componentes) {
+			for (NodoEstado actual : c.nodos) {
+				for (NodoEstado adyacente : actual.getAdyacentes()) {
+					if (adyacente.getIdCC() != actual.getIdCC()) {
+						c.addVecino(componentes.get(adyacente.getIdCC()));
+					}
+				}
+			}
+		}
 	}
 
 	public static ArrayList<ArrayList<Integer>> solve(GrafoEstados grafo) {
 		grafo.generarGrafoDeEstados();
-		ArrayList< ArrayList<NodoEstado> > cc =kosaraju(grafo);
+		ArrayList< Componente > cc = kosaraju(grafo);
 		ArrayList< ArrayList<Integer> > solucion = new ArrayList<ArrayList<Integer>>();
-		;
+
 		if (tieneSolucion(cc, solucion)){
 			return solucion;
 		} else {
