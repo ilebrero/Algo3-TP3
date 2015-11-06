@@ -72,7 +72,7 @@ public class Ejercicio3 {
 				for (NodoMateria vecino :materia.getAdyacentes()){
 					if (coloreo[vecino.getId()] == materia.getColor(0)){
 						conflictos++;
-						System.out.println("Hubo conflicto " + materia.getId() + "con el color: "+ coloreo[materia.getId()]);
+						//System.out.println("Hubo conflicto " + materia.getId() + "con el color: "+ coloreo[materia.getId()]);
 					}
 				}
 			} else {
