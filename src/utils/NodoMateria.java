@@ -2,8 +2,9 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class NodoMateria {
+public class NodoMateria implements java.io.Serializable{
 	private int id;
 	private ArrayList<NodoEstado> estados;
 	private ArrayList<NodoMateria> adyacentes;
@@ -19,7 +20,36 @@ public class NodoMateria {
 			this.coloresPosibles.add(i);
 		}		
 	}
+	public NodoMateria(int c1, int c2, int c3, int c4, int c5) {
+		colores    = new ArrayList<Integer>();
+		adyacentes = new ArrayList<NodoMateria>();
+		coloresPosibles = new ArrayList<Integer>();
+		this.colores.add(c1);
+		this.colores.add(c2);
+		this.colores.add(c3);
+		this.colores.add(c4);
+		this.colores.add(c5);
+	}
 	
+	public NodoMateria(int i) {
+		colores    = new ArrayList<Integer>();
+		adyacentes = new ArrayList<NodoMateria>();
+		coloresPosibles = new ArrayList<Integer>();
+		Random randomGenerator = new Random();
+		
+		for(int j = 0; j < randomGenerator.nextInt(4) + 1 ; j++){
+			this.colores.add(j);
+		}
+		this.colores.add(i);
+	}
+	
+	public NodoMateria(int i, int j) {
+		colores    = new ArrayList<Integer>();
+		adyacentes = new ArrayList<NodoMateria>();
+		coloresPosibles = new ArrayList<Integer>();
+		this.colores.add(i);
+		this.colores.add(j);
+	}
 	public void addAdyacente(NodoMateria m) {
 		this.adyacentes.add(m);
 	}
