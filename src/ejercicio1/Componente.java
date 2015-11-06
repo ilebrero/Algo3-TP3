@@ -18,8 +18,10 @@ public class Componente {
 	}
 	
 	private boolean calcularValordeVerdad(ArrayList<Integer> coloreo) {
+		boolean result = false;
 		int[] idPadresUsados = new int [maxPadreId() + 1];
 		Arrays.fill(idPadresUsados, Integer.MAX_VALUE);
+		
 		for (NodoEstado n : nodos) {
 			if (idPadresUsados[n.getPadreId()] != Integer.MAX_VALUE) {
 				int colorYaUsado = idPadresUsados[n.getPadreId()];
@@ -32,18 +34,17 @@ public class Componente {
 				}
 				
 				if (colorYaUsado == -colorActual) {
-					return true;
+					result = true;
 				}
 			} else {
 				if (n.getNegado()) {
 					idPadresUsados[n.getPadreId()] = -n.getColor();
 				} else {
-					coloreo.add(n.getColor());
 					idPadresUsados[n.getPadreId()] = n.getColor();
 				}
 			}
 		}
-		return false;
+		return result;
 	}
 
 	private int maxPadreId() {
