@@ -66,8 +66,6 @@ public class GrafoEstados extends GrafoMaterias{
 			idPadre = m.getId();
 			cantidadColores = m.getColores().size();
 			
-			
-			
 			for(int i = 0; i < cantidadColores; ++i) {
 				color[i] = m.getColor(i);
 			}

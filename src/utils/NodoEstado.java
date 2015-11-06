@@ -6,13 +6,14 @@ public class NodoEstado {
 	private int color;
 	private int id;
 	private int idPadre;
+	private int idComponenteConexa;
 	private boolean esNegado;
 	private ArrayList<NodoEstado> nextNodos;
 	
 	public NodoEstado(int id, int idPadre, int c, boolean negado) {
 		this.nextNodos = new ArrayList<NodoEstado>();
-		this.esNegado = negado;
-		this.idPadre  = idPadre;
+		this.esNegado  = negado;
+		this.idPadre   = idPadre;
 		this.id    = id;
 		this.color = c;
 	}
@@ -35,6 +36,14 @@ public class NodoEstado {
 
 	public int getPadreId() {
 		return this.idPadre;
+	}
+	
+	public void setCC(int id) {
+		this.idComponenteConexa = id;
+	}
+	
+	public int getIdCC() {
+		return this.idComponenteConexa;
 	}
 	
 	public ArrayList<NodoEstado> getAdyacentes() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import ejercicio1.Componente;
 import ejercicio1.Ejercicio1;
 import utils.GrafoEstados;
 import utils.NodoEstado;
@@ -28,7 +29,6 @@ public class TestEj1 {
 		
 		grafo.addMateria(m1);
 		grafo.addMateria(m2);		
-		
 
 		for (NodoMateria materia : grafo.getMaterias()) {
 			for (Integer i : materia.getColoresPosibles()) {
@@ -39,15 +39,17 @@ public class TestEj1 {
 		grafo.connectMateria(0, 1);
 		grafo.generarGrafoDeEstados();
 		
-		ArrayList< ArrayList<NodoEstado> > resultado = Ejercicio1.kosaraju(grafo);
+		ArrayList< Componente > resultado = Ejercicio1.kosaraju(grafo);
 		
-		for (ArrayList<NodoEstado> componente : resultado) {
-			System.out.println("componente!! -> size: " + componente.size());
+		for (Componente componente : resultado) {
+			System.out.println("componente!! -> size: " + componente.getNodos().size());
 			
-			for (NodoEstado nodo : componente) {
+			for (NodoEstado nodo : componente.getNodos()) {
 				System.out.println("id: " + nodo.getPadreId() + " | color: " + nodo.getColor() + " | negado? -> " + nodo.getNegado());
 			}
 		}
+		
+		System.out.println("hay solucion? " + Ejercicio1.solve(grafo));
 	}
 	
 	@Test
@@ -60,11 +62,11 @@ public class TestEj1 {
 		
 		ArrayList<Integer> coloresMateria2 = new ArrayList<Integer>();
 		coloresMateria2.add(1);
-		coloresMateria2.add(2);
 		
 		ArrayList<Integer> coloresMateria3 = new ArrayList<Integer>();
-		coloresMateria3.add(3);
 		coloresMateria3.add(1);
+		coloresMateria3.add(3);
+		
 		
 		grafo.addMateria(new NodoMateria(coloresMateria1));
 		grafo.addMateria(new NodoMateria(coloresMateria2));
@@ -78,19 +80,19 @@ public class TestEj1 {
 		
 		grafo.connectMateria(0, 1);
 		grafo.connectMateria(1, 2);
-		grafo.connectMateria(0, 2);
+		//grafo.connectMateria(0, 2);
 		grafo.generarGrafoDeEstados();
 		
+		ArrayList< Componente > resultado = Ejercicio1.kosaraju(grafo);
 		
-		
-		ArrayList< ArrayList<NodoEstado> > resultado = Ejercicio1.kosaraju(grafo);
-		
-		for (ArrayList<NodoEstado> componente : resultado) {
-			System.out.println("componente!! -> size: " + componente.size());
+		for (Componente componente : resultado) {
+			System.out.println("componente!! -> size: " + componente.getNodos().size());
 			
-			for (NodoEstado nodo : componente) {
+			for (NodoEstado nodo : componente.getNodos()) {
 				System.out.println("id: " + nodo.getPadreId() + " | color: " + nodo.getColor() + " | negado? -> " + nodo.getNegado());
 			}
 		}
+		
+		System.out.println("hay solucion? " + Ejercicio1.solve(grafo));
 	}
 }
