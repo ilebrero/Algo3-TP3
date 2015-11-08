@@ -41,6 +41,34 @@ public class TestEj2 {
 
 		Ejercicio2 ej = new Ejercicio2(grafo);
 		System.out.println(ej.solverWithBacktrack());
+		
+		for (int i = 0; i < grafo.getMaterias().size(); i++) {
+			System.out.print(ej.getSolucion().get(i)+",");
+		}
+	}
+	
+	@Test
+	public void testSimple() {
+		GrafoEstados grafo = new GrafoEstados();
+		
+		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :  	1
+		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :  	0
+		grafo.addMateria(new NodoMateria(0, true));
+		grafo.connectMateria(0, 1);
+		grafo.connectMateria(1, 2);
+		grafo.connectMateria(0, 2);
+		
+		Ejercicio2 ej = new Ejercicio2(grafo);
+		System.out.println(ej.solverWithBacktrack());
+		
+		 int[] ret = new int[ej.getSolucion().size()];
+		    for (int i=0; i < ret.length; i++)
+		    {
+		        ret[i] = ej.getSolucion().get(ret.length -1 - i).intValue();
+		    }
+		    
+		    System.out.println("Intentos: " +ej.getIntentos());
+		System.out.println("conflictos : " +grafo.findConflicts(ret));
 		for (int i = 0; i < grafo.getMaterias().size(); i++) {
 			System.out.print(ej.getSolucion().get(i)+",");
 		}
@@ -55,10 +83,11 @@ public class TestEj2 {
 		 int[] ret = new int[ej.getSolucion().size()];
 		    for (int i=0; i < ret.length; i++)
 		    {
-		        ret[i] = ej.getSolucion().get(i).intValue();
+		        ret[i] = ej.getSolucion().get(ret.length -1 - i).intValue();
 		    }
 		    
-		
+		    System.out.println("Intentos: " +ej.getIntentos());
+		    System.out.println("Pode con la 1: " +ej.getPoda1());
 		System.out.println("conflictos : " +grafo.findConflicts(ret));
 		for (int i = 0; i < grafo.getMaterias().size(); i++) {
 			System.out.print(ej.getSolucion().get(i)+",");

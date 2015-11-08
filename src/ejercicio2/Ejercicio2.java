@@ -10,8 +10,17 @@ public class Ejercicio2 {
 	private GrafoEstados grafo;
 	private Ejercicio1 ejercicio1;
 	private ArrayList<Integer> solucion;
+	private int intentos = 0;
+	private int poda1 = 0;
 	public Ejercicio2(GrafoEstados grafo) {
 		this.grafo = grafo;
+	}
+	
+	public int getIntentos() {
+		return intentos;
+	}
+	public int getPoda1() {
+		return poda1;
 	}
 	
 	public ArrayList<Integer> getSolucion() {
@@ -66,10 +75,11 @@ public class Ejercicio2 {
 					System.out.println("Pruebo con el color " + materia.getColoresPosibles().get(i) + "de la materia" + materia.getId());
 					System.out.println("tiene " + materia.getColoresPosibles().size() + "," + materia.getColores().size());
 //				}
-//				if (poda1(materia,materia.getColoresPosibles().get(i))){
+				if (poda1(materia,materia.getColoresPosibles().get(i))){
 					if (materiasColores.size() == 0){
 //						System.out.println("pruebo solucion");
-						System.out.println("Intentando Pruebo con el color " + grafo.getMateria(0).getColor(0) + "de la materia" + grafo.getMateria(0).getId());
+//						System.out.println("Intentando Pruebo con el color " + grafo.getMateria(0).getColor(0) + "de la materia" + grafo.getMateria(0).getId());
+						intentos++;
 						if ((solucion = ejercicio1.solve(grafo)) != null){
 							System.out.println("Encontre solucion");
 							return true;
@@ -79,18 +89,22 @@ public class Ejercicio2 {
 							return true;
 						}
 					}
-//				}
+				} else {
+					System.out.println("pude usar la poda 1");
+					poda1++;
+				}
 				i++;
 				materia.clearColors();
 			}
 		}
-		materiasColores.add(materia);
+		materiasColores.add(0,materia);
 		return false;
 	}
 	
 	private boolean poda1(NodoMateria materia, int color){
 		for (NodoMateria materiaVecina : materia.getAdyacentes()) {
 			if (materiaVecina.getColores().size() == 1 && materiaVecina.getColores().contains(color)){
+				System.out.println("Poda : " + color + ", " + materiaVecina.getColor(0) + ", "+ materiaVecina.getColores().size());
 				return false;
 			}
 		}
