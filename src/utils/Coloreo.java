@@ -37,9 +37,9 @@ public class Coloreo {
 		this.colores = colores;
 		this.grafo   = grafo.getMaterias();
 		
-		//Collections.sort(colores);
+		Collections.sort(this.colores);
 		
-		//calcularEsValido();
+		calcularEsValido();
 	}
 	
 	private void calcularEsValido() {
@@ -62,7 +62,7 @@ public class Coloreo {
 			
 			if (!conflictosActuales.isEmpty()) {
 				Conflicto actual = new Conflicto(n.getId(), conflictosActuales);
-				
+				conflictos.add(actual);
 				esValido = false;
 			}
 		}

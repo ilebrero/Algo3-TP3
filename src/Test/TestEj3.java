@@ -25,7 +25,7 @@ public class TestEj3 {
 	
 		@Test
 	public void test() {
-		try
+		/*try
 	      {
 	         FileOutputStream fileOut =
 	         new FileOutputStream("/home/dfixel/workspace/Algo3-TP3/src/grafos/grafo-ej3.ser");
@@ -38,7 +38,7 @@ public class TestEj3 {
 	      {
 	          i.printStackTrace();
 	      }
-	  
+	  */
 		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafo).checkColoreo()); 
 		System.out.println("Conflictos con grafo 2:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
 		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreo()); 
