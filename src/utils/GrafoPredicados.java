@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 //Grafo sobre Lista de Adyacencia
 
-public class GrafoEstados extends GrafoMaterias{
+public class GrafoPredicados extends GrafoMaterias{
 	protected final int OFFSET_COLOR1 = 0;
 	protected final int OFFSET_COLOR2 = 1;
 	protected final int OFFSET_COLOR1_NEGADO = 2;
@@ -13,7 +13,7 @@ public class GrafoEstados extends GrafoMaterias{
 	protected ArrayList<NodoEstado> grafoEstados;
 	protected ArrayList<Conexion>   conexiones;
 
-	public GrafoEstados() {
+	public GrafoPredicados() {
 		conexiones = new ArrayList<Conexion>();
 	}
 

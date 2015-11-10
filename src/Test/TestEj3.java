@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import ejercicio3.Ejercicio3;
-import utils.GrafoEstados;
+import utils.GrafoPredicados;
 import utils.GrafoMaterias;
 import utils.NodoMateria;
 import utils.Serializar;

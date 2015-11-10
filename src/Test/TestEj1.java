@@ -1,12 +1,15 @@
 package Test;
 
+
 import java.util.ArrayList;
 
 import org.junit.Test;
 
-import ejercicio1.Componente;
 import ejercicio1.Ejercicio1;
-import utils.GrafoEstados;
+import utils.Color;
+import utils.Coloreo;
+import utils.Componente;
+import utils.GrafoPredicados;
 import utils.NodoEstado;
 import utils.NodoMateria;
 
@@ -14,7 +17,7 @@ public class TestEj1 {
 	
 	@Test
 	public void testkosarajuConSolucion() {
-		GrafoEstados grafo = new GrafoEstados();
+		GrafoPredicados grafo = new GrafoPredicados();
 		
 		ArrayList<Integer> coloresMateria1 = new ArrayList<Integer>();
 		coloresMateria1.add(2);
@@ -41,15 +44,15 @@ public class TestEj1 {
 
 		Ejercicio1 ej = new Ejercicio1(grafo.size());
 		ArrayList< Componente > resultado = ej.kosaraju(grafo);
-		ArrayList <Integer> solucion = ej.solve(grafo);
+		ArrayList <Color> solucion = ej.solve(grafo);
 		
 		mostrarResultado(solucion);
 		//mostrarComponentes(resultado);
 	}
 	
-	//@Test
+	@Test
 	public void testkosarajuSinSolucion() {
-		GrafoEstados grafo = new GrafoEstados();
+		GrafoPredicados grafo = new GrafoPredicados();
 		
 		ArrayList<Integer> coloresMateria1 = new ArrayList<Integer>();
 		coloresMateria1.add(1);
@@ -75,12 +78,14 @@ public class TestEj1 {
 		
 		grafo.connectMateria(0, 1);
 		grafo.connectMateria(1, 2);
-		//grafo.connectMateria(0, 2);
+		grafo.connectMateria(0, 2);
 		grafo.generarGrafoDeEstados();
 		
 		Ejercicio1 ej = new Ejercicio1(grafo.size());
 		ArrayList< Componente > resultado = ej.kosaraju(grafo);
-		ArrayList <Integer> solucion = ej.solve(grafo);
+		ArrayList <Color> solucion = ej.solve(grafo);
+		
+		Coloreo c = new Coloreo(grafo, solucion);
 
 		mostrarComponentes(resultado);
 		mostrarResultado(solucion);
@@ -88,7 +93,7 @@ public class TestEj1 {
 	
 	//@Test
 	public void testkosarajuConSolu2() {
-		GrafoEstados grafo = new GrafoEstados();
+		GrafoPredicados grafo = new GrafoPredicados();
 		
 		ArrayList<Integer> coloresMateria1 = new ArrayList<Integer>();
 		coloresMateria1.add(1);
@@ -130,7 +135,7 @@ public class TestEj1 {
 		Ejercicio1 ej = new Ejercicio1(grafo.size());
 		
 		ArrayList< Componente > resultado = ej.kosaraju(grafo);
-		ArrayList<Integer> solucion = ej.solve(grafo);
+		ArrayList<Color> solucion = ej.solve(grafo);
 		
 		mostrarComponentes(resultado);
 		mostrarResultado(solucion);
@@ -146,9 +151,12 @@ public class TestEj1 {
 		}
 	}
 	
-	private void mostrarResultado(ArrayList <Integer> solucion) {
+	private void mostrarResultado(ArrayList <Color> solucion) {
 		if (solucion != null) {
-			System.out.println("hay solucion y es: " + solucion);			
+			System.out.println("hay solucion y es: ");
+			for (Color c : solucion) {
+				System.out.println("color:" + c.getColor() + " | Materia:" + c.getId());			
+			}
 		} else {
 			System.out.println("no hay solicion :(");
 		}

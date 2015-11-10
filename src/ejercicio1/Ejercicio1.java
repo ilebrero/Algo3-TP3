@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import utils.GrafoEstados;
+import utils.Color;
+import utils.Componente;
+import utils.GrafoPredicados;
 import utils.NodoEstado;
 
 public class Ejercicio1 {
@@ -15,7 +17,7 @@ public class Ejercicio1 {
 		cantMaterias = materias;
 	}
 	
-	public ArrayList< Componente > kosaraju(GrafoEstados grafo){
+	public ArrayList< Componente > kosaraju(GrafoPredicados grafo){
 		boolean [] usado = new boolean[grafo.sizeEstados()];
 		ArrayList<NodoEstado> orden	= new ArrayList<NodoEstado>();
 		ArrayList< Componente > componentes = new ArrayList< Componente >();
@@ -60,7 +62,7 @@ public class Ejercicio1 {
 		m.add(actual);
 	}
 	
-	private boolean tieneSolucion(ArrayList< Componente > componentes, ArrayList<Integer> coloreo){
+	private boolean tieneSolucion(ArrayList< Componente > componentes, ArrayList<Color> coloreo){
 		boolean result;
 		
 		for (Componente c : componentes) {
@@ -76,7 +78,7 @@ public class Ejercicio1 {
 		return result;
 	}
 
-	private void armarColoreo(ArrayList< Componente > componentes, ArrayList<Integer> coloreo) {
+	private void armarColoreo(ArrayList<Componente> componentes, ArrayList<Color> coloreo) {
 		boolean usados[] = new boolean[cantMaterias];
 		int ocupados = 0;
 		
@@ -84,7 +86,9 @@ public class Ejercicio1 {
 			for (Componente c : componentes) {
 				for (NodoEstado n : c.nodos) {
 					if (n.getNegado() && !usados[n.getPadreId()]) {
-						coloreo.add(n.getColor());
+						Color actual = new Color(n.getColor(), n.getPadreId());
+						
+						coloreo.add(actual);
 						usados[n.getPadreId()] = true;
 						ocupados++;
 					}
@@ -118,10 +122,10 @@ public class Ejercicio1 {
 		}
 	}
 
-	public ArrayList<Integer> solve(GrafoEstados grafo) {
+	public ArrayList<Color> solve(GrafoPredicados grafo) {
 		grafo.generarGrafoDeEstados();
 		ArrayList< Componente > cc = kosaraju(grafo);
-		ArrayList<Integer> coloreo = new ArrayList<Integer>();
+		ArrayList<Color> coloreo = new ArrayList<Color>();
 
 		if (tieneSolucion(cc, coloreo)){
 			return coloreo;
