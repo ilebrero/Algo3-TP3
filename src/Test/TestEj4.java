@@ -47,7 +47,6 @@ public class TestEj4 {
 	
 		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafo).checkColoreo()); 
 		
-		
 		mostrarConflictos(pruebas.get(0));
 		mostrarSolucion(pruebas.get(0));
 		
@@ -58,8 +57,6 @@ public class TestEj4 {
 		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreo()); 
 		mostrarConflictos(pruebas.get(2));
 		mostrarSolucion(pruebas.get(2));
-		
-		
 	}
 
 	private void mostrarSolucion(Coloreo coloreo) {

@@ -45,12 +45,8 @@ public class Ejercicio4 {
 		Coloreo nuevoColoreo;
 		Coloreo mejorColoreo = colores;
 		
-		System.out.println("antes");
 		while (!mejorColoreo.esValido() && noCambio < 5) {
-			System.out.println("despues");
 			nuevoColoreo = getProximoColoreo(mejorColoreo);
-			
-			//if (nuevoColoreo.equals(mejorColoreo)) return mejorColoreo;
 			
 			if (nuevoColoreo.cantidadDeConflictos() <= mejorColoreo.cantidadDeConflictos()) {
 				mejorColoreo = nuevoColoreo;
@@ -76,18 +72,16 @@ public class Ejercicio4 {
 			TreeSet<Integer> coloresOcupados = new TreeSet<Integer>();
 			NodoMateria nodoActual = grafo.getMateria(c.getId());
 			
-			for (int i = 0; i < c.getConflictos().size(); i++) {
-				NodoMateria vecino = c.getConflictos().get(i);
+			
+			for(NodoMateria vecino : nodoActual.getAdyacentes()) {
 				List<Color> coloresSeteados = colores.getColores(); 
 				int color = coloresSeteados.get( vecino.getId() ).getColor();
-				System.out.println("color: " + color);
+			
 				coloresOcupados.add(color);
 			}
-/*			for (NodoMateria vecino : c.getConflictos()) {
-				
-			}
-	*/		
+
 			ArrayList<Integer> coloresPosibles = new ArrayList<Integer>(nodoActual.getColoresPosibles());
+			coloresPosibles.removeAll(coloresOcupados);
 			if (!coloresPosibles.isEmpty()) {
 				Color actual = new Color(nodoActual.getId(), coloresPosibles.get(0));
 				
