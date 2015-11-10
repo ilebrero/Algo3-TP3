@@ -64,13 +64,13 @@ public class TestEj2 {
 		 int[] ret = new int[ej.getSolucion().size()];
 		    for (int i=0; i < ret.length; i++) //preguntar
 		    {
-		        ret[i] = ej.getSolucion().get(ret.length -1 - i).intValue();
+		        ret[i] = ej.getSolucion().get(i).getColor();
 		    }
 		    
 		    System.out.println("Intentos: " +ej.getIntentos());
 		System.out.println("conflictos : " +grafo.findConflicts(ret));
 		for (int i = 0; i < grafo.getMaterias().size(); i++) {
-			System.out.print(ej.getSolucion().get(i)+",");
+			System.out.print("color: " + ej.getSolucion().get(i).getColor() + " | id: " + ej.getSolucion().get(i).getId());
 		}
 	}
 	
@@ -83,14 +83,14 @@ public class TestEj2 {
 		 int[] ret = new int[ej.getSolucion().size()];
 		    for (int i=0; i < ret.length; i++)
 		    {
-		        ret[i] = ej.getSolucion().get(ret.length -1 - i).intValue();
+		        ret[i] = ej.getSolucion().get(ret.length -1 - i).getColor();
 		    }
 		    
 		    System.out.println("Intentos: " +ej.getIntentos());
 		    System.out.println("Pode con la 1: " +ej.getPoda1());
 		System.out.println("conflictos : " +grafo.findConflicts(ret));
 		for (int i = 0; i < grafo.getMaterias().size(); i++) {
-			System.out.print(ej.getSolucion().get(i)+",");
+			System.out.print("color: " + ej.getSolucion().get(i).getColor() + " | id: " + ej.getSolucion().get(i).getId());
 		}
 	}
 

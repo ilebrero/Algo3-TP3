@@ -47,10 +47,10 @@ public class TestEj1 {
 		ArrayList <Color> solucion = ej.solve(grafo);
 		
 		mostrarResultado(solucion);
-		//mostrarComponentes(resultado);
+		mostrarComponentes(resultado);
 	}
 	
-	@Test
+	//@Test
 	public void testkosarajuSinSolucion() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		
@@ -137,7 +137,7 @@ public class TestEj1 {
 		ArrayList< Componente > resultado = ej.kosaraju(grafo);
 		ArrayList<Color> solucion = ej.solve(grafo);
 		
-		mostrarComponentes(resultado);
+		//mostrarComponentes(resultado);
 		mostrarResultado(solucion);
 	}
 	
