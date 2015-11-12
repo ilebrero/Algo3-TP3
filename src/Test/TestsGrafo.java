@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import utils.GrafoEstados;
+import utils.GrafoPredicados;
 import utils.GrafoMaterias;
 import utils.NodoEstado;
 import utils.NodoMateria;
@@ -42,7 +42,7 @@ public class TestsGrafo {
 	
 	//@Test
 	public void testCreacionEstados() {
-		GrafoEstados grafo = new GrafoEstados();
+		GrafoPredicados grafo = new GrafoPredicados();
 		
 		ArrayList<Integer> coloresMateria1 = new ArrayList<Integer>();
 		coloresMateria1.add(0);
@@ -70,7 +70,7 @@ public class TestsGrafo {
 	
 	@Test
 	public void testConexiones() {
-		GrafoEstados grafo = new GrafoEstados();
+		GrafoPredicados grafo = new GrafoPredicados();
 		
 		ArrayList<Integer> coloresMateria1 = new ArrayList<Integer>();
 		coloresMateria1.add(0);
@@ -109,7 +109,7 @@ public class TestsGrafo {
 	
 	//@Test
 	public void testInversion() {
-		GrafoEstados grafo = new GrafoEstados();
+		GrafoPredicados grafo = new GrafoPredicados();
 		
 		ArrayList<Integer> coloresMateria1 = new ArrayList<Integer>();
 		coloresMateria1.add(0);

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import utils.GrafoEstados;
+import utils.GrafoPredicados;
 import utils.GrafoMaterias;
 import utils.NodoMateria;
 import ejercicio1.Ejercicio1;
@@ -16,7 +16,7 @@ public class TestEj2 {
 
 	@Test
 	public void test() {
-		GrafoEstados grafo = new GrafoEstados();
+		GrafoPredicados grafo = new GrafoPredicados();
 		
 		ArrayList<Integer> coloresMateria1 = new ArrayList<Integer>();
 		coloresMateria1.add(1);
@@ -49,7 +49,7 @@ public class TestEj2 {
 	
 	@Test
 	public void testSimple() {
-		GrafoEstados grafo = new GrafoEstados();
+		GrafoPredicados grafo = new GrafoPredicados();
 		
 		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :  	1
 		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :  	0
@@ -62,35 +62,35 @@ public class TestEj2 {
 		System.out.println(ej.solverWithBacktrack());
 		
 		 int[] ret = new int[ej.getSolucion().size()];
-		    for (int i=0; i < ret.length; i++)
+		    for (int i=0; i < ret.length; i++) //preguntar
 		    {
-		        ret[i] = ej.getSolucion().get(ret.length -1 - i).intValue();
+		        ret[i] = ej.getSolucion().get(i).getColor();
 		    }
 		    
 		    System.out.println("Intentos: " +ej.getIntentos());
 		System.out.println("conflictos : " +grafo.findConflicts(ret));
 		for (int i = 0; i < grafo.getMaterias().size(); i++) {
-			System.out.print(ej.getSolucion().get(i)+",");
+			System.out.print("color: " + ej.getSolucion().get(i).getColor() + " | id: " + ej.getSolucion().get(i).getId());
 		}
 	}
 	
 	@Test
 	public void test2() {
-		GrafoEstados grafo = crearGrafoRompe2();
+		GrafoPredicados grafo = crearGrafoRompe2();
 		Ejercicio2 ej = new Ejercicio2(grafo);
 		System.out.println(ej.solverWithBacktrack());
 		
 		 int[] ret = new int[ej.getSolucion().size()];
 		    for (int i=0; i < ret.length; i++)
 		    {
-		        ret[i] = ej.getSolucion().get(ret.length -1 - i).intValue();
+		        ret[i] = ej.getSolucion().get(ret.length -1 - i).getColor();
 		    }
 		    
 		    System.out.println("Intentos: " +ej.getIntentos());
 		    System.out.println("Pode con la 1: " +ej.getPoda1());
 		System.out.println("conflictos : " +grafo.findConflicts(ret));
 		for (int i = 0; i < grafo.getMaterias().size(); i++) {
-			System.out.print(ej.getSolucion().get(i)+",");
+			System.out.print("color: " + ej.getSolucion().get(i).getColor() + " | id: " + ej.getSolucion().get(i).getId());
 		}
 	}
 	
@@ -116,8 +116,8 @@ public class TestEj2 {
 	
 
 	
-	private GrafoEstados crearGrafoRompe2(){
-		GrafoEstados grafo = new GrafoEstados();
+	private GrafoPredicados crearGrafoRompe2(){
+		GrafoPredicados grafo = new GrafoPredicados();
 		
 		// Rojo : 0 , Rosa : 1 , Bordo : 2, Verde : 3 ,Azul : 4
 		grafo.addMateria(new NodoMateria(1, true)); //coloreo valido :  	1

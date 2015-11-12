@@ -6,25 +6,32 @@ import utils.NodoMateria;
 public class Ejercicio3 {
 	private GrafoMaterias grafo;
 	private int[] coloreo;
-	private int conflictos = 0;
+	private int conflictos;
+	
 	public Ejercicio3(GrafoMaterias grafo) {
 		this.grafo = grafo;
 		coloreo = new int[grafo.size()];
+		conflictos = 0;
+		
 		for (int i = 0; i < coloreo.length; i++) {
 			coloreo[i] = -1;
 		}
 	}
+	
 	public int[] getColoreo(){
 		return this.coloreo;
 	}
+	
 	public int checkColoreo(){
 		this.solve();
 		return grafo.findConflicts(coloreo);
 	}
+	
 	public int checkColoreoV2() {
 		this.solve2();
 		return grafo.findConflicts(coloreo);
 	}
+	
 	public int solve(){
 		for (NodoMateria materia : grafo.getMaterias()) {
 			if (materia.getColores().size() == 1){

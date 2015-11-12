@@ -2,17 +2,18 @@ package ejercicio2;
 
 import java.util.ArrayList;
 
-import utils.GrafoEstados;
+import utils.Color;
+import utils.GrafoPredicados;
 import utils.NodoMateria;
 import ejercicio1.Ejercicio1;
 
 public class Ejercicio2 {
-	private GrafoEstados grafo;
+	private GrafoPredicados grafo;
 	private Ejercicio1 ejercicio1;
-	private ArrayList<Integer> solucion;
+	private ArrayList<Color> solucion;
 	private int intentos = 0;
 	private int poda1 = 0;
-	public Ejercicio2(GrafoEstados grafo) {
+	public Ejercicio2(GrafoPredicados grafo) {
 		this.grafo = grafo;
 	}
 	
@@ -23,7 +24,7 @@ public class Ejercicio2 {
 		return poda1;
 	}
 	
-	public ArrayList<Integer> getSolucion() {
+	public ArrayList<Color> getSolucion() {
 		return solucion;
 	}
 	

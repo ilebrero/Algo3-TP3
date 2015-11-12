@@ -1,14 +1,13 @@
-package ejercicio1;
+package utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import utils.NodoEstado;
 
 public class Componente {
 		
-	ArrayList<NodoEstado> nodos;
+	public ArrayList<NodoEstado> nodos;
 	ArrayList<Componente> vecinos;
-	boolean valorDeVerdad;
+	public boolean valorDeVerdad;
 	int id;
 	
 	public Componente(ArrayList<NodoEstado> nodos, int id){
