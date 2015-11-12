@@ -22,7 +22,6 @@ public class Ejercicio1 {
 		ArrayList<NodoEstado> orden	= new ArrayList<NodoEstado>();
 		ArrayList< Componente > componentes = new ArrayList< Componente >();
 		
-		//obtiene orden para recorrer
 		for (int i = 0; i < usado.length; i++) {
 			if (!usado[i]){
 				dfs(grafo.getNodosEstado(), usado, orden, i);
@@ -33,12 +32,14 @@ public class Ejercicio1 {
 		Collections.reverse(orden);
 		Arrays.fill(usado, false);
 		
-		//encuentra las componentes por separado
 		for (NodoEstado m : orden) {
 			if (!usado[ m.getId() ]){
-				ArrayList<NodoEstado> componenteActual = new ArrayList<NodoEstado>(); 
+				ArrayList<NodoEstado> componenteActual = new ArrayList<NodoEstado>();
+				
 				dfs(grafoInvertido, usado, componenteActual, m.getId());
-				for (NodoEstado n : componenteActual) n.setCC( componentes.size() );
+				for (NodoEstado n : componenteActual) {
+					n.setCC( componentes.size() );
+				}
 				componentes.add(new Componente(componenteActual, componentes.size()));
 			}
 		}
@@ -46,9 +47,6 @@ public class Ejercicio1 {
 		return componentes;
 	}
 	
-	/*/
-	 * TODO: ver si se puede implementar iterativamente, puede quedar como experimentacion ver tiempos de corrida iterativo vs recursivo
-	/*/
 	private void dfs(ArrayList<NodoEstado> g, boolean[] usado, List<NodoEstado> m, int i) {
 		NodoEstado actual = g.get(i); 
 		usado[ actual.getId() ] = true;
@@ -62,23 +60,26 @@ public class Ejercicio1 {
 		m.add(actual);
 	}
 	
-	private boolean tieneSolucion(ArrayList< Componente > componentes, ArrayList<Color> coloreo){
-		boolean result;
-		
+	private boolean tieneSolucion(ArrayList< Componente > componentes){
 		for (Componente c : componentes) {
 			c.valordeVerdad();	
 		}
 		
-		armarGrafoDeComponentesConexas(componentes);		
-		result = checkThruthValues(componentes); 
-		if (result) {
-			armarColoreo(componentes, coloreo);
-		}
-			
-		return result;
+		return checkThrtuthValues(componentes);
 	}
 
-	private void armarColoreo(ArrayList<Componente> componentes, ArrayList<Color> coloreo) {
+	private boolean checkThrtuthValues(ArrayList< Componente > componentes) {
+		boolean result = true;
+		
+		for (Componente c : componentes) {
+			result = result && !c.valorDeVerdad;
+		}
+		
+		return result;
+	}
+	
+	private ArrayList<Color> armarColoreo(ArrayList<Componente> componentes) {
+		ArrayList<Color> solucion = new ArrayList<Color>();
 		boolean usados[] = new boolean[cantMaterias];
 		int ocupados = 0;
 		
@@ -86,28 +87,17 @@ public class Ejercicio1 {
 			for (Componente c : componentes) {
 				for (NodoEstado n : c.nodos) {
 					if (n.getNegado() && !usados[n.getPadreId()]) {
-						Color actual = new Color(n.getColor(), n.getPadreId());
+						Color colorActual = new Color(n.getColor(), n.getPadreId());
 						
-						coloreo.add(actual);
+						solucion.add(colorActual);
 						usados[n.getPadreId()] = true;
 						ocupados++;
 					}
 				}
 			}
 		}
-	}
-	
-	private boolean checkThruthValues(ArrayList<Componente> componentes) {
-		boolean result = true;
 		
-		for (Componente c : componentes) {
-			if (c.getVecinos().size() == 0) result = result && !c.valorDeVerdad; 
-			for (Componente vecino : c.getVecinos()) {
-				if (c.valorDeVerdad && !vecino.valorDeVerdad) result = false;
-			}
-		}
-		
-		return result;
+		return solucion;
 	}
 	
 	private void armarGrafoDeComponentesConexas(ArrayList<Componente> componentes) {
@@ -124,11 +114,11 @@ public class Ejercicio1 {
 
 	public ArrayList<Color> solve(GrafoPredicados grafo) {
 		grafo.generarGrafoDeEstados();
-		ArrayList< Componente > cc = kosaraju(grafo);
-		ArrayList<Color> coloreo = new ArrayList<Color>();
+		ArrayList< Componente > componentesConexas = kosaraju(grafo);
 
-		if (tieneSolucion(cc, coloreo)){
-			return coloreo;
+		if (tieneSolucion(componentesConexas)){
+			armarGrafoDeComponentesConexas(componentesConexas);
+			return armarColoreo(componentesConexas);
 		} else {
 			return null;
 		}

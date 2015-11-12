@@ -85,7 +85,9 @@ public class TestEj1 {
 		ArrayList< Componente > resultado = ej.kosaraju(grafo);
 		ArrayList <Color> solucion = ej.solve(grafo);
 		
-		Coloreo c = new Coloreo(grafo, solucion);
+		if (solucion != null) {
+			Coloreo c = new Coloreo(grafo, solucion);
+		}
 
 		mostrarComponentes(resultado);
 		mostrarResultado(solucion);
@@ -130,14 +132,11 @@ public class TestEj1 {
 		grafo.connectMateria(2, 5);
 		grafo.connectMateria(5, 4);
 		grafo.connectMateria(6, 7);
-		grafo.generarGrafoDeEstados();
 		
 		Ejercicio1 ej = new Ejercicio1(grafo.size());
 		
-		ArrayList< Componente > resultado = ej.kosaraju(grafo);
 		ArrayList<Color> solucion = ej.solve(grafo);
 		
-		//mostrarComponentes(resultado);
 		mostrarResultado(solucion);
 	}
 	
