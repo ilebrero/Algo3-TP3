@@ -93,6 +93,27 @@ public class TestEj2 {
 			System.out.print(ej.getSolucion().get(i)+",");
 		}
 	}
+	
+	@Test
+	public void testKn() {
+		GrafoEstados grafo = generarKn(100);
+		Ejercicio2 ej = new Ejercicio2(grafo);
+		System.out.println(ej.solverWithBacktrack());
+		
+		 int[] ret = new int[ej.getSolucion().size()];
+		    for (int i=0; i < ret.length; i++)
+		    {
+		        ret[i] = ej.getSolucion().get(ret.length -1 - i).intValue();
+		    }
+		    
+		    System.out.println("Intentos: " +ej.getIntentos());
+		    System.out.println("Pode con la 1: " +ej.getPoda1());
+		System.out.println("conflictos : " +grafo.findConflicts(ret));
+		for (int i = 0; i < grafo.getMaterias().size(); i++) {
+			System.out.print(ej.getSolucion().get(i)+",");
+		}
+	}
+	
 
 	
 	private GrafoEstados crearGrafoRompe2(){
@@ -192,4 +213,20 @@ public class TestEj2 {
 		return grafo;
 		}
 
+	public  GrafoEstados generarKn(int i){
+	 	   GrafoEstados grafo = new GrafoEstados();
+	 	   for (int j = 0; j < i; j++) {
+	 		  grafo.addMateria(new NodoMateria(0, true));
+	 	   }
+	 	  grafo.addMateria(new NodoMateria(1, true));
+	 	   for (int j = 0; j < i; j++) {
+	 		   for (int k = 0; k < i; k++) {
+//	 			   if (Math.abs(j-k) != 1){
+	 			   System.out.println("conecto " + i + "con "+ j);
+	 				  grafo.connectMateria(j, k);
+//	 			   }
+	 		   }
+	 	   }
+	 	   return grafo;
+	    }
 }
