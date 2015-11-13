@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import utils.GrafoPredicados;
+import utils.Color;
 import utils.GrafoMaterias;
 import utils.NodoMateria;
 import ejercicio1.Ejercicio1;
@@ -14,7 +15,7 @@ import ejercicio2.Ejercicio2;
 
 public class TestEj2 {
 
-	@Test
+	//@Test
 	public void test() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		
@@ -48,6 +49,37 @@ public class TestEj2 {
 	}
 	
 	@Test
+	public void experimentoColoresAleatorios() {
+		GrafoPredicados grafo = new GrafoPredicados();
+		
+		ArrayList<NodoMateria> nodos = Generador.generarNodosConColoresPosibles(10, 9, 10);
+
+		for (NodoMateria n : nodos) {
+			grafo.addMateria(n);
+		}
+
+		/*grafo.connectMateria(0, 1);
+		grafo.connectMateria(0, 8);
+		grafo.connectMateria(0, 6);
+		grafo.connectMateria(1, 2);
+		grafo.connectMateria(1, 5);
+		grafo.connectMateria(1, 6);
+		grafo.connectMateria(2, 3);
+		grafo.connectMateria(2, 5);
+		grafo.connectMateria(5, 4);
+		grafo.connectMateria(6, 7);*/
+		
+		Generador.generarConexiones(grafo, 10);
+		
+		Ejercicio2 ej = new Ejercicio2(grafo);
+		
+		if (ej.solverWithBacktrack()) {
+			ArrayList<Color> solucion = ej.getSolucion();
+			System.out.println(solucion);
+		} 
+	}
+	
+	//@Test
 	public void testSimple() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		
@@ -74,7 +106,7 @@ public class TestEj2 {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void test2() {
 		GrafoPredicados grafo = crearGrafoRompe2();
 		Ejercicio2 ej = new Ejercicio2(grafo);

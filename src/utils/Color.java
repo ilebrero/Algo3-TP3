@@ -19,7 +19,6 @@ public class Color implements Comparable<Color> {
 
 	@Override
 	public int compareTo(Color c) {
-		
 		if (c.getId() == this.id) return 0;
 		
 		if (this.id < c.id) {

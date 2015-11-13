@@ -62,8 +62,8 @@ public class NodoMateria implements java.io.Serializable{
 		coloresPosibles = new ArrayList<Integer>();
 		Random randomGenerator = new Random();
 		
-		int l = randomGenerator.nextInt(100);
-		int p = randomGenerator.nextInt(100);
+		int l = randomGenerator.nextInt(10);
+		int p = randomGenerator.nextInt(10);
 		for(int j = Math.min(l, p) ; j < Math.max(l, p); j++){
 			this.colores.add(j);
 		}

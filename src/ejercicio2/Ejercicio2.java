@@ -14,6 +14,7 @@ public class Ejercicio2 {
 	private ArrayList<Color> solucion;
 	private int intentos = 0;
 	private int poda1 = 0;
+	
 	public Ejercicio2(GrafoPredicados grafo) {
 		this.grafo = grafo;
 	}

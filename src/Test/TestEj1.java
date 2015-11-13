@@ -1,11 +1,14 @@
 package Test;
 
-
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 import org.junit.Test;
 
 import ejercicio1.Ejercicio1;
+import ejercicio2.Ejercicio2;
 import utils.Color;
 import utils.Coloreo;
 import utils.Componente;
@@ -15,7 +18,7 @@ import utils.NodoMateria;
 
 public class TestEj1 {
 	
-	@Test
+	//@Test
 	public void testkosarajuConSolucion() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		
@@ -40,14 +43,11 @@ public class TestEj1 {
 		}
 		
 		grafo.connectMateria(0, 1);
-		grafo.generarGrafoDeEstados();
 
 		Ejercicio1 ej = new Ejercicio1(grafo.size());
-		ArrayList< Componente > resultado = ej.kosaraju(grafo);
-		ArrayList <Color> solucion = ej.solve(grafo);
+		ArrayList <Color> solucion = ej.solve(grafo);		
 		
 		mostrarResultado(solucion);
-		mostrarComponentes(resultado);
 	}
 	
 	//@Test
@@ -85,7 +85,9 @@ public class TestEj1 {
 		ArrayList< Componente > resultado = ej.kosaraju(grafo);
 		ArrayList <Color> solucion = ej.solve(grafo);
 		
-		Coloreo c = new Coloreo(grafo, solucion);
+		if (solucion != null) {
+			Coloreo c = new Coloreo(grafo, solucion);
+		}
 
 		mostrarComponentes(resultado);
 		mostrarResultado(solucion);
@@ -130,14 +132,41 @@ public class TestEj1 {
 		grafo.connectMateria(2, 5);
 		grafo.connectMateria(5, 4);
 		grafo.connectMateria(6, 7);
-		grafo.generarGrafoDeEstados();
 		
 		Ejercicio1 ej = new Ejercicio1(grafo.size());
 		
-		ArrayList< Componente > resultado = ej.kosaraju(grafo);
 		ArrayList<Color> solucion = ej.solve(grafo);
 		
-		//mostrarComponentes(resultado);
+		mostrarResultado(solucion);
+	}
+	
+	@Test
+	public void experimentoColoresAleatorios() {
+		GrafoPredicados grafo = new GrafoPredicados();
+		
+		ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(2, 8, 3);
+
+		for (NodoMateria n : nodos) {
+			grafo.addMateria(n);
+		}
+
+		//grafo.connectMateria(0, 1);
+		/*grafo.connectMateria(0, 8);
+		grafo.connectMateria(0, 6);
+		grafo.connectMateria(1, 2);
+		grafo.connectMateria(1, 5);
+		grafo.connectMateria(1, 6);
+		grafo.connectMateria(2, 3);
+		grafo.connectMateria(2, 5);
+		grafo.connectMateria(5, 4);
+		grafo.connectMateria(6, 7);
+		*/
+		Generador.generarConexiones(grafo, 9);
+		
+		Ejercicio1 ej = new Ejercicio1(grafo.size());
+		
+		ArrayList<Color> solucion = ej.solve(grafo);
+		
 		mostrarResultado(solucion);
 	}
 	
