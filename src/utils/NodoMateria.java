@@ -20,6 +20,7 @@ public class NodoMateria implements java.io.Serializable{
 			this.coloresPosibles.add(i);
 		}		
 	}
+	
 	public NodoMateria(int c1, int c2, int c3, int c4, int c5) {
 		colores    = new ArrayList<Integer>();
 		adyacentes = new ArrayList<NodoMateria>();
@@ -44,6 +45,7 @@ public class NodoMateria implements java.io.Serializable{
 		
 		coloresPosibles.add(i);
 	}
+	
 	public NodoMateria(int i, boolean k) {
 		colores    = new ArrayList<Integer>();
 		adyacentes = new ArrayList<NodoMateria>();
@@ -63,6 +65,7 @@ public class NodoMateria implements java.io.Serializable{
 		this.colores.add(i);
 		this.colores.add(j);
 	}
+	
 	public void addAdyacente(NodoMateria m) {
 		this.adyacentes.add(m);
 	}
@@ -106,6 +109,4 @@ public class NodoMateria implements java.io.Serializable{
 	public NodoEstado getEstado(int i) {
 		return estados.get(i);
 	}
-	
-	
 }

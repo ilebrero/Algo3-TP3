@@ -46,7 +46,6 @@ public class GrafoPredicados extends GrafoMaterias{
 	public void generarGrafoDeEstados() {
 		grafoEstados = new ArrayList<NodoEstado>();
 		
-		
 		for (NodoMateria m : grafoMateria) {
 			generarNodosEstado(m);
 		}

@@ -115,10 +115,12 @@ public class Ejercicio1 {
 	public ArrayList<Color> solve(GrafoPredicados grafo) {
 		grafo.generarGrafoDeEstados();
 		ArrayList< Componente > componentesConexas = kosaraju(grafo);
-
+		
 		if (tieneSolucion(componentesConexas)){
 			armarGrafoDeComponentesConexas(componentesConexas);
-			return armarColoreo(componentesConexas);
+			ArrayList<Color> sol =armarColoreo(componentesConexas);
+			
+			return sol;
 		} else {
 			return null;
 		}
