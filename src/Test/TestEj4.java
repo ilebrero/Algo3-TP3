@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -14,6 +15,7 @@ import ejercicio3.Ejercicio3;
 import ejercicio4.Ejercicio4;
 import utils.Color;
 import utils.Coloreo;
+import utils.GrafoMaterias;
 import utils.Coloreo.Conflicto;
 import utils.GrafoPredicados;
 import utils.NodoMateria;
@@ -45,30 +47,13 @@ public class TestEj4 {
 		ArrayList<Coloreo> pruebas = new ArrayList<Coloreo>();
 		
 		pruebas.add(new Ejercicio4(grafo).solve());
-		//pruebas.add(new Ejercicio4(grafoRompe2).solve());
-		//pruebas.add(new Ejercicio4(this.grafoTest2()).solve());
-		Ejercicio3 ej = new Ejercicio3(grafo);
-		ej.checkColoreo();
-		
-		int [] ej3 = ej.getColoreo();
-		
-		for (int i = 0; i < pruebas.get(0).getColores().size(); ++i) {
-			System.out.println(pruebas.get(0).getColores().get(i).getColor() + " | " + ej3[i]);
-		}
-		
-		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafo).checkColoreo()); 
-		
-		mostrarConflictos(pruebas.get(0));
-		mostrarSolucion(pruebas.get(0));
-		
-		/*System.out.println("Conflictos con grafo 2:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
-		mostrarConflictos(pruebas.get(1));
-		mostrarSolucion(pruebas.get(1));
-		
-		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreo()); 
+		pruebas.add(new Ejercicio4(grafoRompe2).solve());
+		pruebas.add(new Ejercicio4(this.grafoTest2()).solve());
+		pruebas.add(new Ejercicio4(this.generarKn(1000)).solve());
+		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.generarKn(1000)).checkColoreo()); 
 		mostrarConflictos(pruebas.get(2));
 		mostrarSolucion(pruebas.get(2));
-	*/}
+	}
 
 	private void mostrarSolucion(Coloreo coloreo) {
 		for (Color c : coloreo.getColores()) {
@@ -337,4 +322,27 @@ public class TestEj4 {
 		grafo.connectMateria(27,30 , 0 , 3);
 		return grafo;
 	}
-}
+	private  GrafoPredicados generarKn(int i){
+		Random randomGenerator = new Random();
+		
+		 int aristas = 0;
+		 GrafoPredicados grafo = new GrafoPredicados();
+		   for (int j = 0; j < i; j++) {
+			  grafo.addMateria(new NodoMateria(0, true));
+		   }
+		  grafo.addMateria(new NodoMateria(1, true));
+		   for (int j = 0; j < i; j++) {
+			   for (int k = 0; k < randomGenerator.nextInt(2); k++) {
+				   if (j != k){
+//				   System.out.println("conecto " + j + "con "+ k);
+					  grafo.connectMateria(j, k);
+					  aristas++;
+				   }
+			   }
+		   }
+//		   System.out.println("Cantidad de aristas conectadas" + aristas);
+		   return grafo;
+	 }
+	}
+
+

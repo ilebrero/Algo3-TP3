@@ -68,7 +68,7 @@ public class Ejercicio4 {
 		Coloreo mejorColoreo = colores;
 		
 		for (Conflicto c : colores.getConflictos()) {	
-			
+			/*
 			System.out.println("conflicto en id: " + c.getId() + "con color: " + colores.getColores().get(c.getId()).getColor());
 			System.out.println("sus colores posibles son: ");
 			for (Integer i : grafo.getMaterias().get(c.getId()).getColoresPosibles()) System.out.print(" " + i + " -> ");
@@ -79,7 +79,7 @@ public class Ejercicio4 {
 				System.out.print( colores.getColores().get(n.getId()).getColor() + " id: " + n.getId() + " | ");
 			}
 			System.out.println();
-			
+			*/
 			ArrayList<Color> nuevosColores = new ArrayList<Color>(colores.getColores());
 			TreeSet<Integer> coloresOcupados = new TreeSet<Integer>();
 			NodoMateria nodoActual = grafo.getMateria(c.getId());
