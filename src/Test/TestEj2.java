@@ -96,14 +96,14 @@ public class TestEj2 {
 	
 	@Test
 	public void testKn() {
-		GrafoEstados grafo = generarKn(100);
+		GrafoPredicados grafo = generarKn(10);
 		Ejercicio2 ej = new Ejercicio2(grafo);
 		System.out.println(ej.solverWithBacktrack());
 		
 		 int[] ret = new int[ej.getSolucion().size()];
 		    for (int i=0; i < ret.length; i++)
 		    {
-		        ret[i] = ej.getSolucion().get(ret.length -1 - i).intValue();
+		        ret[i] = ej.getSolucion().get(ret.length -1 - i).getColor();
 		    }
 		    
 		    System.out.println("Intentos: " +ej.getIntentos());
@@ -120,37 +120,37 @@ public class TestEj2 {
 		GrafoPredicados grafo = new GrafoPredicados();
 		
 		// Rojo : 0 , Rosa : 1 , Bordo : 2, Verde : 3 ,Azul : 4
-		grafo.addMateria(new NodoMateria(1, true)); //coloreo valido :  	1
-		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :  	0
-		grafo.addMateria(new NodoMateria(2, true)); //coloreo valido :  	2
-		grafo.addMateria(new NodoMateria(2, true)); //coloreo valido :	2
-		grafo.addMateria(new NodoMateria(1, true)); //coloreo valido :	1
-		grafo.addMateria(new NodoMateria(2, true)); //coloreo valido :	2
-		grafo.addMateria(new NodoMateria(2, true)); //coloreo valido :	2
-		grafo.addMateria(new NodoMateria(1, true)); //coloreo valido :	1
-		grafo.addMateria(new NodoMateria(3, true)); //coloreo valido :	3
-		grafo.addMateria(new NodoMateria(3, true)); //coloreo valido :	3
-		grafo.addMateria(new NodoMateria(4, true)); //coloreo valido :	4
-		grafo.addMateria(new NodoMateria(4, true)); //coloreo valido :	4
-		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :	0
-		grafo.addMateria(new NodoMateria(4, true)); //coloreo valido :	4
-		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :	0
-		grafo.addMateria(new NodoMateria(2, true)); //coloreo valido :	2
-		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :	0
-		grafo.addMateria(new NodoMateria(1, true)); //coloreo valido :	1
-		grafo.addMateria(new NodoMateria(3, true)); //coloreo valido :	3
-		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :	0
-		grafo.addMateria(new NodoMateria(4, true)); //coloreo valido :	4
-		grafo.addMateria(new NodoMateria(3, true)); //coloreo valido :	3
-		grafo.addMateria(new NodoMateria(1, true)); //coloreo valido :	1
-		grafo.addMateria(new NodoMateria(1, true)); //coloreo valido :	1
-		grafo.addMateria(new NodoMateria(4, true)); //coloreo valido :	4
-		grafo.addMateria(new NodoMateria(2, true)); //coloreo valido :	2
-		grafo.addMateria(new NodoMateria(4, true)); //coloreo valido :	4
-		grafo.addMateria(new NodoMateria(0, true)); //coloreo valido :	0
-		grafo.addMateria(new NodoMateria(3, true)); //coloreo valido :	3
-		grafo.addMateria(new NodoMateria(3, true)); //coloreo valido :	3
-		grafo.addMateria(new NodoMateria(3, true)); //coloreo valido :	3
+		grafo.addMateria(new NodoMateria(1, 0,0)); //coloreo valido :  	1
+		grafo.addMateria(new NodoMateria(0, 0,0)); //coloreo valido :  	0
+		grafo.addMateria(new NodoMateria(2, 0,0)); //coloreo valido :  	2
+		grafo.addMateria(new NodoMateria(2, 0,0)); //coloreo valido :	2
+		grafo.addMateria(new NodoMateria(1, 0,0)); //coloreo valido :	1
+		grafo.addMateria(new NodoMateria(2, 0,0)); //coloreo valido :	2
+		grafo.addMateria(new NodoMateria(2, 0,0)); //coloreo valido :	2
+		grafo.addMateria(new NodoMateria(1, 0,0)); //coloreo valido :	1
+		grafo.addMateria(new NodoMateria(3, 0,0)); //coloreo valido :	3
+		grafo.addMateria(new NodoMateria(3, 0,0)); //coloreo valido :	3
+		grafo.addMateria(new NodoMateria(4, 0,0)); //coloreo valido :	4
+		grafo.addMateria(new NodoMateria(4, 0,0)); //coloreo valido :	4
+		grafo.addMateria(new NodoMateria(0, 0,0)); //coloreo valido :	0
+		grafo.addMateria(new NodoMateria(4, 0,0)); //coloreo valido :	4
+		grafo.addMateria(new NodoMateria(0, 0,0)); //coloreo valido :	0
+		grafo.addMateria(new NodoMateria(2, 0,0)); //coloreo valido :	2
+		grafo.addMateria(new NodoMateria(0, 0,0)); //coloreo valido :	0
+		grafo.addMateria(new NodoMateria(1, 0,0)); //coloreo valido :	1
+		grafo.addMateria(new NodoMateria(3, 0,0)); //coloreo valido :	3
+		grafo.addMateria(new NodoMateria(0, 0,0)); //coloreo valido :	0
+		grafo.addMateria(new NodoMateria(4, 0,0)); //coloreo valido :	4
+		grafo.addMateria(new NodoMateria(3, 0,0)); //coloreo valido :	3
+		grafo.addMateria(new NodoMateria(1, 0,0)); //coloreo valido :	1
+		grafo.addMateria(new NodoMateria(1, 0,0)); //coloreo valido :	1
+		grafo.addMateria(new NodoMateria(4, 0,0)); //coloreo valido :	4
+		grafo.addMateria(new NodoMateria(2, 0,0)); //coloreo valido :	2
+		grafo.addMateria(new NodoMateria(4, 0,0)); //coloreo valido :	4
+		grafo.addMateria(new NodoMateria(0, 0,0)); //coloreo valido :	0
+		grafo.addMateria(new NodoMateria(3, 0,0)); //coloreo valido :	3
+		grafo.addMateria(new NodoMateria(3, 0,0)); //coloreo valido :	3
+		grafo.addMateria(new NodoMateria(3, 0,0)); //coloreo valido :	3
 		
 		grafo.connectMateria(0, 1);
 		grafo.connectMateria(6, 13);
@@ -213,18 +213,17 @@ public class TestEj2 {
 		return grafo;
 		}
 
-	public  GrafoEstados generarKn(int i){
-	 	   GrafoEstados grafo = new GrafoEstados();
+	public  GrafoPredicados generarKn(int i){
+	 	   GrafoPredicados grafo = new GrafoPredicados();
 	 	   for (int j = 0; j < i; j++) {
-	 		  grafo.addMateria(new NodoMateria(0, true));
+	 		  grafo.addMateria(new NodoMateria(0,0,0));
 	 	   }
-	 	  grafo.addMateria(new NodoMateria(1, true));
 	 	   for (int j = 0; j < i; j++) {
 	 		   for (int k = 0; k < i; k++) {
-//	 			   if (Math.abs(j-k) != 1){
-	 			   System.out.println("conecto " + i + "con "+ j);
+	 			   if (j != k){
+	 			   System.out.println("conecto " + j + "con "+ k);
 	 				  grafo.connectMateria(j, k);
-//	 			   }
+	 			   }
 	 		   }
 	 	   }
 	 	   return grafo;
