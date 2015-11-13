@@ -21,7 +21,7 @@ public class Generador{
 					conectados[n1][n2] = true;
 					conectados[n2][n1] = true;
 					
-					g.connectMateria(n1, n1);
+					g.connectMateria(n1, n2);
 					cantidadConexiones--;
 				}
 			}

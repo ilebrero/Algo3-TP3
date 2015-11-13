@@ -1,5 +1,7 @@
 package Test;
 
+import static org.junit.Assert.*;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import ejercicio1.Ejercicio1;
 import ejercicio3.Ejercicio3;
 import ejercicio4.Ejercicio4;
 import utils.Color;
@@ -23,7 +26,7 @@ public class TestEj4 {
 		
 	}
 	
-	@Test
+	//@Test
 	public void test() {
 	/*try
       {
@@ -42,22 +45,30 @@ public class TestEj4 {
 		ArrayList<Coloreo> pruebas = new ArrayList<Coloreo>();
 		
 		pruebas.add(new Ejercicio4(grafo).solve());
-		pruebas.add(new Ejercicio4(grafoRompe2).solve());
-		pruebas.add(new Ejercicio4(this.grafoTest2()).solve());
-	
+		//pruebas.add(new Ejercicio4(grafoRompe2).solve());
+		//pruebas.add(new Ejercicio4(this.grafoTest2()).solve());
+		Ejercicio3 ej = new Ejercicio3(grafo);
+		ej.checkColoreo();
+		
+		int [] ej3 = ej.getColoreo();
+		
+		for (int i = 0; i < pruebas.get(0).getColores().size(); ++i) {
+			System.out.println(pruebas.get(0).getColores().get(i).getColor() + " | " + ej3[i]);
+		}
+		
 		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafo).checkColoreo()); 
 		
 		mostrarConflictos(pruebas.get(0));
 		mostrarSolucion(pruebas.get(0));
 		
-		System.out.println("Conflictos con grafo 2:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
+		/*System.out.println("Conflictos con grafo 2:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
 		mostrarConflictos(pruebas.get(1));
 		mostrarSolucion(pruebas.get(1));
 		
 		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreo()); 
 		mostrarConflictos(pruebas.get(2));
 		mostrarSolucion(pruebas.get(2));
-	}
+	*/}
 
 	private void mostrarSolucion(Coloreo coloreo) {
 		for (Color c : coloreo.getColores()) {
@@ -86,6 +97,25 @@ public class TestEj4 {
 	}*/
 
 
+	@Test
+	public void experimentoColoresAleatorios() {
+		GrafoPredicados grafo = new GrafoPredicados();
+		
+		ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(9, 20, 6);
+
+		for (NodoMateria n : nodos) {
+			grafo.addMateria(n);
+		}
+
+		Generador.generarConexiones(grafo, 100);
+		
+		ArrayList<Coloreo> pruebas = new ArrayList<Coloreo>();
+		pruebas.add(new Ejercicio4(grafo).solve());
+		
+		mostrarConflictos(pruebas.get(0));
+		mostrarSolucion(pruebas.get(0));
+	}
+	
 	private GrafoPredicados grafoTest2(){
 		GrafoPredicados grafo = new GrafoPredicados();
 		int i = 0;
