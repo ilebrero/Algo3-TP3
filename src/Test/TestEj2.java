@@ -128,22 +128,36 @@ public class TestEj2 {
 	
 	@Test
 	public void testKn() {
-		GrafoPredicados grafo = generarKn(10);
-		Ejercicio2 ej = new Ejercicio2(grafo);
-		System.out.println(ej.solverWithBacktrack());
 		
-		 int[] ret = new int[ej.getSolucion().size()];
-		    for (int i=0; i < ret.length; i++)
-		    {
-		        ret[i] = ej.getSolucion().get(ret.length -1 - i).getColor();
-		    }
-		    
-		    System.out.println("Intentos: " +ej.getIntentos());
-		    System.out.println("Pode con la 1: " +ej.getPoda1());
-		System.out.println("conflictos : " +grafo.findConflicts(ret));
-		for (int i = 0; i < grafo.getMaterias().size(); i++) {
-			System.out.print(ej.getSolucion().get(i)+",");
+		for (int i = 0; i < 100; i++) {
+			GrafoPredicados grafo = generarKn(4);
+			Ejercicio2 ej = new Ejercicio2(grafo);
+			ej.solverWithBacktrack();
 		}
+		
+		for (int i = 0; i < 10000; i++) {
+			GrafoPredicados grafo = generarKn(i);
+			Ejercicio2 ej = new Ejercicio2(grafo);
+			double tiempo = System.nanoTime();
+			ej.solverWithBacktrack();
+			tiempo = (System.nanoTime() - tiempo)/1000;
+			System.out.println(ej.getPoda1()+";");
+		}
+		
+		
+		
+//		 int[] ret = new int[ej.getSolucion().size()];
+//		    for (int i=0; i < ret.length; i++)
+//		    {
+//		        ret[i] = ej.getSolucion().get(ret.length -1 - i).getColor();
+//		    }
+//		    
+//		    System.out.println("Intentos: " +ej.getIntentos());
+//		    System.out.println("Pode con la 1: " +ej.getPoda1());
+//		System.out.println("conflictos : " +grafo.findConflicts(ret));
+//		for (int i = 0; i < grafo.getMaterias().size(); i++) {
+//			System.out.print(ej.getSolucion().get(i)+",");
+//		}
 	}
 	
 
@@ -248,12 +262,12 @@ public class TestEj2 {
 	public  GrafoPredicados generarKn(int i){
 	 	   GrafoPredicados grafo = new GrafoPredicados();
 	 	   for (int j = 0; j < i; j++) {
-	 		  grafo.addMateria(new NodoMateria(0,0,0));
+	 		  grafo.addMateria(new NodoMateria(i,0,0));
 	 	   }
 	 	   for (int j = 0; j < i; j++) {
 	 		   for (int k = 0; k < i; k++) {
 	 			   if (j != k){
-	 			   System.out.println("conecto " + j + "con "+ k);
+//	 			   System.out.println("conecto " + j + "con "+ k);
 	 				  grafo.connectMateria(j, k);
 	 			   }
 	 		   }

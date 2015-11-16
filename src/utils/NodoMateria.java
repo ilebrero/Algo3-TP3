@@ -50,7 +50,7 @@ public class NodoMateria implements java.io.Serializable{
 		coloresPosibles = new ArrayList<Integer>();
 		Random randomGenerator = new Random();
 //		randomGenerator.nextInt(3) + 1
-		for(int j = 0; j < 11 ; j++){
+		for(int j = 0; j < i+1 ; j++){
 			this.coloresPosibles.add(j);
 		}
 		this.coloresPosibles.add(i);
@@ -65,7 +65,7 @@ public class NodoMateria implements java.io.Serializable{
 //		int l = randomGenerator.nextInt(1000);
 //		int p = randomGenerator.nextInt(1000);
 		int l = 0;
-		int p = 50;
+		int p = 500;
 		for(int j = Math.min(l, p) ; j < Math.max(l, p); j++){
 			this.colores.add(randomGenerator.nextInt(p));
 //			this.colores.add(j);

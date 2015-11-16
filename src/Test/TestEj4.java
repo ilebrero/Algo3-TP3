@@ -2,8 +2,10 @@ package Test;
 
 import static org.junit.Assert.*;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,8 +40,9 @@ public class TestEj4 {
 		double tiempoFinal = 0;
 		Ejercicio4 ej;
 		int conflictos1 = i;
+		GrafoPredicados grafo = generarKn(i);
 		for (int j = 0; j < 3; j++) {
-			ej  = new Ejercicio4(generarKn(i));
+			ej  = new Ejercicio4(grafo);
 			double tiempo = System.nanoTime();
 //			ej.solve();
 			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve()));
@@ -49,7 +52,7 @@ public class TestEj4 {
 		tiempoFinal = 0;
 		conflictos1 = i;
 		for (int j = 0; j < 3; j++) {
-			ej  = new Ejercicio4(generarKn(i));
+			ej  = new Ejercicio4(grafo);
 			double tiempo = System.nanoTime();
 //			ej.solve2();
 			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve2()));
@@ -59,14 +62,109 @@ public class TestEj4 {
 		tiempoFinal = 0;
 		conflictos1 = i;
 		for (int j = 0; j < 3; j++) {
-			ej  = new Ejercicio4(generarKn(i));
+			ej  = new Ejercicio4(grafo);
 			double tiempo = System.nanoTime();
 //			ej.solve3();
 			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve3()));
 			tiempoFinal += (System.nanoTime() - tiempo)/1000;
 		}
 		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+		conflictos1 = Integer.MAX_VALUE;
+		tiempoFinal = 0;
+		for (int j = 0; j < 3; j++) {
+			double tiempo = System.nanoTime();
+			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreo());
+			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+		}
+		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+		conflictos1 = Integer.MAX_VALUE;
+		tiempoFinal = 0;
+		for (int j = 0; j < 3; j++) {
+			double tiempo = System.nanoTime();
+			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreoV2());
+			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+		}
+		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+		conflictos1 = Integer.MAX_VALUE;
+		tiempoFinal = 0;
+		for (int j = 0; j < 3; j++) {
+			double tiempo = System.nanoTime();
+			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreoV3());
+			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+		}
+		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+		
 		System.out.println();
+		
+	}
+	}
+	
+	
+//	@Test
+	public void tp2() throws ClassNotFoundException{
+//		for(int i = 1 ; i <= 50001; i += 1000){
+//			Ejercicio3 ej  = new Ejercicio3(generarKn(1000));
+//		}
+	for(int i = 1 ; i <= 50001; i += 1000){
+		GrafoPredicados grafo = generarKn(i); 
+//		try
+//	      {
+//	         FileOutputStream fileOut =
+//	         new FileOutputStream(System.getProperty("user.dir") + "/src/grafos/ej4_grafo.ser");
+//	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//	         out.writeObject(grafo);
+//	         out.close();
+//	         fileOut.close();
+//
+//	      }catch(IOException e)
+//	      {
+//	          e.printStackTrace();
+//	      }
+		
+		
+		
+		
+		double tiempoFinal = 0;
+		Ejercicio4 ej;
+		int conflictos1 = Integer.MAX_VALUE;
+		for (int j = 0; j < 3; j++) {
+			ej  = new Ejercicio4(grafo);
+			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve()));
+		}
+		System.out.print(conflictos1+";");
+		tiempoFinal = 0;
+		conflictos1 = Integer.MAX_VALUE;
+		for (int j = 0; j < 3; j++) {
+			ej  = new Ejercicio4(grafo);
+			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve2()));
+		}
+		System.out.print(conflictos1+";");
+		tiempoFinal = 0;
+//		conflictos1 = i;
+//		for (int j = 0; j < 3; j++) {
+//			ej  = new Ejercicio4(grafo);
+//			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve3()));
+//		}
+//		System.out.print(conflictos1+";");
+		conflictos1 = Integer.MAX_VALUE;
+		for (int j = 0; j < 3; j++) {
+			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreo());
+		}
+		System.out.print(conflictos1+";");
+		conflictos1 = Integer.MAX_VALUE;
+		for (int j = 0; j < 3; j++) {
+			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreoV2());
+		}
+		System.out.print(conflictos1+";");
+		conflictos1 = Integer.MAX_VALUE;
+//		for (int j = 0; j < 3; j++) {
+//			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreoV3());
+//		}
+//		System.out.print(conflictos1+";");
+		
+		System.out.println();
+
+
 		
 	}
 	}
@@ -128,7 +226,7 @@ public class TestEj4 {
 	}*/
 
 
-	@Test
+//	@Test
 	public void experimentoColoresAleatorios() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		
@@ -145,6 +243,22 @@ public class TestEj4 {
 		
 		mostrarConflictos(pruebas.get(0));
 		mostrarSolucion(pruebas.get(0));
+	}
+	
+	private GrafoPredicados grafoActual() throws ClassNotFoundException{
+		try
+	      {
+	         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej4_grafo.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         GrafoPredicados grafo = (GrafoPredicados) in.readObject();
+	         in.close();
+	         fileIn.close();
+	      }catch(IOException i)
+	      {
+	         i.printStackTrace();
+	         
+	      }
+		return grafo;
 	}
 	
 	private GrafoPredicados grafoTest2(){
