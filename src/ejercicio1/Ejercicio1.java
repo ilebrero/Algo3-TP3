@@ -118,7 +118,7 @@ public class Ejercicio1 {
 		
 		if (tieneSolucion(componentesConexas)){
 			armarGrafoDeComponentesConexas(componentesConexas);
-			ArrayList<Color> sol =armarColoreo(componentesConexas);
+			ArrayList<Color> sol = armarColoreo(componentesConexas);
 			
 			return sol;
 		} else {

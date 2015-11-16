@@ -31,7 +31,7 @@ public class TestEj3 {
 		
 	}
 	
-		@Test
+	//	@Test
 	public void test() throws ClassNotFoundException {
 //		try
 //	      {
@@ -142,7 +142,7 @@ public class TestEj3 {
 //		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreoV2()); 
 //		System.out.println("Conflictos con grafo k200 :" + new Ejercicio3(kn).checkColoreoV2());
 	}
-	@Test
+	//@Test
 	public void test2() {
 		
 	}
@@ -369,26 +369,94 @@ private GrafoMaterias crearGrafoRompe2(){
 	grafo.connectMateria(27,30 , 0 , 3);
 	return grafo;
 	}
-private  GrafoMaterias generarKn(int i){
-	Random randomGenerator = new Random();
-	
-	 int aristas = 0;
-	   GrafoMaterias grafo = new GrafoMaterias();
-	   for (int j = 0; j < i; j++) {
-		  grafo.addMateria(new NodoMateria(0, true));
-	   }
-	  grafo.addMateria(new NodoMateria(1, true));
-	   for (int j = 0; j < i; j++) {
-		   for (int k = randomGenerator.nextInt(j + 1); k < randomGenerator.nextInt(j + 1); k++) {
-			   if (j != k){
-//			   System.out.println("conecto " + j + "con "+ k);
-				  grafo.connectMateria(j, k);
-				  aristas++;
+
+	private  GrafoMaterias generarKn(int i){
+		Random randomGenerator = new Random();
+		
+		 int aristas = 0;
+		   GrafoMaterias grafo = new GrafoMaterias();
+		   for (int j = 0; j < i; j++) {
+			  grafo.addMateria(new NodoMateria(0, true));
+		   }
+		  grafo.addMateria(new NodoMateria(1, true));
+		   for (int j = 0; j < i; j++) {
+			   for (int k = randomGenerator.nextInt(j + 1); k < randomGenerator.nextInt(j + 1); k++) {
+				   if (j != k){
+	//			   System.out.println("conecto " + j + "con "+ k);
+					  grafo.connectMateria(j, k);
+					  aristas++;
+				   }
 			   }
 		   }
-	   }
-//	   System.out.println("Cantidad de aristas conectadas" + aristas);
-	   return grafo;
- }
+	//	   System.out.println("Cantidad de aristas conectadas" + aristas);
+		   return grafo;
+	}
+	
+	//@Test
+	public void testCrecimientoNodosSinConexiones() {
+		for (int i = 1; i < 20000; ++i) {
+			double tiempoFinal = 0;
+			Ejercicio3 ej;
+			int conflictos1 = i;
+			
+			for (int j = 0; j < 3; j++) {
+				GrafoPredicados grafo = new GrafoPredicados();
+				int cantidadNodos = (int) (/*Math.random() * 100 **/ i);
+				int colores = (int) (/*Math.random() * 100 **/ i);
+				int cantidadColores = (int) (/*Math.random() * 100 **/ i);
+				int cantidadConexiones = (int) (/*Math.random() * 300 **/ i);
+				
+				ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(colores, cantidadNodos, cantidadColores);
+				for (NodoMateria n : nodos) {
+					grafo.addMateria(n);
+				}
+			
+				ej  = new Ejercicio3(grafo);
+				tiempoFinal = 0;
+				double tiempo = System.nanoTime();
+				conflictos1 = Math.min(conflictos1, ej.checkColoreo());
+				tiempoFinal += (System.nanoTime() - tiempo)/1000;
+				
+				System.out.println(tiempoFinal);
+			}
+			
+		}
+	}
+	
+	@Test
+	public void testCrecimientoNodosConConexiones() {
+		for (int i = 1; i < 2000; ++i) {
+			double tiempoFinal = 0;
+			Ejercicio3 ej;
+			int conflictos1 = i;
+			
+			for (int j = 0; j < 3; j++) {
+				GrafoPredicados grafo = new GrafoPredicados();
+				int cantidadNodos = (int) (/*Math.random() * 100 **/ i);
+				int colores = (int) (/*Math.random() * 100 **/ i);
+				int cantidadColores = (int) (/*Math.random() * 100 **/ i);
+				int cantidadConexiones = (int) (/*Math.random() * 300 **/ i * 20);
+
+				ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(colores, cantidadNodos, cantidadColores);
+				for (NodoMateria n : nodos) {
+					grafo.addMateria(n);
+				}
+				
+				Generador g = new Generador();
+				
+				System.out.println(grafo.hashCode());
+				g.generarConexiones(grafo, cantidadConexiones, 50);
+				/*
+				ej  = new Ejercicio3(grafo);
+				tiempoFinal = 0;
+				double tiempo = System.nanoTime();
+				conflictos1 = Math.min(conflictos1, ej.checkColoreo());
+				tiempoFinal += (System.nanoTime() - tiempo)/1000;
+				
+				System.out.println(tiempoFinal);
+	*/		}
+			
+		}
+	}
 }
 

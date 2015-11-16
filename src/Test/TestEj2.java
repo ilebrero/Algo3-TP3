@@ -104,7 +104,7 @@ public class TestEj2 {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void test2() {
 		GrafoPredicados grafo = crearGrafoRompe2();
 		Ejercicio2 ej = new Ejercicio2(grafo);
@@ -133,13 +133,14 @@ public class TestEj2 {
 			ej.solverWithBacktrack();
 		}
 		
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 1000; i++) {
 			GrafoPredicados grafo = generarKn(i);
 			Ejercicio2 ej = new Ejercicio2(grafo);
 			double tiempo = System.nanoTime();
 			ej.solverWithBacktrack();
 			tiempo = (System.nanoTime() - tiempo)/1000;
-			System.out.println(ej.getPoda1()+";");
+			//System.out.println(ej.getPoda1()+";");
+			System.out.println(tiempo);
 		}
 		
 		

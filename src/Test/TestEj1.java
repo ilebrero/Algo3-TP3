@@ -1,14 +1,9 @@
 package Test;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.TreeSet;
-
 import org.junit.Test;
 
 import ejercicio1.Ejercicio1;
-import ejercicio2.Ejercicio2;
 import utils.Color;
 import utils.Coloreo;
 import utils.Componente;
@@ -161,13 +156,43 @@ public class TestEj1 {
 		grafo.connectMateria(5, 4);
 		grafo.connectMateria(6, 7);
 		*/
-		Generador.generarConexiones(grafo, 9);
+		Generador g = new Generador();
+		g.generarConexiones(grafo, 9, 50);
 		
 		Ejercicio1 ej = new Ejercicio1(grafo.size());
 		
 		ArrayList<Color> solucion = ej.solve(grafo);
 		
 		mostrarResultado(solucion);
+	}
+	
+	@Test
+	public void experimentoNodosCrecientesSinConexiones() {
+		for (int inodos = 1; inodos < 10000; ++inodos) {
+			GrafoPredicados grafo = new GrafoPredicados();
+			
+			ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(2, inodos, 3);
+
+			for (NodoMateria n : nodos) {
+				grafo.addMateria(n);
+			}
+			
+			Ejercicio1 ej = new Ejercicio1(grafo.size());
+			
+			ArrayList<Color> solucion = ej.solve(grafo);
+			
+			//mostrarResultado(solucion);
+		}
+	}
+	
+	@Test
+	public void experimentoEjesCrecientes() {
+		
+	}
+	
+	@Test
+	public void experimentoColoresCrecientes() {
+		
 	}
 	
 	private void mostrarComponentes(ArrayList<Componente> resultado) {

@@ -16,7 +16,7 @@ public class GrafoMaterias implements java.io.Serializable {
 	public void addMateria(NodoMateria m) {
 		int id = grafoMateria.size();
 		m.setId(id);
-		
+
 		grafoMateria.add(m);
 	}
 	
