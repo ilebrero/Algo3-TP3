@@ -26,6 +26,48 @@ public class TestEj4 {
 	}
 	
 	@Test
+	public void tp(){
+		for(int i = 1 ; i <= 50001; i += 1000){
+			Ejercicio3 ej  = new Ejercicio3(generarKn(1000));
+		}
+	for(int i = 1 ; i <= 50001; i += 1000){
+		double tiempoFinal = 0;
+		Ejercicio4 ej;
+		int conflictos1 = i;
+		for (int j = 0; j < 3; j++) {
+			ej  = new Ejercicio4(generarKn(i));
+			double tiempo = System.nanoTime();
+//			ej.solve();
+			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve()));
+			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+		}
+		System.out.print(Math.round((tiempoFinal/ 3))+";"+conflictos1+";");
+		tiempoFinal = 0;
+		conflictos1 = i;
+		for (int j = 0; j < 3; j++) {
+			ej  = new Ejercicio4(generarKn(i));
+			double tiempo = System.nanoTime();
+//			ej.solve2();
+			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve2()));
+			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+		}
+		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+		tiempoFinal = 0;
+		conflictos1 = i;
+		for (int j = 0; j < 3; j++) {
+			ej  = new Ejercicio4(generarKn(i));
+			double tiempo = System.nanoTime();
+//			ej.solve3();
+			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve3()));
+			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+		}
+		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+		System.out.println();
+		
+	}
+	}
+	
+//	@Test
 	public void test() {
 	/*try
       {
@@ -72,7 +114,10 @@ public class TestEj4 {
 		System.out.println();
 		
 	}
-	
+	private int cantidadConflictos(Coloreo coloreo) {
+		return coloreo.cantidadDeConflictos();
+		
+	}
 	private void mostrarConflictos(Coloreo coloreo) {
 		System.out.println("conflictos: " + coloreo.cantidadDeConflictos());
 		System.out.println("son: " + coloreo.getConflictos().size());
@@ -322,8 +367,8 @@ public class TestEj4 {
 			  grafo.addMateria(new NodoMateria(0, true));
 		   }
 		  grafo.addMateria(new NodoMateria(1, true));
-		   for (int j = 0; j < i; j++) {
-			   for (int k = 0; k < randomGenerator.nextInt(2); k++) {
+		  for (int j = 0; j < i; j++) {
+			   for (int k = randomGenerator.nextInt(j + 1); k < randomGenerator.nextInt(j + 1); k++) {
 				   if (j != k){
 //				   System.out.println("conecto " + j + "con "+ k);
 					  grafo.connectMateria(j, k);

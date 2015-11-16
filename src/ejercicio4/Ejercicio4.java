@@ -39,6 +39,42 @@ public class Ejercicio4 {
 			return resolve(coloreoActual);
 		}
 	}
+	public Coloreo solve2() {
+		ArrayList<Color> colores = new ArrayList<Color>(); 
+		ej3.solve2();
+		int [] vectorColores = ej3.getColoreo();
+		
+		for (int i = 0; i < vectorColores.length; ++i) {
+			Color actual = new Color(vectorColores[i], i);
+			colores.add(actual);
+		}
+		
+		coloreoActual = new Coloreo(grafo, colores);
+		
+		if (coloreoActual.esValido()) {
+			return coloreoActual;
+		} else {
+			return resolve(coloreoActual);
+		}
+	}
+	public Coloreo solve3() {
+		ArrayList<Color> colores = new ArrayList<Color>(); 
+		ej3.solve3();
+		int [] vectorColores = ej3.getColoreo();
+		
+		for (int i = 0; i < vectorColores.length; ++i) {
+			Color actual = new Color(vectorColores[i], i);
+			colores.add(actual);
+		}
+		
+		coloreoActual = new Coloreo(grafo, colores);
+		
+		if (coloreoActual.esValido()) {
+			return coloreoActual;
+		} else {
+			return resolve(coloreoActual);
+		}
+	}
 
 	private Coloreo resolve(Coloreo colores) {
 		int noCambio = 0;

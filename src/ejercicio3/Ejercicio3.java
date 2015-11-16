@@ -1,5 +1,7 @@
 package ejercicio3;
 
+import java.util.Collections;
+
 import utils.GrafoMaterias;
 import utils.NodoMateria;
 
@@ -29,6 +31,11 @@ public class Ejercicio3 {
 	
 	public int checkColoreoV2() {
 		this.solve2();
+		return grafo.findConflicts(coloreo);
+	}
+	
+	public int checkColoreoV3() {
+		this.solve3();
 		return grafo.findConflicts(coloreo);
 	}
 	
@@ -113,6 +120,70 @@ public class Ejercicio3 {
 					}
 					if (posibilidades > mayorPosibilidad){
 						colorFactible = color;
+					}
+				}
+				if (! seteeColor){
+					// El goloso se encuentra con un conflicto.
+					// Seteo el ultimo color.
+					coloreo[materia.getId()] = colorFactible;
+					conflictos++;
+				}
+			}
+		}
+		for(int i = 0 ; i < coloreo.length ; i++){
+			//	System.out.println("Pinto al nodo " + i + "con el color: "+ coloreo[i]);
+			}
+		return conflictos;
+	}
+	
+	public int solve3(){
+		for (NodoMateria materia : grafo.getMaterias()) {
+			if (materia.getColores().size() == 1){
+				coloreo[materia.getId()] = materia.getColores().get(0);
+				for (NodoMateria vecino :materia.getAdyacentes()){
+					if (coloreo[vecino.getId()] == materia.getColor(0)){
+						conflictos++;
+						//System.out.println("Hubo conflicto " + materia.getId() + "con el color: "+ coloreo[materia.getId()]);
+					}
+				}
+			} else {
+				boolean seteeColor = false; int colorFactible = 0;
+				int i; int color; int posibilidades;int mayorPosibilidad = -1;
+				int posiblesColores = 0; boolean tomeMuestra = false;
+				Collections.shuffle(materia.getColores());
+				for(i = 0 ; i < materia.getColores().size() && ! tomeMuestra;i++){
+					posibilidades = 0;
+					boolean colorValido = true;
+					color =  materia.getColores().get(i);
+					for (NodoMateria vecino :materia.getAdyacentes()){
+						if (coloreo[vecino.getId()] == -1){
+							if(vecino.getColores().size() == 1 && vecino.getColores().contains(color)){
+								colorValido = false;
+							}
+							if (! vecino.getColores().contains(color)){
+								posibilidades += vecino.getColores().size();
+							} else {
+								posibilidades += vecino.getColores().size() - 1;
+							}
+						} else {
+							if (coloreo[vecino.getId()] == color){
+								colorValido = false;
+							}
+						}
+					
+					}
+					if (colorValido && posibilidades > mayorPosibilidad){
+						mayorPosibilidad = posibilidades;
+						coloreo[materia.getId()] = color;
+						seteeColor = true;
+						
+					}
+					if (posibilidades > mayorPosibilidad){
+						colorFactible = color;
+					}
+					posiblesColores++;
+					if(seteeColor && posiblesColores >Math.round(materia.getColores().size() * 0.2)){
+						tomeMuestra = true;
 					}
 				}
 				if (! seteeColor){

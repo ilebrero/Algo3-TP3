@@ -2,8 +2,10 @@ package Test;
 
 import static org.junit.Assert.*;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,37 +20,127 @@ import utils.Serializar;
 
 
 public class TestEj3 {
-	private GrafoMaterias grafo =  crearGrafo();
-	private GrafoMaterias grafoRompe2 =  crearGrafoRompe2();
+//	private GrafoMaterias grafo =  crearGrafo();
+	private GrafoMaterias grafo;
+//	private GrafoMaterias grafoRompe2 =  crearGrafoRompe2();
+	private GrafoMaterias grafoRompe2;
+	private GrafoMaterias grafo2Test;
 	private GrafoMaterias kn = generarKn(30000);
+//	private GrafoMaterias kn;
 	public TestEj3(){
 		
 	}
 	
 		@Test
-	public void test() {
-		/*try
-	      {
-	         FileOutputStream fileOut =
-	         new FileOutputStream("/home/dfixel/workspace/Algo3-TP3/src/grafos/grafo-ej3.ser");
-	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(grafo);
-	         out.close();
-	         fileOut.close();
-
-	      }catch(IOException i)
-	      {
-	          i.printStackTrace();
-	      }
-	  */
-		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafo).checkColoreo()); 
-		System.out.println("Conflictos con grafo 2:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
-		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreo()); 
-		System.out.println("Conflictos con grafo k200 :" + new Ejercicio3(kn).checkColoreo()); 
-		System.out.println("Conflictos con grafo 1 :" + new Ejercicio3(grafo).checkColoreoV2()); 
-		System.out.println("Conflictos con grafo 2 :" + new Ejercicio3(grafoRompe2).checkColoreoV2()); 
-		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreoV2()); 
-		System.out.println("Conflictos con grafo k200 :" + new Ejercicio3(kn).checkColoreoV2());
+	public void test() throws ClassNotFoundException {
+//		try
+//	      {
+//	         FileOutputStream fileOut =
+//	         new FileOutputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafoKn.ser");
+//	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//	         out.writeObject(kn);
+//	         out.close();
+//	         fileOut.close();
+//
+//	      }catch(IOException i)
+//	      {
+//	          i.printStackTrace();
+//	      }
+	  
+			try
+		      {
+		         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafo.ser");
+		         ObjectInputStream in = new ObjectInputStream(fileIn);
+		         grafo = (GrafoMaterias) in.readObject();
+		         in.close();
+		         fileIn.close();
+		      }catch(IOException i)
+		      {
+		         i.printStackTrace();
+		         return;
+		      }
+			try
+		      {
+		         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafo2Test.ser");
+		         ObjectInputStream in = new ObjectInputStream(fileIn);
+		         grafo2Test = (GrafoMaterias) in.readObject();
+		         in.close();
+		         fileIn.close();
+		      }catch(IOException i)
+		      {
+		         i.printStackTrace();
+		         return;
+		      }
+			try
+		      {
+		         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafoRompe2.ser");
+		         ObjectInputStream in = new ObjectInputStream(fileIn);
+		         grafoRompe2 = (GrafoMaterias) in.readObject();
+		         in.close();
+		         fileIn.close();
+		      }catch(IOException i)
+		      {
+		         i.printStackTrace();
+		         return;
+		      }
+//			try
+//		      {
+//		         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafoKn.ser");
+//		         ObjectInputStream in = new ObjectInputStream(fileIn);
+//		         kn = (GrafoMaterias) in.readObject();
+//		         in.close();
+//		         fileIn.close();
+//		      }catch(IOException i)
+//		      {
+//		         i.printStackTrace();
+//		         return;
+//		      }
+			
+			for(int i = 1 ; i <= 50001; i += 1000){
+				Ejercicio3 ej  = new Ejercicio3(generarKn(1000));
+			}
+		for(int i = 1 ; i <= 50001; i += 1000){
+			double tiempoFinal = 0;
+			Ejercicio3 ej;
+			int conflictos1 = i;
+			for (int j = 0; j < 3; j++) {
+				ej  = new Ejercicio3(generarKn(i));
+				double tiempo = System.nanoTime();
+				conflictos1 = Math.min(conflictos1, ej.checkColoreo());
+				tiempoFinal += (System.nanoTime() - tiempo)/1000;
+			}
+			System.out.print(Math.round((tiempoFinal/ 3))+";"+conflictos1+";");
+			tiempoFinal = 0;
+			conflictos1 = i;
+			for (int j = 0; j < 3; j++) {
+				ej  = new Ejercicio3(generarKn(i));
+				double tiempo = System.nanoTime();
+				conflictos1 = Math.min(conflictos1, ej.checkColoreoV2());
+				tiempoFinal += (System.nanoTime() - tiempo)/1000;
+			}
+			System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+			tiempoFinal = 0;
+			conflictos1 = i;
+			for (int j = 0; j < 3; j++) {
+				ej  = new Ejercicio3(generarKn(i));
+				double tiempo = System.nanoTime();
+				conflictos1 = Math.min(conflictos1, ej.checkColoreoV3());
+				tiempoFinal += (System.nanoTime() - tiempo)/1000;
+			}
+			System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+			System.out.println();
+			
+		}
+			
+			
+//		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafo).checkColoreo()); 
+//		System.out.println("Conflictos con grafo 2:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
+//		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreo()); 
+//		System.out.println("Conflictos con grafo k200 :" + new Ejercicio3(kn).checkColoreo()); 
+//		System.out.println("Conflictos con grafo 1 :" + new Ejercicio3(grafo).checkColoreoV2()); 
+//		System.out.println("Conflictos con grafo 2 :" + new Ejercicio3(grafoRompe2).checkColoreoV2()); 
+//		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreoV2()); 
+//		System.out.println("Conflictos con grafo k200 :" + new Ejercicio3(kn).checkColoreoV2());
 	}
 	@Test
 	public void test2() {
@@ -295,7 +387,7 @@ private  GrafoMaterias generarKn(int i){
 			   }
 		   }
 	   }
-	   System.out.println("Cantidad de aristas conectadas" + aristas);
+//	   System.out.println("Cantidad de aristas conectadas" + aristas);
 	   return grafo;
  }
 }

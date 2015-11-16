@@ -61,7 +61,7 @@ public class Coloreo {
 			}
 			
 			if (!conflictosActuales.isEmpty()) {
-				System.out.println("agrego a " + n.getId());
+//				System.out.println("agrego a " + n.getId());
 				Conflicto actual = new Conflicto(n.getId(), conflictosActuales);
 				conflictos.add(actual);
 				esValido = false;
