@@ -1,16 +1,12 @@
 package Test;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 import org.junit.Test;
 
 import utils.GrafoPredicados;
 import utils.Color;
-import utils.GrafoMaterias;
 import utils.NodoMateria;
-import ejercicio1.Ejercicio1;
 import ejercicio2.Ejercicio2;
 
 public class TestEj2 {
@@ -69,7 +65,9 @@ public class TestEj2 {
 		grafo.connectMateria(5, 4);
 		grafo.connectMateria(6, 7);*/
 		
-		Generador.generarConexiones(grafo, 10);
+		Generador g = new Generador();
+		
+		g.generarConexiones(grafo, 10, 50);
 		
 		Ejercicio2 ej = new Ejercicio2(grafo);
 		

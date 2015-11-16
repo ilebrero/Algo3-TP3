@@ -138,7 +138,8 @@ public class TestEj4 {
 			grafo.addMateria(n);
 		}
 
-		Generador.generarConexiones(grafo, 100);
+		Generador g = new Generador();
+		g.generarConexiones(grafo, 100, 50);
 		
 		ArrayList<Coloreo> pruebas = new ArrayList<Coloreo>();
 		pruebas.add(new Ejercicio4(grafo).solve());

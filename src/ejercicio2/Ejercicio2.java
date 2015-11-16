@@ -45,8 +45,6 @@ public class Ejercicio2 {
 			}
 		}
 		
-		
-		
 		if (nodos.isEmpty()){
 			return (solucion = ejercicio1.solve(grafo)) != null;
 		} else {
@@ -62,6 +60,9 @@ public class Ejercicio2 {
 		
 		if (poda2(materia) != -1){
 			System.out.println("encontre una excelente poda");
+			while (true) {
+			 int i;	
+			}
 			materia.setColor(materia.getColores().get(i)); // Seteo el color de backtrack
 			if (materiasColores.size() == 0){
 				if ((solucion = ejercicio1.solve(grafo)) != null){
@@ -183,18 +184,12 @@ public class Ejercicio2 {
 			coloresVecinos.addAll(materiaVecina.getColores());
 		}
 		
-		coloresPosibles.retainAll(coloresVecinos);
-		if (coloresPosibles.size() == materia.getColores().size()){
+		coloresPosibles.removeAll(coloresVecinos);
+		if (coloresPosibles.size() == 0){
 			return -1;
 		} else {
-			for (int i = 0; i < materia.getColores().size(); i++) {
-				if (!coloresPosibles.contains(materia.getColores().get(i))){
-					return materia.getColores().get(i);
-				}
-			}
+			return coloresPosibles.get(0);
 		}
-		
-		return -1;
 	}
 	
 	
