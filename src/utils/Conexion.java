@@ -1,6 +1,6 @@
 package utils;
 
-public class Conexion {
+public class Conexion implements java.io.Serializable{
 	private int m1, m2;
 
 	public Conexion(int m1, int m2) {

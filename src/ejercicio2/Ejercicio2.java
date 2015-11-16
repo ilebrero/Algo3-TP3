@@ -36,7 +36,7 @@ public class Ejercicio2 {
 		
 		for (NodoMateria nodoMateria : grafo.getMaterias()) {
 			if (nodoMateria.getColoresPosibles().size() > 2){
-				Collections.shuffle(nodoMateria.getColoresPosibles());
+//				Collections.shuffle(nodoMateria.getColoresPosibles());
 				nodos.add(nodoMateria);
 			} else {
 				for(int color : nodoMateria.getColoresPosibles()){
@@ -48,7 +48,7 @@ public class Ejercicio2 {
 		if (nodos.isEmpty()){
 			return (solucion = ejercicio1.solve(grafo)) != null;
 		} else {
-			return backTrackRandomizado(nodos);			
+			return backTrack(nodos);			
 		}
 	}
 	
@@ -60,8 +60,9 @@ public class Ejercicio2 {
 		
 		if (poda2(materia) != -1){
 			System.out.println("encontre una excelente poda");
-			while (true) {
-			 int i;	
+			int p = 0;	
+			while (p == 0) {
+				
 			}
 			materia.setColor(materia.getColores().get(i)); // Seteo el color de backtrack
 			if (materiasColores.size() == 0){
@@ -82,13 +83,13 @@ public class Ejercicio2 {
 //					System.out.println("Pruebo con el color " + materia.getColoresPosibles().get(i) + "de la materia" + materia.getId());
 //					System.out.println("tiene " + materia.getColoresPosibles().size() + "," + materia.getColores().size());
 //				}
-				if (1 == 1 || poda1(materia,materia.getColoresPosibles().get(i))){
+				if (poda1(materia,materia.getColoresPosibles().get(i))){
 					if (materiasColores.size() == 0){
 //						System.out.println("pruebo solucion");
 //						System.out.println("Intentando Pruebo con el color " + grafo.getMateria(0).getColor(0) + "de la materia" + grafo.getMateria(0).getId());
 						intentos++;
 						if ((solucion = ejercicio1.solve(grafo)) != null){
-							System.out.println("Encontre solucion");
+//							System.out.println("Encontre solucion");
 							return true;
 						}
 					} else {
@@ -97,7 +98,7 @@ public class Ejercicio2 {
 						}
 					}
 				} else {
-					System.out.println("pude usar la poda 1");
+//					System.out.println("pude usar la poda 1");
 					poda1++;
 				}
 				i++;
@@ -131,21 +132,21 @@ public class Ejercicio2 {
 		} else {
 			while (i < materia.getColoresPosibles().size() && !tieneSolucion){
 				
-				if (materia.getId() == 7){
-				System.out.println("Materia " + materia.getId());
-				for (int c : materia.getColoresPosibles()) {
-					System.out.print(c+",");
-				}
-				System.out.println();
-				}
+//				if (materia.getId() == 7){
+////				System.out.println("Materia " + materia.getId());
+//				for (int c : materia.getColoresPosibles()) {
+////					System.out.print(c+",");
+//				}
+//				System.out.println();
+//				}
 				materia.setColor(materia.getColoresPosibles().get(i)); // Seteo el color de backtrack
 //					System.out.println("Pruebo con el color " + materia.getColoresPosibles().get(i) + "de la materia" + materia.getId());
 //					System.out.println("tiene " + materia.getColoresPosibles().size() + "," + materia.getColores().size());
-				if (1 == 1 || poda1(materia,materia.getColoresPosibles().get(i))){
+				if (1 ==1 || poda1(materia,materia.getColoresPosibles().get(i))){
 					if (materiasColores.size() == 0){
 						intentos++;
 						if ((solucion = ejercicio1.solve(grafo)) != null){
-							System.out.println("Encontre solucion");
+//							System.out.println("Encontre solucion");
 							return true;
 						}
 					} else {
