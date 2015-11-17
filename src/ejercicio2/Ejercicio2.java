@@ -36,7 +36,7 @@ public class Ejercicio2 {
 		
 		for (NodoMateria nodoMateria : grafo.getMaterias()) {
 			if (nodoMateria.getColoresPosibles().size() > 2){
-//				Collections.shuffle(nodoMateria.getColoresPosibles());
+				Collections.shuffle(nodoMateria.getColoresPosibles());
 				nodos.add(nodoMateria);
 			} else {
 				for(int color : nodoMateria.getColoresPosibles()){
@@ -100,6 +100,60 @@ public class Ejercicio2 {
 					poda1++;
 				}
 				i++;
+				materia.clearColors();
+			}
+		}
+		materiasColores.add(0,materia);
+		return false;
+	}
+	
+	private boolean backTrack2Colors(ArrayList<NodoMateria> materiasColores){
+		NodoMateria materia = materiasColores.get(0); // Materias con mas de 2 colores.
+		materiasColores.remove(0);
+		boolean tieneSolucion = false;
+		int i = 0;
+		
+		if (poda2(materia) != -1){
+//			System.out.println("encontre una excelente poda");
+			materia.setColor(materia.getColores().get(i)); // Seteo el color de backtrack
+			if (materiasColores.size() == 0){
+				if ((solucion = ejercicio1.solve(grafo)) != null){
+					return true;
+				}
+			} else {
+				if (backTrack2Colors(materiasColores)){
+					return true;
+				}
+			}
+			materia.clearColors();
+		} else {
+			while (i < materia.getColoresPosibles().size() && !tieneSolucion){
+				
+				materia.setColor(materia.getColoresPosibles().get(i)); // Seteo el color de backtrack
+				if (i+1 < materia.getColoresPosibles().size()){
+					materia.setColor(materia.getColoresPosibles().get(i+1));
+				}
+				if (poda1(materia,materia.getColoresPosibles().get(i))){
+					if (materiasColores.size() == 0){
+//						System.out.println("pruebo solucion");
+//						System.out.println("Intentando Pruebo con el color " + grafo.getMateria(0).getColor(0) + "de la materia" + grafo.getMateria(0).getId());
+						intentos++;
+						if ((solucion = ejercicio1.solve(grafo)) != null){
+//							System.out.println("Encontre solucion");
+							return true;
+						}
+					} else {
+						if (backTrack2Colors(materiasColores)){
+							return true;
+						}
+					}
+				} else {
+//					System.out.println("pude usar la poda 1");
+					poda1++;
+				}
+			
+				i += 2;
+				
 				materia.clearColors();
 			}
 		}
