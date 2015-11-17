@@ -1,28 +1,35 @@
 package Test;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import utils.GrafoPredicados;
 import utils.NodoMateria;
 
 public class Generador{
 
-	public static void generarConexiones(GrafoPredicados g, int cantidadConexiones) {
-		ArrayList<NodoMateria> nodos = (ArrayList<NodoMateria>) g.getMaterias();
+	public Generador() {}
+	
+	//int probabilidad esta entre 0 y 100
+	public  void generarConexiones(GrafoPredicados g, int cantidadConexiones, int probabilidad) {
+		List<NodoMateria> nodos = g.getMaterias();
 		boolean [][] conectados = new boolean [nodos.size()][nodos.size()];
-		
+
 		while (cantidadConexiones > 0) {
-			int n1, n2;
-			
-			n1 = (int) (Math.random() * nodos.size());
-			n2 = (int) (Math.random() * nodos.size());
-			
-			if (n1 != n2) {
-				if (!conectados[n1][n2]) {
-					conectados[n1][n2] = true;
-					conectados[n2][n1] = true;
-					
-					g.connectMateria(n1, n2);
-					cantidadConexiones--;
+			for (NodoMateria n1 : nodos) {
+				for (NodoMateria n2 : nodos) {
+					if (n1.getId() != n2.getId() && !conectados[n1.getId()][n2.getId()] && !conectados[n2.getId()][n1.getId()]) {
+						int random = (int) (Math.random() * 100);
+						
+						if (random <= probabilidad) {
+							conectados[n1.getId()][n2.getId()] = true;
+							conectados[n2.getId()][n1.getId()] = true;
+							
+							g.connectMateria(n1.getId(), n2.getId());
+							
+							cantidadConexiones--;
+						}
+					}
 				}
 			}
 		}

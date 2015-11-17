@@ -1,5 +1,6 @@
 package ejercicio2;
 
+import java.awt.peer.SystemTrayPeer;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,11 +13,16 @@ public class Ejercicio2 {
 	private GrafoPredicados grafo;
 	private Ejercicio1 ejercicio1;
 	private ArrayList<Color> solucion;
+	private int[] poda2;
 	private int intentos = 0;
 	private int poda1 = 0;
 	
 	public Ejercicio2(GrafoPredicados grafo) {
 		this.grafo = grafo;
+		poda2 = new int[grafo.size()];
+		for (int i = 0; i < poda2.length; i++) {
+			poda2[i] = -2;
+		}
 	}
 	
 	public int getIntentos() {
@@ -45,8 +51,6 @@ public class Ejercicio2 {
 			}
 		}
 		
-		
-		
 		if (nodos.isEmpty()){
 			return (solucion = ejercicio1.solve(grafo)) != null;
 		} else {
@@ -60,9 +64,9 @@ public class Ejercicio2 {
 		boolean tieneSolucion = false;
 		int i = 0;
 		
-		if (poda2(materia) != -1){
-//			System.out.println("encontre una excelente poda");
-			materia.setColor(materia.getColores().get(i)); // Seteo el color de backtrack
+		if ( 1 != 1 && poda2(materia) != -1){
+		//	System.out.println("encontre una excelente poda");
+//			materia.setColor(materia.getColoresPosibles().get(0)); // Seteo el color de backtrack
 			if (materiasColores.size() == 0){
 				if ((solucion = ejercicio1.solve(grafo)) != null){
 					return true;
@@ -170,7 +174,7 @@ public class Ejercicio2 {
 		
 		if (poda2(materia) != -1){
 			System.out.println("encontre una excelente poda");
-			materia.setColor(materia.getColores().get(i)); // Seteo el color de backtrack
+//			materia.setColor(materia.getColores().get(i)); // Seteo el color de backtrack
 			if (materiasColores.size() == 0){
 				if ((solucion = ejercicio1.solve(grafo)) != null){
 					return true;
@@ -230,27 +234,31 @@ public class Ejercicio2 {
 	}
 	
 	private Integer poda2(NodoMateria materia){
-		ArrayList<Integer> coloresPosibles = new ArrayList<Integer>(materia.getColores());
-		ArrayList<Integer> coloresVecinos  = new ArrayList<Integer>();
-	
-		for (NodoMateria materiaVecina : materia.getAdyacentes()) {
-			coloresVecinos.addAll(materiaVecina.getColores());
-		}
-		
-		coloresPosibles.retainAll(coloresVecinos);
-		if (coloresPosibles.size() == materia.getColores().size()){
-			return -1;
-		} else {
-			for (int i = 0; i < materia.getColores().size(); i++) {
-				if (!coloresPosibles.contains(materia.getColores().get(i))){
-					return materia.getColores().get(i);
-				}
+		if (poda2[materia.getId()] != -2){
+			if (poda2[materia.getId()] == -1){
+				return -1;
 			}
-		}
+			materia.setColor(poda2[materia.getId()]);
+			return poda2[materia.getId()];
+		} else{
+			ArrayList<Integer> coloresPosibles = new ArrayList<Integer>(materia.getColoresPosibles());
+			ArrayList<Integer> coloresVecinos  = new ArrayList<Integer>();
 		
-		return -1;
+			for (NodoMateria materiaVecina : materia.getAdyacentes()) {
+				coloresVecinos.addAll(materiaVecina.getColores());
+			}
+			
+			coloresPosibles.removeAll(coloresVecinos);
+			if (coloresPosibles.size() == 0){
+				poda2[materia.getId()] = -1;
+				return -1;
+			} else {
+				poda2[materia.getId()] = coloresPosibles.get(0);
+				materia.setColor(coloresPosibles.get(0));
+				return coloresPosibles.get(0);
+			}
+			}
 	}
-	
 	
 	
 }

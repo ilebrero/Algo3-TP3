@@ -1,7 +1,5 @@
 package Test;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,9 +7,7 @@ import org.junit.Test;
 
 import utils.GrafoPredicados;
 import utils.Color;
-import utils.GrafoMaterias;
 import utils.NodoMateria;
-import ejercicio1.Ejercicio1;
 import ejercicio2.Ejercicio2;
 
 public class TestEj2 {
@@ -70,7 +66,9 @@ public class TestEj2 {
 		grafo.connectMateria(5, 4);
 		grafo.connectMateria(6, 7);*/
 		
-		Generador.generarConexiones(grafo, 10);
+		Generador g = new Generador();
+		
+		g.generarConexiones(grafo, 10, 50);
 		
 		Ejercicio2 ej = new Ejercicio2(grafo);
 		
@@ -107,7 +105,7 @@ public class TestEj2 {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void test2() {
 		GrafoPredicados grafo = crearGrafoRompe2();
 		Ejercicio2 ej = new Ejercicio2(grafo);
@@ -136,14 +134,19 @@ public class TestEj2 {
 			ej.solverWithBacktrack();
 		}
 		
-		for (int i = 1; i < 10000; i++) {
+
+		for (int i = 0; i < 1000; i++) {
+
 			GrafoPredicados grafo = generarKn(i);
 			Ejercicio2 ej = new Ejercicio2(grafo);
 			double tiempo = System.nanoTime();
 			ej.solverWithBacktrack();
 			tiempo = (System.nanoTime() - tiempo)/1000;
+
 //			System.out.println(ej.getPoda1()+";");
 			System.out.println(tiempo+";");
+			//System.out.println(ej.getPoda1()+";");
+			System.out.println(tiempo);
 		}
 		
 		
