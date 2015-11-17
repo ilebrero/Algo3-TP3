@@ -31,7 +31,7 @@ public class TestEj4 {
 	}
 	
 
-	@Test
+	//@Test
 	public void tp(){
 		for(int i = 1 ; i <= 50001; i += 1000){
 			Ejercicio3 ej  = new Ejercicio3(generarKn(1000));
@@ -226,7 +226,7 @@ public class TestEj4 {
 	}*/
 
 
-//	@Test
+	@Test
 	public void experimentoColoresAleatorios() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		

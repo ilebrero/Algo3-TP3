@@ -432,10 +432,10 @@ private GrafoMaterias crearGrafoRompe2(){
 			
 			for (int j = 0; j < 3; j++) {
 				GrafoPredicados grafo = new GrafoPredicados();
-				int cantidadNodos = (int) (/*Math.random() * 100 **/ i);
 				int colores = (int) (/*Math.random() * 100 **/ i);
+				int cantidadNodos = (int) (/*Math.random() * 100 **/ i);
 				int cantidadColores = (int) (/*Math.random() * 100 **/ i);
-				int cantidadConexiones = (int) (/*Math.random() * 300 **/ i * 20);
+				int cantidadConexiones = (int) (/*Math.random() * 300 **/ i-1);
 
 				ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(colores, cantidadNodos, cantidadColores);
 				for (NodoMateria n : nodos) {
@@ -444,9 +444,8 @@ private GrafoMaterias crearGrafoRompe2(){
 				
 				Generador g = new Generador();
 				
-				System.out.println(grafo.hashCode());
 				g.generarConexiones(grafo, cantidadConexiones, 50);
-				/*
+				
 				ej  = new Ejercicio3(grafo);
 				tiempoFinal = 0;
 				double tiempo = System.nanoTime();
@@ -454,7 +453,42 @@ private GrafoMaterias crearGrafoRompe2(){
 				tiempoFinal += (System.nanoTime() - tiempo)/1000;
 				
 				System.out.println(tiempoFinal);
-	*/		}
+			}
+			
+		}
+	}
+	
+	@Test
+	public void testCrecimientoNodosConConexionesycoloresCrecientes() {
+		for (int i = 1; i < 2000; ++i) {
+			double tiempoFinal = 0;
+			Ejercicio3 ej;
+			int conflictos1 = i;
+			
+			for (int j = 0; j < 3; j++) {
+				GrafoPredicados grafo = new GrafoPredicados();
+				int cantidadNodos = (int) (/*Math.random() * 100 **/ i);
+				int colores = (int) (/*Math.random() * 100 **/ i);
+				int cantidadColores = (int) (/*Math.random() * 100 **/ i);
+				int cantidadConexiones = (int) (/*Math.random() * 300 **/ i-1);
+
+				ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(colores, cantidadNodos, cantidadColores);
+				for (NodoMateria n : nodos) {
+					grafo.addMateria(n);
+				}
+				
+				Generador g = new Generador();
+				
+				g.generarConexiones(grafo, cantidadConexiones, 50);
+				
+				ej  = new Ejercicio3(grafo);
+				tiempoFinal = 0;
+				double tiempo = System.nanoTime();
+				conflictos1 = Math.min(conflictos1, ej.checkColoreo());
+				tiempoFinal += (System.nanoTime() - tiempo)/1000;
+				
+				System.out.println(tiempoFinal);
+			}
 			
 		}
 	}

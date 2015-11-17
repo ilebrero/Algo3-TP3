@@ -135,7 +135,7 @@ public class TestEj1 {
 		mostrarResultado(solucion);
 	}
 	
-	@Test
+	//@Test
 	public void experimentoColoresAleatorios() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		
@@ -166,8 +166,10 @@ public class TestEj1 {
 		mostrarResultado(solucion);
 	}
 	
-	@Test
+	//@Test
 	public void experimentoNodosCrecientesSinConexiones() {
+		double tiempo;
+		
 		for (int inodos = 1; inodos < 10000; ++inodos) {
 			GrafoPredicados grafo = new GrafoPredicados();
 			
@@ -179,20 +181,182 @@ public class TestEj1 {
 			
 			Ejercicio1 ej = new Ejercicio1(grafo.size());
 			
+			tiempo = System.nanoTime();
 			ArrayList<Color> solucion = ej.solve(grafo);
+			tiempo = (System.nanoTime() - tiempo)/1000;
 			
+			System.out.println(tiempo);
 			//mostrarResultado(solucion);
 		}
 	}
 	
-	@Test
-	public void experimentoEjesCrecientes() {
-		
-	}
+	//@Test
+			public void experimentoNodosCrecientesconEjesEstaticos() {
+				double tiempo;
+				Generador g = new Generador();
+				
+				for(int i = 0; i < 1000000; ++i) {
+					Math.random();
+				}
+				
+				for (int i = 1; i < 5000; ++i) {
+					GrafoPredicados grafo = new GrafoPredicados();
+					
+					ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(2, i, 3);
+
+					for (NodoMateria n : nodos) {
+						grafo.addMateria(n);
+					}
+					
+					Ejercicio1 ej = new Ejercicio1(grafo.size());
+				
+					
+					g.generarConexiones(grafo, ((i*(i-1)/2) -1) / 2, 50);
+					
+					tiempo = System.nanoTime();
+					ArrayList<Color> solucion = ej.solve(grafo);
+					tiempo = (System.nanoTime() - tiempo)/1000;
+					
+					System.out.println(tiempo);
+					//mostrarResultado(solucion);
+				}
+			}
+
+			@Test
+			public void experimentoNodosCrecientesconEjesAleatorios() {
+				double tiempo;
+				Generador g = new Generador();
+				
+				for(int i = 0; i < 1000000; ++i) {
+					Math.random();
+				}
+				
+				for (int i = 1; i < 5000; ++i) {
+					GrafoPredicados grafo = new GrafoPredicados();
+					
+					ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(2, i, 3);
+
+					for (NodoMateria n : nodos) {
+						grafo.addMateria(n);
+					}
+					
+					Ejercicio1 ej = new Ejercicio1(grafo.size());
+				
+					int ejes = (int) Math.random() * ( ((i*(i-1))/2) - 2);
+					g.generarConexiones(grafo, ejes, 50);
+					
+					tiempo = System.nanoTime();
+					ArrayList<Color> solucion = ej.solve(grafo);
+					tiempo = (System.nanoTime() - tiempo)/1000;
+					
+					System.out.println(tiempo);
+					//mostrarResultado(solucion);
+				}
+			}
+
+			
+	//@Test
+		public void experimentoNodosEstaticosEjesCrecientes() {
+			double tiempo;
+			Generador g = new Generador();
+			
+			for(int i = 0; i < 1000000; ++i) {
+				Math.random();
+			}
+			
+			for (int ejes = 44000; ejes < 44850; ++ejes) {
+				GrafoPredicados grafo = new GrafoPredicados();
+				
+				ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(2, 300, 3);
+
+				for (NodoMateria n : nodos) {
+					grafo.addMateria(n);
+				}
+				
+				Ejercicio1 ej = new Ejercicio1(grafo.size());
+			
+				
+				g.generarConexiones(grafo, ejes, 50);
+				
+				tiempo = System.nanoTime();
+				ArrayList<Color> solucion = ej.solve(grafo);
+				tiempo = (System.nanoTime() - tiempo)/1000;
+				
+				System.out.println(tiempo);
+				//mostrarResultado(solucion);
+			}
+		}
+			
+	//@Test
+		public void experimento100NodosunColor() {
+			double tiempo;
+			double promedio = 0;
+			Generador g = new Generador();
+			
+			for(int i = 0; i < 1000000; ++i) {
+				Math.random();
+			}
+			
+			for (int inodos = 1; inodos < 10000; ++inodos) {
+				GrafoPredicados grafo = new GrafoPredicados();
+				
+				ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(1, 100, 1);
+
+				for (NodoMateria n : nodos) {
+					grafo.addMateria(n);
+				}
+				
+				g.generarConexiones(grafo, 99, 50);
+				
+				Ejercicio1 ej = new Ejercicio1(grafo.size());
+				
+				tiempo = System.nanoTime();
+				ArrayList<Color> solucion = ej.solve(grafo);
+				tiempo = (System.nanoTime() - tiempo)/1000;
+				
+				promedio += tiempo;
+				
+				//System.out.println(tiempo);
+				//mostrarResultado(solucion);
+			}
+			
+			promedio = promedio / 5000;
+			System.out.println("promedio: " + promedio);
+		}
 	
-	@Test
-	public void experimentoColoresCrecientes() {
+	//@Test
+	public void experimento50NodosdosColores() {
+		double tiempo, promedio = 0;
+		Generador g = new Generador();
 		
+		for(int i = 0; i < 1000000; ++i) {
+			Math.random();
+		}
+		
+		for (int inodos = 1; inodos < 10000; ++inodos) {
+			GrafoPredicados grafo = new GrafoPredicados();
+			
+			ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(2, 50, 3);
+
+			for (NodoMateria n : nodos) {
+				grafo.addMateria(n);
+			}
+			
+			g.generarConexiones(grafo, 49, 50);
+			
+			Ejercicio1 ej = new Ejercicio1(grafo.size());
+			
+			tiempo = System.nanoTime();
+			ArrayList<Color> solucion = ej.solve(grafo);
+			tiempo = (System.nanoTime() - tiempo)/1000;
+			
+			promedio += tiempo;
+			//System.out.println(tiempo);
+			//mostrarResultado(solucion);
+		}
+		
+		promedio = promedio / 5000;
+		System.out.println("promedio: " + promedio);
 	}
 	
 	private void mostrarComponentes(ArrayList<Componente> resultado) {

@@ -39,6 +39,7 @@ public class Ejercicio4 {
 			return resolve(coloreoActual);
 		}
 	}
+	
 	public Coloreo solve2() {
 		ArrayList<Color> colores = new ArrayList<Color>(); 
 		ej3.solve2();
@@ -57,6 +58,7 @@ public class Ejercicio4 {
 			return resolve(coloreoActual);
 		}
 	}
+	
 	public Coloreo solve3() {
 		ArrayList<Color> colores = new ArrayList<Color>(); 
 		ej3.solve3();
