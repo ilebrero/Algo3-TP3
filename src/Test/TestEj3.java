@@ -25,7 +25,7 @@ public class TestEj3 {
 //	private GrafoMaterias grafoRompe2 =  crearGrafoRompe2();
 	private GrafoMaterias grafoRompe2;
 	private GrafoMaterias grafo2Test;
-	private GrafoMaterias kn = generarKn(30000);
+//	private GrafoMaterias kn = generarKn(30000);
 //	private GrafoMaterias kn;
 	public TestEj3(){
 		
@@ -96,10 +96,11 @@ public class TestEj3 {
 //		         return;
 //		      }
 			
-			for(int i = 1 ; i <= 50001; i += 1000){
-				Ejercicio3 ej  = new Ejercicio3(generarKn(1000));
+			for(int i = 1 ; i <= 500; i += 10){
+				Ejercicio3 ej  = new Ejercicio3(generarKn(10));
 			}
-		for(int i = 1 ; i <= 50001; i += 1000){
+			
+		for(int i = 1 ; i <= 500; i += 10){
 			double tiempoFinal = 0;
 			Ejercicio3 ej;
 			int conflictos1 = i;
@@ -112,13 +113,13 @@ public class TestEj3 {
 			System.out.print(Math.round((tiempoFinal/ 3))+";"+conflictos1+";");
 			tiempoFinal = 0;
 			conflictos1 = i;
-			for (int j = 0; j < 3; j++) {
-				ej  = new Ejercicio3(generarKn(i));
-				double tiempo = System.nanoTime();
-				conflictos1 = Math.min(conflictos1, ej.checkColoreoV2());
-				tiempoFinal += (System.nanoTime() - tiempo)/1000;
-			}
-			System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+//			for (int j = 0; j < 3; j++) {
+//				ej  = new Ejercicio3(generarKn(i));
+//				double tiempo = System.nanoTime();
+//				conflictos1 = Math.min(conflictos1, ej.checkColoreoV2());
+//				tiempoFinal += (System.nanoTime() - tiempo)/1000;
+//			}
+//			System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
 			tiempoFinal = 0;
 			conflictos1 = i;
 			for (int j = 0; j < 3; j++) {
@@ -369,6 +370,29 @@ private GrafoMaterias crearGrafoRompe2(){
 	grafo.connectMateria(27,30 , 0 , 3);
 	return grafo;
 	}
+
+private  GrafoMaterias generarKnNuevo(int i){
+	Random randomGenerator = new Random();
+	
+	 int aristas = 0;
+	   GrafoMaterias grafo = new GrafoMaterias();
+	   for (int j = 0; j < i; j++) {
+		  grafo.addMateria(new NodoMateria(0, true));
+	   }
+	  grafo.addMateria(new NodoMateria(1, true));
+	   for (int j = 0; j < i; j++) {
+		   int p = randomGenerator.nextInt(j + 1);
+		   int o = randomGenerator.nextInt(j + 1);
+		   for (int k = Math.min(p, o); k < Math.max(p, o); k++) {
+			   if (j != k){
+//			   System.out.println("conecto " + j + "con "+ k);
+				  grafo.connectMateria(j, k);
+				  aristas++;
+			   }
+		   }
+	   }
+	   return grafo;
+}
 
 	private  GrafoMaterias generarKn(int i){
 		Random randomGenerator = new Random();

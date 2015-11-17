@@ -1,6 +1,7 @@
 package Test;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -133,12 +134,17 @@ public class TestEj2 {
 			ej.solverWithBacktrack();
 		}
 		
+
 		for (int i = 0; i < 1000; i++) {
+
 			GrafoPredicados grafo = generarKn(i);
 			Ejercicio2 ej = new Ejercicio2(grafo);
 			double tiempo = System.nanoTime();
 			ej.solverWithBacktrack();
 			tiempo = (System.nanoTime() - tiempo)/1000;
+
+//			System.out.println(ej.getPoda1()+";");
+			System.out.println(tiempo+";");
 			//System.out.println(ej.getPoda1()+";");
 			System.out.println(tiempo);
 		}
@@ -273,4 +279,26 @@ public class TestEj2 {
 	 	   }
 	 	   return grafo;
 	    }
+	
+	private  GrafoPredicados generarPseudoKn(int i){
+		Random randomGenerator = new Random();
+		
+		 int aristas = 0;
+		 GrafoPredicados grafo = new GrafoPredicados();
+		   for (int j = 0; j < i; j++) {
+			   grafo.addMateria(new NodoMateria(i,0,0));
+		   }
+		  grafo.addMateria(new NodoMateria(1, true));
+		   for (int j = 0; j < i; j++) {
+			   for (int k = randomGenerator.nextInt(j + 1); k < randomGenerator.nextInt(j + 1); k++) {
+				   if (j != k){
+//				   System.out.println("conecto " + j + "con "+ k);
+					  grafo.connectMateria(j, k);
+					  aristas++;
+				   }
+			   }
+		   }
+//		   System.out.println("Cantidad de aristas conectadas" + aristas);
+		   return grafo;
+	 }
 }
