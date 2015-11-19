@@ -65,10 +65,10 @@ public class Ejercicio1 {
 			c.valordeVerdad();	
 		}
 		
-		return checkThrtuthValues(componentes);
+		return checkThruthValues(componentes);
 	}
 
-	private boolean checkThrtuthValues(ArrayList< Componente > componentes) {
+	private boolean checkThruthValues(ArrayList< Componente > componentes) {
 		boolean result = true;
 		
 		for (Componente c : componentes) {
