@@ -19,7 +19,7 @@ import utils.Tuple;
 
 public class TestEj1 {
 	
-	@Test
+	//@Test
 	public void testEjesCrecientes(){
 		GrafoPredicados grafo = generarCiclo(200);
 		ArrayList<Tuple<Integer,Integer>> aristas = aristasCiclo(200);
@@ -288,7 +288,7 @@ public class TestEj1 {
 				}
 			}
 
-			@Test
+		//	@Test
 			public void experimentoNodosCrecientesconEjesEstaticosProba50() {
 				double tiempo;
 				Generador g = new Generador();
@@ -476,17 +476,17 @@ public class TestEj1 {
 		}
 	}
 			
-	@Test
+	//@Test
 		public void experimento100NodosunColor() {
 			double tiempo;
 			double promedio = 0;
 			Generador g = new Generador();
 			
-			for(int i = 0; i < 1000000; ++i) {
+			for(int i = 1; i < 10000000; ++i) {
 				Math.random();
 			}
 			
-			for (int inodos = 1; inodos < 44500; ++inodos) {
+			for (int inodos = 1000; inodos < 7000; ++inodos) {
 				GrafoPredicados grafo = new GrafoPredicados();
 				
 				ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(1, 100, 1);
@@ -495,7 +495,7 @@ public class TestEj1 {
 					grafo.addMateria(n);
 				}
 				
-				g.generarConexiones(grafo, 99, 50);
+				g.generarConexiones(grafo, 1000, 50);
 				
 				Ejercicio1 ej = new Ejercicio1(grafo.size());
 				
@@ -513,16 +513,16 @@ public class TestEj1 {
 //			System.out.println("promedio: " + promedio);
 		}
 	
-	//@Test
+	@Test
 	public void experimento50NodosdosColores() {
 		double tiempo, promedio = 0;
 		Generador g = new Generador();
 		
-		for(int i = 0; i < 1000000; ++i) {
+		for(int i = 0; i < 100000; ++i) {
 			Math.random();
 		}
 		
-		for (int inodos = 1; inodos < 10000; ++inodos) {
+		for (int inodos = 1000; inodos < 7000; ++inodos) {
 			GrafoPredicados grafo = new GrafoPredicados();
 			
 			ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(2, 50, 3);
@@ -531,18 +531,16 @@ public class TestEj1 {
 				grafo.addMateria(n);
 			}
 			
-			g.generarConexiones(grafo, 49, 50);
+			g.generarConexiones(grafo, 1000, 50);
 			
 			Ejercicio1 ej = new Ejercicio1(grafo.size());
-			
-			
 			
 			tiempo = System.nanoTime();
 			ArrayList<Color> solucion = ej.solve(grafo);
 			tiempo = (System.nanoTime() - tiempo)/1000;
 			
 			promedio += tiempo;
-			//System.out.println(tiempo);
+			System.out.println(tiempo);
 			//mostrarResultado(solucion);
 		}
 		
