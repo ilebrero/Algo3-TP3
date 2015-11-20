@@ -9,6 +9,7 @@ import utils.GrafoPredicados;
 import utils.Color;
 import utils.NodoMateria;
 import ejercicio2.Ejercicio2;
+import ejercicio3.Ejercicio3;
 
 public class TestEj2 {
 
@@ -135,18 +136,23 @@ public class TestEj2 {
 		}
 		
 
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 2; i < 1000; i++) {
 
-			GrafoPredicados grafo = generarKn(i);
-			Ejercicio2 ej = new Ejercicio2(grafo);
-			double tiempo = System.nanoTime();
-			ej.solverWithBacktrack();
-			tiempo = (System.nanoTime() - tiempo)/1000;
+//			GrafoPredicados grafo = ;
+			
+			double tiempoFinal = 0;
+//			for (int j = 0; j < 3; j++) {
+				Ejercicio2 ej = new Ejercicio2(generarKn(i));
+				double tiempo = System.nanoTime();
+				ej.solverWithBacktrack();
+				tiempoFinal += (System.nanoTime() - tiempo)/1000;
+//			}
+			System.out.println(Math.round((tiempoFinal/ 3)));
 
-//			System.out.println(ej.getPoda1()+";");
-			System.out.println(tiempo+";");
+//			System.out.println(ej.getPoda1()+";"+ej.getPoda2());
+//			System.out.println(tiempo+";");
 			//System.out.println(ej.getPoda1()+";");
-			System.out.println(tiempo);
+//			System.out.println(tiempo);
 		}
 		
 		
@@ -269,14 +275,17 @@ public class TestEj2 {
 	 	   for (int j = 0; j < i; j++) {
 	 		  grafo.addMateria(new NodoMateria(i,0,0));
 	 	   }
+	 	  int aristas = 0;
 	 	   for (int j = 0; j < i; j++) {
 	 		   for (int k = 0; k < i; k++) {
 	 			   if (j != k){
 //	 			   System.out.println("conecto " + j + "con "+ k);
 	 				  grafo.connectMateria(j, k);
+	 				  aristas++;
 	 			   }
 	 		   }
 	 	   }
+//	 	  System.out.println("Cantidad de aristas conectadas para " + i +" :" + aristas);
 	 	   return grafo;
 	    }
 	

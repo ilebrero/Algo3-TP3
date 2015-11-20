@@ -73,9 +73,6 @@ public class Ejercicio3 {
 				}
 			}
 		}
-		for(int i = 0 ; i < coloreo.length ; i++){
-		//	System.out.println("Pinto al nodo " + i + "con el color: "+ coloreo[i]);
-		}
 		return conflictos;
 	}
 	
@@ -83,12 +80,6 @@ public class Ejercicio3 {
 		for (NodoMateria materia : grafo.getMaterias()) {
 			if (materia.getColores().size() == 1){
 				coloreo[materia.getId()] = materia.getColores().get(0);
-				for (NodoMateria vecino :materia.getAdyacentes()){
-					if (coloreo[vecino.getId()] == materia.getColor(0)){
-						conflictos++;
-						//System.out.println("Hubo conflicto " + materia.getId() + "con el color: "+ coloreo[materia.getId()]);
-					}
-				}
 			} else {
 				boolean seteeColor = false; int colorFactible = 0;
 				int i; int color; int posibilidades;int mayorPosibilidad = -1;
@@ -130,9 +121,6 @@ public class Ejercicio3 {
 				}
 			}
 		}
-		for(int i = 0 ; i < coloreo.length ; i++){
-			//	System.out.println("Pinto al nodo " + i + "con el color: "+ coloreo[i]);
-			}
 		return conflictos;
 	}
 	
@@ -150,7 +138,7 @@ public class Ejercicio3 {
 				boolean seteeColor = false; int colorFactible = 0;
 				int i; int color; int posibilidades;int mayorPosibilidad = -1;
 				int posiblesColores = 0; boolean tomeMuestra = false;
-				Collections.shuffle(materia.getColores());
+//				Collections.shuffle(materia.getColores());
 				for(i = 0 ; i < materia.getColores().size() && ! tomeMuestra;i++){
 					posibilidades = 0;
 					boolean colorValido = true;
@@ -194,11 +182,16 @@ public class Ejercicio3 {
 				}
 			}
 		}
-		for(int i = 0 ; i < coloreo.length ; i++){
-			//	System.out.println("Pinto al nodo " + i + "con el color: "+ coloreo[i]);
-			}
 		return conflictos;
 	}
+	
+	public int solveSinPensar(){
+		for (NodoMateria materia : grafo.getMaterias()) {
+			coloreo[materia.getId()] = materia.getColores().get(0);
+		}	
+		return 0;
+	}
+	
 
 }
 // O (cantMaterias) * O (mayorVecindad) * ((NodoConMascolores) ^ 2) 

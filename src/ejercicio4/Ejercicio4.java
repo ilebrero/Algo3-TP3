@@ -16,7 +16,15 @@ public class Ejercicio4 {
 	private Ejercicio3 ej3;
 	private Coloreo coloreoActual;
 	private int diffconflictos;
+	int iteraciones = 0;
+	int mejoro = 0;
 	
+	public int getIteraciones() {
+		return iteraciones;
+	}
+	public int getMejoro() {
+		return mejoro;
+	}
 	public Ejercicio4(GrafoPredicados grafo) {
 		this.grafo = grafo;
 		ej3 = new Ejercicio3(grafo);
@@ -80,6 +88,24 @@ public class Ejercicio4 {
 			return resolve(coloreoActual);
 		}
 	}
+	public Coloreo solveSinPensar() {
+		ArrayList<Color> colores = new ArrayList<Color>(); 
+		ej3.solveSinPensar();
+		int [] vectorColores = ej3.getColoreo();
+		
+		for (int i = 0; i < vectorColores.length; ++i) {
+			Color actual = new Color(vectorColores[i], i);
+			colores.add(actual);
+		}
+		
+		coloreoActual = new Coloreo(grafo, colores);
+		
+		if (coloreoActual.esValido()) {
+			return coloreoActual;
+		} else {
+			return resolve(coloreoActual);
+		}
+	}
 
 	private Coloreo resolve(Coloreo colores) {
 		int noCambio = 0;
@@ -91,10 +117,12 @@ public class Ejercicio4 {
 			
 			if (nuevoColoreo.cantidadDeConflictos() <= mejorColoreo.cantidadDeConflictos()) {
 				mejorColoreo = nuevoColoreo;
+				iteraciones++;
 				
 				if (nuevoColoreo.cantidadDeConflictos() == mejorColoreo.cantidadDeConflictos()) {
 					noCambio++;
 				} else {
+					mejoro++;
 					noCambio = 0;
 				}
 			} else {
