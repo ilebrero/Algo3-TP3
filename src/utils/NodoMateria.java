@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class NodoMateria implements java.io.Serializable{
 	private int id;
-	private ArrayList<NodoEstado> estados;
+	private ArrayList<NodoPredicado> estados;
 	private ArrayList<NodoMateria> adyacentes;
 	private ArrayList<Integer> colores;
 	private ArrayList<Integer> coloresPosibles;
@@ -85,7 +85,7 @@ public class NodoMateria implements java.io.Serializable{
 		this.adyacentes.add(m);
 	}
 	
-	public void addEstados(ArrayList<NodoEstado> estados) {
+	public void addEstados(ArrayList<NodoPredicado> estados) {
 		this.estados = estados;
 	}
 	
@@ -121,7 +121,7 @@ public class NodoMateria implements java.io.Serializable{
 		return this.adyacentes;
 	}
 	
-	public NodoEstado getEstado(int i) {
+	public NodoPredicado getEstado(int i) {
 		return estados.get(i);
 	}
 	
