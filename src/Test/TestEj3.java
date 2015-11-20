@@ -482,7 +482,7 @@ private  GrafoMaterias generarKnNuevo(int i){
 		}
 	}
 	
-	@Test
+	//@Test
 	public void testCrecimientoNodosConConexionesycoloresCrecientes() {
 		for (int i = 1; i < 2000; ++i) {
 			double tiempoFinal = 0;

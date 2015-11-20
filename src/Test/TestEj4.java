@@ -1,7 +1,5 @@
 package Test;
 
-import static org.junit.Assert.*;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,11 +24,8 @@ public class TestEj4 {
 	private GrafoPredicados grafo =  crearGrafo();
 	private GrafoPredicados grafoRompe2 =  crearGrafoRompe2();
 	
-	public TestEj4(){
-		
-	}
+	public TestEj4(){}
 	
-
 	//@Test
 	public void tp(){
 		for(int i = 1 ; i <= 50001; i += 1000){
@@ -44,7 +39,6 @@ public class TestEj4 {
 		for (int j = 0; j < 3; j++) {
 			ej  = new Ejercicio4(grafo);
 			double tiempo = System.nanoTime();
-//			ej.solve();
 			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve()));
 			tiempoFinal += (System.nanoTime() - tiempo)/1000;
 		}
@@ -54,7 +48,6 @@ public class TestEj4 {
 		for (int j = 0; j < 3; j++) {
 			ej  = new Ejercicio4(grafo);
 			double tiempo = System.nanoTime();
-//			ej.solve2();
 			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve2()));
 			tiempoFinal += (System.nanoTime() - tiempo)/1000;
 		}
@@ -64,7 +57,6 @@ public class TestEj4 {
 		for (int j = 0; j < 3; j++) {
 			ej  = new Ejercicio4(grafo);
 			double tiempo = System.nanoTime();
-//			ej.solve3();
 			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve3()));
 			tiempoFinal += (System.nanoTime() - tiempo)/1000;
 		}
@@ -169,7 +161,7 @@ public class TestEj4 {
 	}
 	}
 	
-//	@Test
+	//@Test
 	public void test() {
 	/*try
       {
@@ -187,13 +179,16 @@ public class TestEj4 {
 		
 		ArrayList<Coloreo> pruebas = new ArrayList<Coloreo>();
 		
-		pruebas.add(new Ejercicio4(grafo).solve());
-		pruebas.add(new Ejercicio4(grafoRompe2).solve());
-		pruebas.add(new Ejercicio4(this.grafoTest2()).solve());
-		pruebas.add(new Ejercicio4(this.generarKn(1000)).solve());
-		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.generarKn(1000)).checkColoreo()); 
-		mostrarConflictos(pruebas.get(2));
-		mostrarSolucion(pruebas.get(2));
+		Ejercicio3 ej3 = new Ejercicio3(grafo);
+		System.out.println(ej3.checkColoreo() + " | conflictos ej3");
+		System.out.println(new Ejercicio4(grafo).solve2().cantidadDeConflictos() + " | conflictos ej4");
+		//pruebas.add(new Ejercicio4(grafo).solve());
+		//pruebas.add(new Ejercicio4(grafoRompe2).solve());
+		//pruebas.add(new Ejercicio4(this.grafoTest2()).solve());
+		//pruebas.add(new Ejercicio4(this.generarKn(1000)).solve());
+		//System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.generarKn(1000)).checkColoreo()); 
+		//mostrarConflictos(pruebas.get(0));
+		//mostrarSolucion(pruebas.get(0));
 	}
 
 	private void mostrarSolucion(Coloreo coloreo) {
@@ -225,8 +220,45 @@ public class TestEj4 {
 		 System.out.println("Conflictos con grafo 3 :" + new Ejercicio4(this.grafoTest2()).checkColoreoV2()); 
 	}*/
 
-
 	@Test
+	public void testCrecimientoNodosConConexionesycoloresCrecientes() {
+		for (int i = 1; i < 2000; ++i) {
+			double tiempoFinal = 0;
+			Ejercicio4 ej4;
+			int conflictos1 = i;
+			
+			for (int j = 0; j < 3; j++) {
+				GrafoPredicados grafo = new GrafoPredicados();
+				int cantidadNodos = (int) (/*Math.random() * 100 **/ i);
+				int colores = (int) (/*Math.random() * 100 **/ i);
+				int cantidadColores = (int) (/*Math.random() * 100 **/ i);
+				int cantidadConexiones = (int) (/*Math.random() * 300 **/ i-1);
+	
+				ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(colores, cantidadNodos, cantidadColores);
+				for (NodoMateria n : nodos) {
+					grafo.addMateria(n);
+				}
+				
+				Generador g = new Generador();
+				
+				g.generarConexiones(grafo, cantidadConexiones, 50);
+				
+				ej4 = new Ejercicio4(grafo);
+				int conflictosej4;
+				System.out.println("conflictos!: " + ej4.solve().cantidadDeConflictos());
+				tiempoFinal = 0;
+				//double tiempo = System.nanoTime();
+				//conflictos1 = Math.min(conflictos1, ej4.solve().getConflictos().size());
+				//tiempoFinal += (System.nanoTime() - tiempo)/1000;
+				//System.out.println("ej4: " + ej4.solve().cantidadDeConflictos());
+				
+				//System.out.println(tiempoFinal);
+			}
+			
+		}
+	}
+	
+	//@Test
 	public void experimentoColoresAleatorios() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		

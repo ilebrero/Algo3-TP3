@@ -15,16 +15,20 @@ public class Ejercicio4 {
 	private GrafoPredicados grafo;
 	private Ejercicio3 ej3;
 	private Coloreo coloreoActual;
+	private int diffconflictos;
 	
 	public Ejercicio4(GrafoPredicados grafo) {
 		this.grafo = grafo;
 		ej3 = new Ejercicio3(grafo);
+		diffconflictos = 0;
 	}
 	
 	public Coloreo solve() {
 		ArrayList<Color> colores = new ArrayList<Color>(); 
 		ej3.solve();
 		int [] vectorColores = ej3.getColoreo();
+		this.diffconflictos = ej3.checkColoreo();
+		System.out.println("ej3: " + diffconflictos);
 		
 		for (int i = 0; i < vectorColores.length; ++i) {
 			Color actual = new Color(vectorColores[i], i);
@@ -32,7 +36,6 @@ public class Ejercicio4 {
 		}
 		
 		coloreoActual = new Coloreo(grafo, colores);
-		
 		if (coloreoActual.esValido()) {
 			return coloreoActual;
 		} else {
@@ -98,6 +101,7 @@ public class Ejercicio4 {
 				noCambio = 5;
 			}
 		}
+		
 		return mejorColoreo;
 	}
 
@@ -106,8 +110,8 @@ public class Ejercicio4 {
 		Coloreo mejorColoreo = colores;
 		
 		for (Conflicto c : colores.getConflictos()) {	
-			/*
-			System.out.println("conflicto en id: " + c.getId() + "con color: " + colores.getColores().get(c.getId()).getColor());
+			
+			/*System.out.println("conflicto en id: " + c.getId() + "con color: " + colores.getColores().get(c.getId()).getColor());
 			System.out.println("sus colores posibles son: ");
 			for (Integer i : grafo.getMaterias().get(c.getId()).getColoresPosibles()) System.out.print(" " + i + " -> ");
 			System.out.println("colores de los vecinos: ");
@@ -134,11 +138,12 @@ public class Ejercicio4 {
 			coloresPosibles.removeAll(coloresOcupados);
 			
 			if (!coloresPosibles.isEmpty()) {
-				Color actual = new Color(nodoActual.getId(), coloresPosibles.get(0));
+				Color actual = new Color(coloresPosibles.get(0), nodoActual.getId());
 				
 				nuevosColores.set(nodoActual.getId(), actual);
 				nuevoColoreo = new Coloreo(grafo, nuevosColores);
-				if (nuevoColoreo.cantidadDeConflictos() <= mejorColoreo.cantidadDeConflictos()) {
+				
+				if (nuevoColoreo.cantidadDeConflictos() < mejorColoreo.cantidadDeConflictos()) {
 					mejorColoreo = nuevoColoreo;
 				} 
 			}

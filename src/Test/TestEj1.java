@@ -45,7 +45,7 @@ public class TestEj1 {
 		mostrarResultado(solucion);
 	}
 	
-	@Test
+	//@Test
 	public void testkosarajuSinSolucion() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		
@@ -244,6 +244,38 @@ public class TestEj1 {
 				
 					int ejes = (int) Math.random() * ( ((i*(i-1))/2) - 2);
 					g.generarConexiones(grafo, ejes, 50);
+					
+					tiempo = System.nanoTime();
+					ArrayList<Color> solucion = ej.solve(grafo);
+					tiempo = (System.nanoTime() - tiempo)/1000;
+					
+					System.out.println(tiempo);
+					//mostrarResultado(solucion);
+				}
+			}
+
+			@Test
+			public void experimentoNodosCrecientesconEjesEstaticosProba50() {
+				double tiempo;
+				Generador g = new Generador();
+				
+				for(int i = 0; i < 1000000; ++i) {
+					Math.random();
+				}
+				
+				for (int i = 1; i < 5000; ++i) {
+					GrafoPredicados grafo = new GrafoPredicados();
+					
+					ArrayList<NodoMateria> nodos = Generador.generarNodosConColores(2, i, 3);
+
+					for (NodoMateria n : nodos) {
+						grafo.addMateria(n);
+					}
+					
+					Ejercicio1 ej = new Ejercicio1(grafo.size());
+				
+					//int ejes = (int) Math.random() * ( ((i*(i-1))/2) - 2);
+					g.generarConexiones(grafo, i/2, 50);
 					
 					tiempo = System.nanoTime();
 					ArrayList<Color> solucion = ej.solve(grafo);
