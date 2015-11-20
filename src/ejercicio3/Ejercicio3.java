@@ -1,6 +1,7 @@
 package ejercicio3;
 
 import java.util.Collections;
+import java.util.Random;
 
 import utils.GrafoMaterias;
 import utils.NodoMateria;
@@ -36,6 +37,20 @@ public class Ejercicio3 {
 	
 	public int checkColoreoV3() {
 		this.solve3();
+		return grafo.findConflicts(coloreo);
+	}
+	
+	public int checkColoreoFinal() {
+		Random randomGenerator = new Random();
+		int suma = 0;
+		for (int i = 0; i < Math.round(grafo.getMaterias().size() * 0.2); i++) {
+			if (grafo.getMateria(randomGenerator.nextInt(grafo.getMaterias().size())).getColores().size()
+					< 20 ){
+				this.solve2();
+			}
+		}
+		this.solve3();
+		
 		return grafo.findConflicts(coloreo);
 	}
 	
@@ -138,7 +153,7 @@ public class Ejercicio3 {
 				boolean seteeColor = false; int colorFactible = 0;
 				int i; int color; int posibilidades;int mayorPosibilidad = -1;
 				int posiblesColores = 0; boolean tomeMuestra = false;
-//				Collections.shuffle(materia.getColores());
+				Collections.shuffle(materia.getColores());
 				for(i = 0 ; i < materia.getColores().size() && ! tomeMuestra;i++){
 					posibilidades = 0;
 					boolean colorValido = true;

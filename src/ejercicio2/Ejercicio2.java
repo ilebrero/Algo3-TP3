@@ -48,6 +48,7 @@ public class Ejercicio2 {
 		ejercicio1 = new Ejercicio1(grafo.size());
 		
 		for (NodoMateria nodoMateria : grafo.getMaterias()) {
+			nodoMateria.clearColors();
 			if (nodoMateria.getColoresPosibles().size() > 2){
 //				Collections.shuffle(nodoMateria.getColoresPosibles());
 				nodos.add(nodoMateria);
@@ -72,10 +73,8 @@ public class Ejercicio2 {
 		int i = 0;
 		
 		if (poda2(materia) != -1){
-//			System.out.println("encontre una excelente poda");
-			usopoda2++;
-//			materia.setColor(materia.getColoresPosibles().get(0)); // Seteo el color de backtrack
 
+			usopoda2++;
 			if (materiasColores.size() == 0){
 				if ((solucion = ejercicio1.solve(grafo)) != null){
 					return true;
@@ -236,13 +235,11 @@ public class Ejercicio2 {
 			for (NodoMateria materiaVecina : materia.getAdyacentes()) {
 				coloresVecinos.addAll(materiaVecina.getColoresPosibles());
 			}
-//			System.out.println(coloresVecinos);
 			coloresPosibles.removeAll(coloresVecinos);
 			if (coloresPosibles.size() == 0){
 				poda2[materia.getId()] = -1;
 				return -1;
 			} else {
-//				System.out.println("Encotre un color que no tienen mis vecinos"+ materia.getId() + ";" + coloresPosibles.get(0));
 				poda2[materia.getId()] = coloresPosibles.get(0);
 				materia.setColor(coloresPosibles.get(0));
 				return coloresPosibles.get(0);
