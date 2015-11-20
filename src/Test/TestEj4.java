@@ -31,7 +31,7 @@ public class TestEj4 {
 	}
 	
 
-	//@Test
+	@Test
 	public void tp(){
 		for(int i = 1 ; i <= 50001; i += 1000){
 			Ejercicio3 ej  = new Ejercicio3(generarKn(1000));
@@ -39,52 +39,52 @@ public class TestEj4 {
 	for(int i = 1 ; i <= 50001; i += 1000){
 		double tiempoFinal = 0;
 		Ejercicio4 ej;
-		int conflictos1 = i;
+		int conflictos1 = Integer.MAX_VALUE;
 		GrafoPredicados grafo = generarKn(i);
-		for (int j = 0; j < 3; j++) {
-			ej  = new Ejercicio4(grafo);
-			double tiempo = System.nanoTime();
-//			ej.solve();
-			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve()));
-			tiempoFinal += (System.nanoTime() - tiempo)/1000;
-		}
-		System.out.print(Math.round((tiempoFinal/ 3))+";"+conflictos1+";");
-		tiempoFinal = 0;
-		conflictos1 = i;
-		for (int j = 0; j < 3; j++) {
-			ej  = new Ejercicio4(grafo);
-			double tiempo = System.nanoTime();
-//			ej.solve2();
-			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve2()));
-			tiempoFinal += (System.nanoTime() - tiempo)/1000;
-		}
-		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
-		tiempoFinal = 0;
-		conflictos1 = i;
-		for (int j = 0; j < 3; j++) {
-			ej  = new Ejercicio4(grafo);
-			double tiempo = System.nanoTime();
-//			ej.solve3();
-			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve3()));
-			tiempoFinal += (System.nanoTime() - tiempo)/1000;
-		}
-		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
-		conflictos1 = Integer.MAX_VALUE;
-		tiempoFinal = 0;
-		for (int j = 0; j < 3; j++) {
-			double tiempo = System.nanoTime();
-			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreo());
-			tiempoFinal += (System.nanoTime() - tiempo)/1000;
-		}
-		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
-		conflictos1 = Integer.MAX_VALUE;
-		tiempoFinal = 0;
-		for (int j = 0; j < 3; j++) {
-			double tiempo = System.nanoTime();
-			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreoV2());
-			tiempoFinal += (System.nanoTime() - tiempo)/1000;
-		}
-		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+//		for (int j = 0; j < 3; j++) {
+//			ej  = new Ejercicio4(grafo);
+//			double tiempo = System.nanoTime();
+////			ej.solve();
+//			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve()));
+//			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+//		}
+//		System.out.print(Math.round((tiempoFinal/ 3))+";"+conflictos1+";");
+//		tiempoFinal = 0;
+//		conflictos1 = Integer.MAX_VALUE;
+//		for (int j = 0; j < 3; j++) {
+//			ej  = new Ejercicio4(grafo);
+//			double tiempo = System.nanoTime();
+////			ej.solve2();
+//			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve2()));
+//			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+//		}
+//		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+//		tiempoFinal = 0;
+//		conflictos1 = Integer.MAX_VALUE;
+//		for (int j = 0; j < 3; j++) {
+//			ej  = new Ejercicio4(grafo);
+//			double tiempo = System.nanoTime();
+////			ej.solve3();
+//			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve3()));
+//			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+//		}
+//		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+//		conflictos1 = Integer.MAX_VALUE;
+//		tiempoFinal = 0;
+//		for (int j = 0; j < 3; j++) {
+//			double tiempo = System.nanoTime();
+//			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreo());
+//			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+//		}
+//		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+//		conflictos1 = Integer.MAX_VALUE;
+//		tiempoFinal = 0;
+//		for (int j = 0; j < 3; j++) {
+//			double tiempo = System.nanoTime();
+//			conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreoV2());
+//			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+//		}
+//		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
 		conflictos1 = Integer.MAX_VALUE;
 		tiempoFinal = 0;
 		for (int j = 0; j < 3; j++) {
@@ -98,6 +98,41 @@ public class TestEj4 {
 		
 	}
 	}
+	
+	
+	@Test
+	public void comparacionTonta(){
+		for(int i = 1 ; i <= 50001; i += 1){
+			double tiempoFinal = 0;
+			Ejercicio4 ej;
+			int conflictos1 = Integer.MAX_VALUE;
+			GrafoPredicados grafo = generarKn(i);
+			
+				ej  = new Ejercicio4(grafo);
+				conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve()));
+				System.out.print(conflictos1+";"+ej.getIteraciones()+";"+ej.getMejoro()+";");
+			
+			
+			tiempoFinal = 0;
+			conflictos1 = Integer.MAX_VALUE;
+			ej  = new Ejercicio4(grafo);
+			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve2()));
+
+			System.out.print(conflictos1+";"+ej.getIteraciones()+";"+ej.getMejoro()+";");
+			
+			
+			conflictos1 = Integer.MAX_VALUE;
+			ej  = new Ejercicio4(grafo);
+			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve3()));
+			System.out.print(conflictos1+";"+ej.getIteraciones()+";"+ej.getMejoro()+";");
+			
+			conflictos1 = Integer.MAX_VALUE;
+			ej  = new Ejercicio4(grafo);
+			conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solveSinPensar()));
+			System.out.print(conflictos1+";"+ej.getIteraciones()+";"+ej.getMejoro()+";");
+			System.out.println();
+	}
+}
 	
 	
 //	@Test
@@ -489,11 +524,13 @@ public class TestEj4 {
 		 int aristas = 0;
 		 GrafoPredicados grafo = new GrafoPredicados();
 		   for (int j = 0; j < i; j++) {
-			  grafo.addMateria(new NodoMateria(0, true));
+			  grafo.addMateria(new NodoMateria(i, true));
 		   }
-		  grafo.addMateria(new NodoMateria(1, true));
+		  grafo.addMateria(new NodoMateria(i, true));
 		  for (int j = 0; j < i; j++) {
-			   for (int k = randomGenerator.nextInt(j + 1); k < randomGenerator.nextInt(j + 1); k++) {
+			  int p = randomGenerator.nextInt(j + 1) ;
+			  int o = randomGenerator.nextInt(j + 1) ;
+			   for (int k = Math.min(o, p); k < Math.max(o, p); k++) {
 				   if (j != k){
 //				   System.out.println("conecto " + j + "con "+ k);
 					  grafo.connectMateria(j, k);

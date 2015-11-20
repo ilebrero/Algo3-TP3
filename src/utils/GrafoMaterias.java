@@ -73,7 +73,7 @@ public class GrafoMaterias implements java.io.Serializable {
 				}
 				
 				if (colores[actual.getId()] == colores[vecinoActual.getId()]){
-				//	System.out.println("Hubo conflicto " + actual.getId() + "con" + vecinoActual.getId() +"con el color: "+ colores[actual.getId()]);
+//					System.out.println("Hubo conflicto " + actual.getId() + "con" + vecinoActual.getId() +"con el color: "+ colores[actual.getId()]);
 					contradicciones++;
 				}
 			}	

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import org.junit.Test;
@@ -17,6 +18,7 @@ import utils.GrafoPredicados;
 import utils.GrafoMaterias;
 import utils.NodoMateria;
 import utils.Serializar;
+import utils.Tuple;
 
 
 public class TestEj3 {
@@ -30,8 +32,48 @@ public class TestEj3 {
 	public TestEj3(){
 		
 	}
-	
-	//	@Test
+	@Test
+	public void test4(){
+		for(int i = 1 ; i <= 500; i += 10){
+			Ejercicio3 ej  = new Ejercicio3(generarKn(10));
+		}
+		
+	for(int i = 1 ; i <= 500; i++){
+//		grafo = generarKnNuevo(i);
+		grafo = generarKn(i);
+		double tiempoFinal = 0;
+		Ejercicio3 ej;
+		int conflictos1 = Integer.MAX_VALUE;
+		for (int j = 0; j < 3; j++) {
+			ej  = new Ejercicio3(grafo);
+			double tiempo = System.nanoTime();
+			conflictos1 = Math.min(conflictos1, ej.checkColoreo());
+			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+		}
+		System.out.print(Math.round((tiempoFinal/ 3))+";"+conflictos1+";");
+		tiempoFinal = 0;
+		conflictos1 = Integer.MAX_VALUE;
+		for (int j = 0; j < 3; j++) {
+			ej  = new Ejercicio3(grafo);
+			double tiempo = System.nanoTime();
+			conflictos1 = Math.min(conflictos1, ej.checkColoreoV2());
+			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+		}
+		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+		
+//		tiempoFinal = 0;
+//		conflictos1 = i;
+//		for (int j = 0; j < 3; j++) {
+//			ej  = new Ejercicio3(grafo);
+//			double tiempo = System.nanoTime();
+//			conflictos1 = Math.min(conflictos1, ej.checkColoreoV3());
+//			tiempoFinal += (System.nanoTime() - tiempo)/1000;
+//		}
+//		System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+		System.out.println();
+	}
+}
+//		@Test
 	public void test() throws ClassNotFoundException {
 //		try
 //	      {
@@ -46,66 +88,30 @@ public class TestEj3 {
 //	      {
 //	          i.printStackTrace();
 //	      }
-	  
-			try
-		      {
-		         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafo.ser");
-		         ObjectInputStream in = new ObjectInputStream(fileIn);
-		         grafo = (GrafoMaterias) in.readObject();
-		         in.close();
-		         fileIn.close();
-		      }catch(IOException i)
-		      {
-		         i.printStackTrace();
-		         return;
-		      }
-			try
-		      {
-		         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafo2Test.ser");
-		         ObjectInputStream in = new ObjectInputStream(fileIn);
-		         grafo2Test = (GrafoMaterias) in.readObject();
-		         in.close();
-		         fileIn.close();
-		      }catch(IOException i)
-		      {
-		         i.printStackTrace();
-		         return;
-		      }
-			try
-		      {
-		         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafoRompe2.ser");
-		         ObjectInputStream in = new ObjectInputStream(fileIn);
-		         grafoRompe2 = (GrafoMaterias) in.readObject();
-		         in.close();
-		         fileIn.close();
-		      }catch(IOException i)
-		      {
-		         i.printStackTrace();
-		         return;
-		      }
-//			try
-//		      {
-//		         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafoKn.ser");
-//		         ObjectInputStream in = new ObjectInputStream(fileIn);
-//		         kn = (GrafoMaterias) in.readObject();
-//		         in.close();
-//		         fileIn.close();
-//		      }catch(IOException i)
-//		      {
-//		         i.printStackTrace();
-//		         return;
-//		      }
+//	  
+//			
 			
 			for(int i = 1 ; i <= 500; i += 10){
 				Ejercicio3 ej  = new Ejercicio3(generarKn(10));
 			}
-			
-		for(int i = 1 ; i <= 500; i += 10){
+			grafo = generarCiclo(100);
+			ArrayList<Tuple<Integer,Integer>> aristas = aristasCiclo(100);
+			System.out.println("Hay " + aristas.size() + "aristas");
+			int cantAristas = aristas.size();
+		for(int i = 1 ; i <= cantAristas; i++){
+			if (aristas.size() > 0){
+				Tuple<Integer, Integer> tuple = aristas.get(0);
+//				System.out.println("Conecto " + tuple.getX() + "Con " + tuple.getY());
+				aristas.remove(0);
+				grafo.connectMateria(tuple.getX(), tuple.getY());
+			} else {
+				System.out.println("No hay mas");
+			}
 			double tiempoFinal = 0;
 			Ejercicio3 ej;
 			int conflictos1 = i;
 			for (int j = 0; j < 3; j++) {
-				ej  = new Ejercicio3(generarKn(i));
+				ej  = new Ejercicio3(grafo);
 				double tiempo = System.nanoTime();
 				conflictos1 = Math.min(conflictos1, ej.checkColoreo());
 				tiempoFinal += (System.nanoTime() - tiempo)/1000;
@@ -113,17 +119,17 @@ public class TestEj3 {
 			System.out.print(Math.round((tiempoFinal/ 3))+";"+conflictos1+";");
 			tiempoFinal = 0;
 			conflictos1 = i;
-//			for (int j = 0; j < 3; j++) {
-//				ej  = new Ejercicio3(generarKn(i));
-//				double tiempo = System.nanoTime();
-//				conflictos1 = Math.min(conflictos1, ej.checkColoreoV2());
-//				tiempoFinal += (System.nanoTime() - tiempo)/1000;
-//			}
-//			System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
+			for (int j = 0; j < 3; j++) {
+				ej  = new Ejercicio3(grafo);
+				double tiempo = System.nanoTime();
+				conflictos1 = Math.min(conflictos1, ej.checkColoreoV2());
+				tiempoFinal += (System.nanoTime() - tiempo)/1000;
+			}
+			System.out.print(Math.round((tiempoFinal/ 3)) +";"+conflictos1+";");
 			tiempoFinal = 0;
 			conflictos1 = i;
 			for (int j = 0; j < 3; j++) {
-				ej  = new Ejercicio3(generarKn(i));
+				ej  = new Ejercicio3(grafo);
 				double tiempo = System.nanoTime();
 				conflictos1 = Math.min(conflictos1, ej.checkColoreoV3());
 				tiempoFinal += (System.nanoTime() - tiempo)/1000;
@@ -134,18 +140,57 @@ public class TestEj3 {
 		}
 			
 			
-//		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafo).checkColoreo()); 
-//		System.out.println("Conflictos con grafo 2:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
-//		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreo()); 
-//		System.out.println("Conflictos con grafo k200 :" + new Ejercicio3(kn).checkColoreo()); 
-//		System.out.println("Conflictos con grafo 1 :" + new Ejercicio3(grafo).checkColoreoV2()); 
-//		System.out.println("Conflictos con grafo 2 :" + new Ejercicio3(grafoRompe2).checkColoreoV2()); 
-//		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreoV2()); 
-//		System.out.println("Conflictos con grafo k200 :" + new Ejercicio3(kn).checkColoreoV2());
-	}
-	//@Test
-	public void test2() {
 		
+	}
+	@Test
+	public void test2() throws ClassNotFoundException {
+		try
+	      {
+	         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafo.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         grafo = (GrafoMaterias) in.readObject();
+	         in.close();
+	         fileIn.close();
+	      }catch(IOException i)
+	      {
+	         i.printStackTrace();
+	         return;
+	      }
+		try
+	      {
+	         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafo2Test.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         grafo2Test = (GrafoMaterias) in.readObject();
+	         in.close();
+	         fileIn.close();
+	      }catch(IOException i)
+	      {
+	         i.printStackTrace();
+	         return;
+	      }
+		try
+	      {
+	         FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/src/grafos/ej3_grafoRompe2.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         grafoRompe2 = (GrafoMaterias) in.readObject();
+	         in.close();
+	         fileIn.close();
+	      }catch(IOException i)
+	      {
+	         i.printStackTrace();
+	         return;
+	      }
+		
+		
+		
+		System.out.println("Conflictos con grafo 1:" + new Ejercicio3(grafo).checkColoreo()); 
+		System.out.println("Conflictos con grafo 2:" + new Ejercicio3(grafoRompe2).checkColoreo()); 
+		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreo()); 
+		System.out.println("Conflictos con grafo k200 :" + new Ejercicio3(generarKn(100)).checkColoreo()); 
+		System.out.println("Conflictos con grafo 1 :" + new Ejercicio3(grafo).checkColoreoV2()); 
+		System.out.println("Conflictos con grafo 2 :" + new Ejercicio3(grafoRompe2).checkColoreoV2()); 
+		System.out.println("Conflictos con grafo 3 :" + new Ejercicio3(this.grafoTest2()).checkColoreoV2()); 
+		System.out.println("Conflictos con grafo k200 :" + new Ejercicio3(generarKn(100)).checkColoreoV2());
 	}
 
 
@@ -377,7 +422,7 @@ private  GrafoMaterias generarKnNuevo(int i){
 	 int aristas = 0;
 	   GrafoMaterias grafo = new GrafoMaterias();
 	   for (int j = 0; j < i; j++) {
-		  grafo.addMateria(new NodoMateria(0, true));
+		  grafo.addMateria(new NodoMateria(i, true));
 	   }
 	  grafo.addMateria(new NodoMateria(1, true));
 	   for (int j = 0; j < i; j++) {
@@ -391,20 +436,43 @@ private  GrafoMaterias generarKnNuevo(int i){
 			   }
 		   }
 	   }
+//	   System.out.println("Cantidad de aristas conectadas" + aristas);
 	   return grafo;
 }
 
-	private  GrafoMaterias generarKn(int i){
+private  GrafoPredicados generarKn(int i){
+	Random randomGenerator = new Random();
+	
+	 int aristas = 0;
+	 GrafoPredicados grafo = new GrafoPredicados();
+	   for (int j = 0; j < i; j++) {
+		  grafo.addMateria(new NodoMateria(i, true));
+	   }
+	  grafo.addMateria(new NodoMateria(1, true));
+	  for (int j = 0; j < i; j++) {
+		   for (int k = randomGenerator.nextInt(j + 1); k < randomGenerator.nextInt(j + 1); k++) {
+			   if (j != k){
+//			   System.out.println("conecto " + j + "con "+ k);
+				  grafo.connectMateria(j, k);
+				  aristas++;
+			   }
+		   }
+	   }
+//	   System.out.println("Cantidad de aristas conectadas" + aristas);
+	   return grafo;
+ }
+
+	private  GrafoMaterias generarKn1(int i){
 		Random randomGenerator = new Random();
 		
 		 int aristas = 0;
 		   GrafoMaterias grafo = new GrafoMaterias();
 		   for (int j = 0; j < i; j++) {
-			  grafo.addMateria(new NodoMateria(0, true));
+			  grafo.addMateria(new NodoMateria(i, true));
 		   }
 		  grafo.addMateria(new NodoMateria(1, true));
 		   for (int j = 0; j < i; j++) {
-			   for (int k = randomGenerator.nextInt(j + 1); k < randomGenerator.nextInt(j + 1); k++) {
+			   for (int k = 0; k < j; k++) {
 				   if (j != k){
 	//			   System.out.println("conecto " + j + "con "+ k);
 					  grafo.connectMateria(j, k);
@@ -414,6 +482,36 @@ private  GrafoMaterias generarKnNuevo(int i){
 		   }
 	//	   System.out.println("Cantidad de aristas conectadas" + aristas);
 		   return grafo;
+	}
+	private  GrafoMaterias generarCiclo(int i){
+		 int aristas = 0;
+		   GrafoMaterias grafo = new GrafoMaterias();
+		   for (int j = 0; j <= i; j++) {
+			  grafo.addMateria(new NodoMateria(0, true));
+		   }
+//		   for (int j = 0; j < i; j++) {
+//					  grafo.connectMateria(j, j+1);
+//					  aristas++;
+//		   }
+		   grafo.connectMateria(0, i);
+		   
+	//	   System.out.println("Cantidad de aristas conectadas" + aristas);
+		   return grafo;
+	}
+		   
+	private ArrayList<Tuple<Integer,Integer>> aristasCiclo(int i){
+		ArrayList<Tuple<Integer,Integer>> aristas = new ArrayList<Tuple<Integer,Integer>>();
+		for (int j = 0; j < i; j++) {
+			   for (int k = 0; k < j; k++) {
+				   if (j != k){
+					 aristas.add(new Tuple<Integer, Integer>(j,k));
+				   }
+			   }
+		}
+		Collections.shuffle(aristas);
+		
+		return aristas;
+		
 	}
 	
 	//@Test
@@ -447,7 +545,7 @@ private  GrafoMaterias generarKnNuevo(int i){
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testCrecimientoNodosConConexiones() {
 		for (int i = 1; i < 2000; ++i) {
 			double tiempoFinal = 0;
@@ -482,7 +580,7 @@ private  GrafoMaterias generarKnNuevo(int i){
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testCrecimientoNodosConConexionesycoloresCrecientes() {
 		for (int i = 1; i < 2000; ++i) {
 			double tiempoFinal = 0;

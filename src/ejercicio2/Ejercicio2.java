@@ -16,6 +16,8 @@ public class Ejercicio2 {
 	private int[] poda2;
 	private int intentos = 0;
 	private int poda1 = 0;
+	private int usopoda2 = 0;
+	private int soluciones = 0;
 	
 	public Ejercicio2(GrafoPredicados grafo) {
 		this.grafo = grafo;
@@ -24,12 +26,17 @@ public class Ejercicio2 {
 			poda2[i] = -2;
 		}
 	}
-	
+	public int getSoluciones() {
+		return soluciones;
+	}
 	public int getIntentos() {
 		return intentos;
 	}
 	public int getPoda1() {
 		return poda1;
+	}
+	public int getPoda2() {
+		return usopoda2;
 	}
 	
 	public ArrayList<Color> getSolucion() {
@@ -42,7 +49,7 @@ public class Ejercicio2 {
 		
 		for (NodoMateria nodoMateria : grafo.getMaterias()) {
 			if (nodoMateria.getColoresPosibles().size() > 2){
-				Collections.shuffle(nodoMateria.getColoresPosibles());
+//				Collections.shuffle(nodoMateria.getColoresPosibles());
 				nodos.add(nodoMateria);
 			} else {
 				for(int color : nodoMateria.getColoresPosibles()){
@@ -64,15 +71,18 @@ public class Ejercicio2 {
 		boolean tieneSolucion = false;
 		int i = 0;
 		
-		if ( 1 != 1 && poda2(materia) != -1){
-		//	System.out.println("encontre una excelente poda");
+		if (poda2(materia) != -1){
+//			System.out.println("encontre una excelente poda");
+			usopoda2++;
 //			materia.setColor(materia.getColoresPosibles().get(0)); // Seteo el color de backtrack
 			if (materiasColores.size() == 0){
 				if ((solucion = ejercicio1.solve(grafo)) != null){
 					return true;
+//					soluciones++;
 				}
 			} else {
 				if (backTrack(materiasColores)){
+//					soluciones++;
 					return true;
 				}
 			}
@@ -85,7 +95,7 @@ public class Ejercicio2 {
 //					System.out.println("Pruebo con el color " + materia.getColoresPosibles().get(i) + "de la materia" + materia.getId());
 //					System.out.println("tiene " + materia.getColoresPosibles().size() + "," + materia.getColores().size());
 //				}
-				if (poda1(materia,materia.getColoresPosibles().get(i))){
+				if ( poda1(materia,materia.getColoresPosibles().get(i))){
 					if (materiasColores.size() == 0){
 //						System.out.println("pruebo solucion");
 //						System.out.println("Intentando Pruebo con el color " + grafo.getMateria(0).getColor(0) + "de la materia" + grafo.getMateria(0).getId());
@@ -93,10 +103,12 @@ public class Ejercicio2 {
 						if ((solucion = ejercicio1.solve(grafo)) != null){
 //							System.out.println("Encontre solucion");
 							return true;
+//							soluciones++;
 						}
 					} else {
 						if (backTrack(materiasColores)){
 							return true;
+//							soluciones++;
 						}
 					}
 				} else {
@@ -198,7 +210,7 @@ public class Ejercicio2 {
 				materia.setColor(materia.getColoresPosibles().get(i)); // Seteo el color de backtrack
 //					System.out.println("Pruebo con el color " + materia.getColoresPosibles().get(i) + "de la materia" + materia.getId());
 //					System.out.println("tiene " + materia.getColoresPosibles().size() + "," + materia.getColores().size());
-				if (1 ==1 || poda1(materia,materia.getColoresPosibles().get(i))){
+				if (poda1(materia,materia.getColoresPosibles().get(i))){
 					if (materiasColores.size() == 0){
 						intentos++;
 						if ((solucion = ejercicio1.solve(grafo)) != null){
@@ -245,14 +257,15 @@ public class Ejercicio2 {
 			ArrayList<Integer> coloresVecinos  = new ArrayList<Integer>();
 		
 			for (NodoMateria materiaVecina : materia.getAdyacentes()) {
-				coloresVecinos.addAll(materiaVecina.getColores());
+				coloresVecinos.addAll(materiaVecina.getColoresPosibles());
 			}
-			
+//			System.out.println(coloresVecinos);
 			coloresPosibles.removeAll(coloresVecinos);
 			if (coloresPosibles.size() == 0){
 				poda2[materia.getId()] = -1;
 				return -1;
 			} else {
+//				System.out.println("Encotre un color que no tienen mis vecinos"+ materia.getId() + ";" + coloresPosibles.get(0));
 				poda2[materia.getId()] = coloresPosibles.get(0);
 				materia.setColor(coloresPosibles.get(0));
 				return coloresPosibles.get(0);
