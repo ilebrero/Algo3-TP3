@@ -35,8 +35,6 @@ public class Ejercicio4 {
 		ArrayList<Color> colores = new ArrayList<Color>(); 
 		ej3.solve();
 		int [] vectorColores = ej3.getColoreo();
-		this.diffconflictos = ej3.checkColoreo();
-		System.out.println("ej3: " + diffconflictos);
 		
 		for (int i = 0; i < vectorColores.length; ++i) {
 			Color actual = new Color(vectorColores[i], i);

@@ -26,7 +26,7 @@ public class TestEj4 {
 	
 	public TestEj4(){}
 
-	@Test
+	//@Test
 	public void tp(){
 		for(int i = 1 ; i <= 50001; i += 1000){
 			Ejercicio3 ej  = new Ejercicio3(generarKn(1000));
@@ -258,11 +258,9 @@ public class TestEj4 {
 	@Test
 	public void testCrecimientoNodosConConexionesycoloresCrecientes() {
 		for (int i = 1; i < 2000; ++i) {
-			double tiempoFinal = 0;
 			Ejercicio4 ej4;
-			int conflictos1 = i;
-			
-			for (int j = 0; j < 3; j++) {
+
+			for (int k = 0; k < 3; k++) {
 				GrafoPredicados grafo = new GrafoPredicados();
 				int cantidadNodos = (int) (/*Math.random() * 100 **/ i);
 				int colores = (int) (/*Math.random() * 100 **/ i);
@@ -278,16 +276,46 @@ public class TestEj4 {
 				
 				g.generarConexiones(grafo, cantidadConexiones, 50);
 				
-				ej4 = new Ejercicio4(grafo);
-				int conflictosej4;
-				System.out.println("conflictos!: " + ej4.solve().cantidadDeConflictos());
+
+				double tiempoFinal = 0;
+				Ejercicio4 ej;
+				int conflictos1 = Integer.MAX_VALUE;
+				for (int j = 0; j < 3; j++) {
+					ej  = new Ejercicio4(grafo);
+					conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve()));
+				}
+				System.out.print(conflictos1+";");
 				tiempoFinal = 0;
-				//double tiempo = System.nanoTime();
-				//conflictos1 = Math.min(conflictos1, ej4.solve().getConflictos().size());
-				//tiempoFinal += (System.nanoTime() - tiempo)/1000;
-				//System.out.println("ej4: " + ej4.solve().cantidadDeConflictos());
+				conflictos1 = Integer.MAX_VALUE;
+				for (int j = 0; j < 3; j++) {
+					ej  = new Ejercicio4(grafo);
+					conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve2()));
+				}
+				System.out.print(conflictos1+";");
+				tiempoFinal = 0;
+				conflictos1 = i;
+				for (int j = 0; j < 3; j++) {
+					ej  = new Ejercicio4(grafo);
+					conflictos1 = Math.min(conflictos1, cantidadConflictos(ej.solve3()));
+				}
+				System.out.print(conflictos1+";");
+				conflictos1 = Integer.MAX_VALUE;
+				for (int j = 0; j < 3; j++) {
+					conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreo());
+				}
+				System.out.print(conflictos1+";");
+				conflictos1 = Integer.MAX_VALUE;
+				for (int j = 0; j < 3; j++) {
+					conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreoV2());
+				}
+				System.out.print(conflictos1+";");
+				conflictos1 = Integer.MAX_VALUE;
+//				for (int j = 0; j < 3; j++) {
+//					conflictos1 = Math.min(conflictos1, new Ejercicio3(grafo).checkColoreoV3());
+//				}
+//				System.out.print(conflictos1+";");
 				
-				//System.out.println(tiempoFinal);
+				System.out.println();
 			}
 			
 		}
