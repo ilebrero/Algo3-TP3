@@ -8,7 +8,7 @@ import java.util.List;
 import utils.Color;
 import utils.Componente;
 import utils.GrafoPredicados;
-import utils.NodoEstado;
+import utils.NodoPredicado;
 
 public class Ejercicio1 {
 	int cantMaterias;
@@ -19,7 +19,7 @@ public class Ejercicio1 {
 	
 	public ArrayList< Componente > kosaraju(GrafoPredicados grafo){
 		boolean [] usado = new boolean[grafo.sizeEstados()];
-		ArrayList<NodoEstado> orden	= new ArrayList<NodoEstado>();
+		ArrayList<NodoPredicado> orden	= new ArrayList<NodoPredicado>();
 		ArrayList< Componente > componentes = new ArrayList< Componente >();
 		
 		for (int i = 0; i < usado.length; i++) {
@@ -28,16 +28,16 @@ public class Ejercicio1 {
 			}
 		}
 		
-		ArrayList<NodoEstado> grafoInvertido = grafo.grafoInvertido();
+		ArrayList<NodoPredicado> grafoInvertido = grafo.grafoInvertido();
 		Collections.reverse(orden);
 		Arrays.fill(usado, false);
 		
-		for (NodoEstado m : orden) {
+		for (NodoPredicado m : orden) {
 			if (!usado[ m.getId() ]){
-				ArrayList<NodoEstado> componenteActual = new ArrayList<NodoEstado>();
+				ArrayList<NodoPredicado> componenteActual = new ArrayList<NodoPredicado>();
 				
 				dfs(grafoInvertido, usado, componenteActual, m.getId());
-				for (NodoEstado n : componenteActual) {
+				for (NodoPredicado n : componenteActual) {
 					n.setCC( componentes.size() );
 				}
 				componentes.add(new Componente(componenteActual, componentes.size()));
@@ -47,11 +47,11 @@ public class Ejercicio1 {
 		return componentes;
 	}
 	
-	private void dfs(ArrayList<NodoEstado> g, boolean[] usado, List<NodoEstado> m, int i) {
-		NodoEstado actual = g.get(i); 
+	private void dfs(ArrayList<NodoPredicado> g, boolean[] usado, List<NodoPredicado> m, int i) {
+		NodoPredicado actual = g.get(i); 
 		usado[ actual.getId() ] = true;
 		
-		for (NodoEstado vecino : actual.getAdyacentes()) {
+		for (NodoPredicado vecino : actual.getAdyacentes()) {
 			if (!usado[ vecino.getId() ]) {
 				dfs(g, usado, m, vecino.getId());
 			}
@@ -78,20 +78,65 @@ public class Ejercicio1 {
 		return result;
 	}
 	
-	private ArrayList<Color> armarColoreo(ArrayList<Componente> componentes) {
-		ArrayList<Color> solucion = new ArrayList<Color>();
-		boolean usados[] = new boolean[cantMaterias];
+	private Color[] armarColoreo(ArrayList<Componente> componentes) {
+		Color [] solucion = new Color[cantMaterias];
+		int usados[] = new int[cantMaterias];
+		boolean pintadaActual;
 		int ocupados = 0;
 		
 		while (ocupados < cantMaterias) {
 			for (Componente c : componentes) {
-				for (NodoEstado n : c.nodos) {
-					if (n.getNegado() && !usados[n.getPadreId()]) {
-						Color colorActual = new Color(n.getColor(), n.getPadreId());
-						
-						solucion.add(colorActual);
-						usados[n.getPadreId()] = true;
-						ocupados++;
+
+				if (c.hasPadre()) {
+					if (c.getValorVerdadPadre()) {
+						pintadaActual = true;
+					} else {
+						pintadaActual = false;
+					}
+				} else {
+					pintadaActual = false;
+				}
+				
+				//checkea por contradicciones
+				for (NodoPredicado n : c.nodos) {
+					if (usados[n.getPadreId()] == -1) {
+						if (n.getColor() == solucion[n.getPadreId()].getColor() && n.getNegado()) {
+							if (pintadaActual = true) { 
+								return null;
+							} else {
+								pintadaActual = true;
+								c.setValorDeVerdad(true);
+							}
+						}
+					} else {
+						if (usados[n.getPadreId()] == 1) {
+							if (n.getColor() == solucion[n.getPadreId()].getColor() && !n.getNegado()) {
+								if (pintadaActual = true) { 
+									return null;
+								} else {
+									pintadaActual = true;
+									c.setValorDeVerdad(true);
+								}
+							}
+						}
+					}
+				}
+				
+				for (NodoPredicado n : c.nodos) {
+					if (!n.getNegado() == pintadaActual) {
+						if (usados[n.getPadreId()] == 0) {
+							Color colorActual = new Color(n.getColor(), n.getPadreId());
+							
+							solucion[n.getPadreId()] = colorActual;
+							
+							if (n.getNegado()) {
+								usados[n.getPadreId()] = -1;
+							} else {
+								usados[n.getPadreId()] = 1;
+							}
+							
+							ocupados++;
+						}
 					}
 				}
 			}
@@ -102,10 +147,11 @@ public class Ejercicio1 {
 	
 	private void armarGrafoDeComponentesConexas(ArrayList<Componente> componentes) {
 		for (Componente c : componentes) {
-			for (NodoEstado actual : c.nodos) {
-				for (NodoEstado adyacente : actual.getAdyacentes()) {
+			for (NodoPredicado actual : c.nodos) {
+				for (NodoPredicado adyacente : actual.getAdyacentes()) {
 					if (adyacente.getIdCC() != actual.getIdCC()) {
-						c.addVecino(componentes.get(adyacente.getIdCC()));
+						Componente vecino = componentes.get(adyacente.getIdCC()); 
+						c.setPadre(vecino);
 					}
 				}
 			}
@@ -118,9 +164,13 @@ public class Ejercicio1 {
 		
 		if (tieneSolucion(componentesConexas)){
 			armarGrafoDeComponentesConexas(componentesConexas);
-			ArrayList<Color> sol = armarColoreo(componentesConexas);
+			Color [] sol = armarColoreo(componentesConexas);
 			
-			return sol;
+			if (sol != null) {
+				return new ArrayList<Color>(Arrays.asList(sol));				
+			} else {
+				return null;
+			}
 		} else {
 			return null;
 		}

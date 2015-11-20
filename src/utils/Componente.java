@@ -5,14 +5,14 @@ import java.util.Arrays;
 
 public class Componente {
 		
-	public ArrayList<NodoEstado> nodos;
-	ArrayList<Componente> vecinos;
+	public ArrayList<NodoPredicado> nodos;
+	Componente padre;
 	public boolean valorDeVerdad;
 	int id;
 	
-	public Componente(ArrayList<NodoEstado> nodos, int id){
+	public Componente(ArrayList<NodoPredicado> nodos, int id){
 		this.nodos = nodos;
-		this.vecinos = new ArrayList<Componente>();
+		this.padre = null;
 		this.id = id;
 	}
 	
@@ -21,7 +21,7 @@ public class Componente {
 		int[] idPadresUsados = new int [maxPadreId() + 1];
 		Arrays.fill(idPadresUsados, Integer.MAX_VALUE);
 		
-		for (NodoEstado n : nodos) {
+		for (NodoPredicado n : nodos) {
 			if (idPadresUsados[n.getPadreId()] != Integer.MAX_VALUE) {
 				int colorYaUsado = idPadresUsados[n.getPadreId()];
 				int colorActual;
@@ -48,7 +48,7 @@ public class Componente {
 
 	public int maxPadreId() {
 		int max = 0;
-		for (NodoEstado n : nodos) {
+		for (NodoPredicado n : nodos) {
 			if (n.getPadreId() > max) max = n.getPadreId(); 
 		}
 		
@@ -59,19 +59,31 @@ public class Componente {
 		this.valorDeVerdad = calcularValordeVerdad();
 	}
 	
-	public void addVecino(Componente v) {
-		this.vecinos.add(v);
+	public void setPadre(Componente c) {
+		this.padre = c;
 	}
 	
-	public ArrayList<Componente> getVecinos() {
-		return this.vecinos;
+	public boolean getValorVerdadPadre() {
+		return this.padre.valorDeVerdad;
+	}
+	
+	public boolean hasPadre() {
+		return this.padre != null;
+	}
+	
+	public void setValorDeVerdad(boolean v) {
+		this.valorDeVerdad = v;
+	}
+	
+	public Componente getPadre() {
+		return this.padre;
 	}
 	
 	public int getId() {
 		return this.id;
 	}
 	
-	public ArrayList<NodoEstado> getNodos() {
+	public ArrayList<NodoPredicado> getNodos() {
 		return this.nodos;
 	}
 }

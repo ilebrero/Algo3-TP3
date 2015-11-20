@@ -10,7 +10,7 @@ public class GrafoPredicados extends GrafoMaterias{
 	protected final int OFFSET_COLOR1_NEGADO = 2;
 	protected final int OFFSET_COLOR2_NEGADO = 3;
 
-	protected ArrayList<NodoEstado> grafoEstados;
+	protected ArrayList<NodoPredicado> grafoEstados;
 	protected ArrayList<Conexion>   conexiones;
 
 	public GrafoPredicados() {
@@ -35,16 +35,16 @@ public class GrafoPredicados extends GrafoMaterias{
 		return grafoEstados.size();
 	}
 	
-	public ArrayList<NodoEstado> getNodosEstado() {
+	public ArrayList<NodoPredicado> getNodosEstado() {
 		return this.grafoEstados;
 	}
 	
-	public NodoEstado getNodoEstado(int i) {
+	public NodoPredicado getNodoEstado(int i) {
 		return grafoEstados.get(i);
 	}
 	
 	public void generarGrafoDeEstados() {
-		grafoEstados = new ArrayList<NodoEstado>();
+		grafoEstados = new ArrayList<NodoPredicado>();
 		
 		for (NodoMateria m : grafoMateria) {
 			generarNodosEstado(m);
@@ -57,7 +57,7 @@ public class GrafoPredicados extends GrafoMaterias{
 
 	public void generarNodosEstado(NodoMateria m) {
 		if (m.getColores().size() > 0) {
-			ArrayList<NodoEstado> estadosActuales;
+			ArrayList<NodoPredicado> estadosActuales;
 			int id, idPadre, color[], cantidadColores;
 			
 			id 		= grafoEstados.size();
@@ -77,25 +77,25 @@ public class GrafoPredicados extends GrafoMaterias{
 		}
 	}
 
-	private ArrayList<NodoEstado> crearNodos(int id, int idPadre, int [] color, int cantidad) {
-		ArrayList<NodoEstado> estadosActuales = new ArrayList<NodoEstado>();
+	private ArrayList<NodoPredicado> crearNodos(int id, int idPadre, int [] color, int cantidad) {
+		ArrayList<NodoPredicado> estadosActuales = new ArrayList<NodoPredicado>();
 		
 		switch (cantidad) {
 		case (2) :
-			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1		 , idPadre, color[0], false) );
-			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2		 , idPadre, color[1], false) );
-			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1_NEGADO, idPadre, color[0], true ) );
-			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2_NEGADO, idPadre, color[1], true ) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR1		 , idPadre, color[0], false) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR2		 , idPadre, color[1], false) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR1_NEGADO, idPadre, color[0], true ) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR2_NEGADO, idPadre, color[1], true ) );
 			break;
 		case (1) : //esto quedo medio harcodeado
-			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR1 , idPadre, color[0], false) );
-			estadosActuales.add( new NodoEstado(id + OFFSET_COLOR2 , idPadre, color[0], true ) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR1 , idPadre, color[0], false) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR2 , idPadre, color[0], true ) );
 		}
 		
 		return estadosActuales;
 	}
 
-	private void conectarEstadosInternos(ArrayList<NodoEstado> estados) {
+	private void conectarEstadosInternos(ArrayList<NodoPredicado> estados) {
 		if (estados.size() == 4) {
 			estados.get(OFFSET_COLOR1).connect(estados.get(OFFSET_COLOR2_NEGADO));
 			estados.get(OFFSET_COLOR2_NEGADO).connect(estados.get(OFFSET_COLOR1));
@@ -123,14 +123,14 @@ public class GrafoPredicados extends GrafoMaterias{
 		}
 	}
 	
-	public ArrayList<NodoEstado> grafoInvertido() {
-		ArrayList<NodoEstado> invertido = copiarNodosVacios();
+	public ArrayList<NodoPredicado> grafoInvertido() {
+		ArrayList<NodoPredicado> invertido = copiarNodosVacios();
 
-		for (NodoEstado actual : grafoEstados) {
-			NodoEstado nuevoIn = invertido.get( actual.getId() );
+		for (NodoPredicado actual : grafoEstados) {
+			NodoPredicado nuevoIn = invertido.get( actual.getId() );
 			
-			for (NodoEstado vecino : actual.getAdyacentes()) {
-				NodoEstado nuevoOut = invertido.get( vecino.getId() );
+			for (NodoPredicado vecino : actual.getAdyacentes()) {
+				NodoPredicado nuevoOut = invertido.get( vecino.getId() );
 				nuevoOut.connect(nuevoIn);
 			}
 		}
@@ -138,11 +138,11 @@ public class GrafoPredicados extends GrafoMaterias{
 		return invertido;
 	}
 
-	private ArrayList<NodoEstado> copiarNodosVacios() {
-		ArrayList<NodoEstado> resultado = new ArrayList<NodoEstado>();
+	private ArrayList<NodoPredicado> copiarNodosVacios() {
+		ArrayList<NodoPredicado> resultado = new ArrayList<NodoPredicado>();
 		
-		for (NodoEstado e : grafoEstados) {
-			NodoEstado copiaSinVecinos = new NodoEstado(e.getId(), e.getPadreId(), e.getColor(), e.getNegado()); 
+		for (NodoPredicado e : grafoEstados) {
+			NodoPredicado copiaSinVecinos = new NodoPredicado(e.getId(), e.getPadreId(), e.getColor(), e.getNegado()); 
 			resultado.add(copiaSinVecinos);
 		}
 

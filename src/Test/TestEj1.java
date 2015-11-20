@@ -8,7 +8,7 @@ import utils.Color;
 import utils.Coloreo;
 import utils.Componente;
 import utils.GrafoPredicados;
-import utils.NodoEstado;
+import utils.NodoPredicado;
 import utils.NodoMateria;
 
 public class TestEj1 {
@@ -45,7 +45,7 @@ public class TestEj1 {
 		mostrarResultado(solucion);
 	}
 	
-	//@Test
+	@Test
 	public void testkosarajuSinSolucion() {
 		GrafoPredicados grafo = new GrafoPredicados();
 		
@@ -54,7 +54,7 @@ public class TestEj1 {
 		coloresMateria1.add(2);
 		
 		ArrayList<Integer> coloresMateria2 = new ArrayList<Integer>();
-		coloresMateria2.add(1);
+		coloresMateria2.add(0);
 		coloresMateria2.add(2);
 		
 		ArrayList<Integer> coloresMateria3 = new ArrayList<Integer>();
@@ -379,7 +379,7 @@ public class TestEj1 {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void experimentoNodosEstaticosEjesCrecientesProba25() {
 		double tiempo;
 		Generador g = new Generador();
@@ -486,7 +486,7 @@ public class TestEj1 {
 		for (Componente componente : resultado) {
 			System.out.println("componente!! -> size: " + componente.getNodos().size());
 			
-			for (NodoEstado nodo : componente.getNodos()) {
+			for (NodoPredicado nodo : componente.getNodos()) {
 				System.out.println("id: " + nodo.getPadreId() + " | color: " + nodo.getColor() + " | negado? -> " + nodo.getNegado());
 			}
 		}

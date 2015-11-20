@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import utils.GrafoPredicados;
 import utils.GrafoMaterias;
-import utils.NodoEstado;
+import utils.NodoPredicado;
 import utils.NodoMateria;
 
 public class TestsGrafo {
@@ -96,10 +96,10 @@ public class TestsGrafo {
 		grafo.generarGrafoDeEstados();
 		
 		String s = "";
-		for (NodoEstado e : grafo.getNodosEstado()) {
+		for (NodoPredicado e : grafo.getNodosEstado()) {
 			s = s + "id: " + e.getPadreId() + " | color: " + e.getColor() + " | negado? -> " + e.getNegado();
 			s = s + "  conecta con:";
-			for (NodoEstado r : e.getAdyacentes()) {
+			for (NodoPredicado r : e.getAdyacentes()) {
 				s = s + "    id: " + r.getPadreId() + " |color: " + r.getColor() + " | negado? -> " + r.getNegado();
 			}
 		}
@@ -135,10 +135,10 @@ public class TestsGrafo {
 		grafo.generarGrafoDeEstados();
 		
 		String sInvertido = "";
-		for (NodoEstado e : grafo.grafoInvertido()) {
+		for (NodoPredicado e : grafo.grafoInvertido()) {
 			sInvertido = sInvertido + "nuevo -> id: " + e.getPadreId() + " | color: " + e.getColor() + " | negado? -> " + e.getNegado();
 			sInvertido = sInvertido + "  conecta con:";
-			for (NodoEstado r : e.getAdyacentes()) {
+			for (NodoPredicado r : e.getAdyacentes()) {
 				sInvertido = sInvertido + "    id: " + r.getPadreId() + " |color: " + r.getColor() + " | negado? -> " + r.getNegado();
 			}
 		}
