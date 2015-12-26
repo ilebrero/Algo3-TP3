@@ -1,0 +1,134 @@
+\begin{center}
+\tikzset{main node/.style={circle,fill=white!20,draw,minimum size=0.70cm,inner sep=0pt},}
+\begin{tikzpicture}
+        \node[main node] (1) {0};
+        \node[main node] (2) [right = 3.5cm of 1]  {1};
+        \node[main node] (3) [above = 1.5cm of 1]  {2};
+        \node[main node] (4) [right = 1.9cm of 3]  {3};
+        \node[main node] (5) [above = 3.5cm of 2]  {4};
+        \node[main node] (6) [left  = 1.8cm of 5]  {5};
+    
+        \path[draw,thick]
+        (1) edge node {$2$} (2)
+        (2) edge node {$5$} (3)
+        (2) edge node {$8$} (5)
+        (3) edge node {$3$} (4)
+        (3) edge node {$3$} (6)
+        (4) edge node {$4$} (6)
+        (5) edge node {$1$} (6)
+        (5) edge node {$9$} (1)
+        ;
+        
+        \node[draw] at (2,-1) {Grafo original};
+        
+        \begin{scope}[xshift=6cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {2};
+            \node[main node] (4) [right = 1.9cm of 3]  {3};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {4};
+            \node[main node] (6) [left  = 1.8cm of 5]  {5};
+        
+            \path[draw,thick]
+            (5) edge[red] node {$1$} (6)
+            ;
+            \node[draw] at (2,-1) {Agrega 1};    
+        \end{scope}
+
+        \begin{scope}[yshift=-7cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {2};
+            \node[main node] (4) [right = 1.9cm of 3]  {3};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {4};
+            \node[main node] (6) [left  = 1.8cm of 5]  {5};
+        
+            \path[draw,thick]
+            (1) edge[red] node {$2$} (2)
+            (5) edge node {$1$} (6)
+            ;
+            \node[draw] at (2,-1) {Agrega 2};    
+            
+        \end{scope}
+        
+        \begin{scope}[yshift=-7cm,xshift=6cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {2};
+            \node[main node] (4) [right = 1.9cm of 3]  {3};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {4};
+            \node[main node] (6) [left  = 1.8cm of 5]  {5};
+        
+            \path[draw,thick]
+            (1) edge node {$2$} (2)
+            (5) edge node {$1$} (6)
+            (3) edge[red] node {$3$} (6)
+            ;
+            \node[draw] at (2,-1) {Agrega 3};    
+        \end{scope}
+        
+        \begin{scope}[yshift=-14cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {2};
+            \node[main node] (4) [right = 1.9cm of 3]  {3};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {4};
+            \node[main node] (6) [left  = 1.8cm of 5]  {5};
+        
+            \path[draw,thick]
+            (1) edge node {$2$} (2)
+            (5) edge node {$1$} (6)
+            (3) edge node {$3$} (6)
+            (3) edge[red] node {$3$} (4)
+            ;
+            \node[draw] at (2,-1) {agrega 3};    
+        \end{scope}
+        
+        \begin{scope}[yshift=-14cm, xshift=6cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {2};
+            \node[main node] (4) [right = 1.9cm of 3]  {3};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {4};
+            \node[main node] (6) [left  = 1.8cm of 5]  {5};
+        
+            \path[draw,thick]
+            (1) edge node {$2$} (2)
+            (5) edge node {$1$} (6)
+            (3) edge node {$3$} (6)
+            (3) edge node {$3$} (4)
+            (4) edge[blue] node {$4$} (6)
+            ;
+            \node[draw] at (2,-1) {Al intentar agregar 4 se forma un circuito};    
+        \end{scope}
+\end{tikzpicture}
+
+\newpage
+\begin{tikzpicture}
+    \begin{scope}[yshift=-21cm]
+        \node[main node] (1) {0};
+        \node[main node] (2) [right = 3.5cm of 1]  {1};
+        \node[main node] (3) [above = 1.5cm of 1]  {2};
+        \node[main node] (4) [right = 1.9cm of 3]  {3};
+        
+        \node[main node] (5) [above = 3.5cm of 2]  {4};
+        \node[main node] (6) [left  = 1.8cm of 5]  {5};
+    
+        \path[draw,thick]
+        (1) edge node {$2$} (2)
+        (5) edge node {$1$} (6)
+        (3) edge node {$3$} (6)
+        (3) edge node {$3$} (4)
+        (2) edge[red] node {$5$} (3)
+        ;
+        \node[draw] at (2,-1) {Al agregar 5 se termina de formar el arbol};    
+    \end{scope}
+\end{tikzpicture}
+
+    \\algoritmo de kruskal para arbol generador minimo salteando los pasos finales donde solo saltea ejes.
+\end{center}

@@ -11,7 +11,7 @@ public class GrafoPredicados extends GrafoMaterias{
 	protected final int OFFSET_COLOR2_NEGADO = 3;
 
 	protected ArrayList<NodoPredicado> grafoEstados;
-	protected ArrayList<Conexion>   conexiones;
+	protected ArrayList<Conexion>      conexiones;
 
 	public GrafoPredicados() {
 		conexiones = new ArrayList<Conexion>();
@@ -82,14 +82,14 @@ public class GrafoPredicados extends GrafoMaterias{
 		
 		switch (cantidad) {
 		case (2) :
-			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR1		 , idPadre, color[0], false) );
-			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR2		 , idPadre, color[1], false) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR1		, idPadre, color[0], false) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR2		, idPadre, color[1], false) );
 			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR1_NEGADO, idPadre, color[0], true ) );
 			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR2_NEGADO, idPadre, color[1], true ) );
 			break;
 		case (1) : //esto quedo medio harcodeado
-			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR1 , idPadre, color[0], false) );
-			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR2 , idPadre, color[0], true ) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR1, idPadre, color[0], false) );
+			estadosActuales.add( new NodoPredicado(id + OFFSET_COLOR2, idPadre, color[0], true ) );
 		}
 		
 		return estadosActuales;

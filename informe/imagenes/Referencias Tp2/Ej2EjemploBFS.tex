@@ -1,0 +1,127 @@
+\tikzset{main node/.style={circle,fill=white!20,draw,minimum size=0.75cm,inner sep=0pt},}
+\begin{tikzpicture}
+    
+        \node[main node] (1) {0};
+        \node[main node] (2) [right = 3.5cm of 1]  {};
+        \node[main node] (3) [above = 1.5cm of 1]  {};
+        \node[main node] (4) [right = 1.9cm of 3]  {};
+        
+        \node[main node] (5) [above = 3.5cm of 2]  {};
+        \node[main node] (6) [left  = 1.8cm of 5]  {};
+    
+        \path[draw,thick]
+        (1) edge node {} (2)
+        (2) edge node {} (3)
+        (2) edge node {} (5)
+        (3) edge node {} (4)
+        (3) edge node {} (6)
+        (4) edge node {} (6)
+        (5) edge node {} (6)
+        (5) edge node {} (1)
+        ;
+        
+        \begin{scope}[xshift=6cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {};
+            \node[main node] (4) [right = 1.9cm of 3]  {};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {};
+            \node[main node] (6) [left  = 1.8cm of 5]  {};
+        
+            \path[draw,thick]
+            (1) edge[red] node {} (2)
+            (2) edge node {} (3)
+            (2) edge node {} (5)
+            (3) edge node {} (4)
+            (3) edge node {} (6)
+            (4) edge node {} (6)
+            (5) edge node {} (6)
+            (5) edge node {} (1)
+            ;
+        \end{scope}
+        
+        \begin{scope}[yshift=-6cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {};
+            \node[main node] (4) [right = 1.9cm of 3]  {};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {1};
+            \node[main node] (6) [left  = 1.8cm of 5]  {};
+        
+            \path[draw,thick]
+            (1) edge node {} (2)
+            (2) edge node {} (3)
+            (2) edge node {} (5)
+            (3) edge node {} (4)
+            (3) edge node {} (6)
+            (4) edge node {} (6)
+            (5) edge node {} (6)
+            (5) edge[red] node {} (1)
+            ;
+        \end{scope}
+        
+        \begin{scope}[yshift=-6cm,xshift=6cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {2};
+            \node[main node] (4) [right = 1.9cm of 3]  {};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {1};
+            \node[main node] (6) [left  = 1.8cm of 5]  {};
+        
+            \path[draw,thick]
+            (1) edge node {} (2)
+            (2) edge[red] node {} (3)
+            (2) edge node {} (5)
+            (3) edge node {} (4)
+            (3) edge node {} (6)
+            (4) edge node {} (6)
+            (5) edge node {} (6)
+            (5) edge node {} (1)
+            ;
+        \end{scope}
+        
+        \begin{scope}[yshift=-12cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {2};
+            \node[main node] (4) [right = 1.9cm of 3]  {};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {1};
+            \node[main node] (6) [left  = 1.8cm of 5]  {2};
+        
+            \path[draw,thick]
+            (1) edge node {} (2)
+            (2) edge node {} (3)
+            (2) edge node {} (5)
+            (3) edge node {} (4)
+            (3) edge node {} (6)
+            (4) edge node {} (6)
+            (5) edge[red] node {} (6)
+            (5) edge node {} (1)
+            ;
+        \end{scope}
+        
+        \begin{scope}[yshift=-12cm, xshift=6cm]
+            \node[main node] (1) {0};
+            \node[main node] (2) [right = 3.5cm of 1]  {1};
+            \node[main node] (3) [above = 1.5cm of 1]  {2};
+            \node[main node] (4) [right = 1.9cm of 3]  {3};
+            
+            \node[main node] (5) [above = 3.5cm of 2]  {1};
+            \node[main node] (6) [left  = 1.8cm of 5]  {2};
+        
+            \path[draw,thick]
+            (1) edge node {} (2)
+            (2) edge node {} (3)
+            (2) edge node {} (5)
+            (3) edge node {} (4)
+            (3) edge node {} (6)
+            (4) edge[red] node {} (6)
+            (5) edge node {} (6)
+            (5) edge node {} (1)
+            ;
+        \end{scope}
+\end{tikzpicture}

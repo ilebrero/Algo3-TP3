@@ -1,0 +1,29 @@
+\tikzset{main node/.style={circle,fill=white!20,draw,minimum size=0.5cm,inner sep=0pt},}
+\begin{tikzpicture}
+    %\begin{scope}[xshift=4cm]
+    \node[main node] (1) {1};
+    \node[main node] (2) [right = 0.7cm  of 1] {2};
+    \node[main node] (3) [above right = 0.7cm and 0.5cm of 2] {3};
+    \node[main node] (4) [right = 0.1cm of 3] {4};
+    \node[main node] (5) [above left = 0.7cm and 0.5cm of 3] {5};
+    \node[main node] (6) [right = 1.5cm of 5] {6};
+    \node[main node] (7) [above = 0.7cm of 5] {7};
+    \node[main node] (8) [right = 2cm of 7] {8};
+    \node[main node] (9) [above left = 0.7cm and 0.5 of 7]{9};
+    \node[main node] (10) [right = 3.0cm of 9] {10};
+
+
+    \path[draw,thick]
+    (1) edge node {$1$} (2)
+    (2) edge node {$2$} (3)
+    (4) edge node {$2$} (7)
+    (6) edge node {$2$} (9)
+    (8) edge node {$2$} (5)
+    (2) edge node {$2$} (3)
+    (3) edge node {$0$} (4)
+    (5) edge node {$2$} (6)
+    (7) edge node {$3$} (8)
+    (9) edge node {$4$} (10)
+    ;
+    %\end{scope}
+\end{tikzpicture}

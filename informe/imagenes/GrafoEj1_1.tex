@@ -1,0 +1,16 @@
+\tikzset{main node/.style={circle,fill=white!20,draw,minimum size=1cm,inner sep=0pt},}
+\begin{tikzpicture}
+    %\begin{scope}[xshift=4cm]
+    
+    \node[main node] (1) {$V,B$};
+    \node[main node] (2) [right = 1cm of 1] {$V,R$};
+    
+    \path[draw,thick]
+    (1) edge node {} (2)
+    ;
+    %\end{scope}
+\end{tikzpicture}
+
+\begin{center}
+    \caption{Dos nodos conectados con colores posibles $Verde$ y $Blanco$ y $Verde$ y $Rojo$ respectivamente.}
+\end{center}

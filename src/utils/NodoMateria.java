@@ -24,6 +24,7 @@ public class NodoMateria implements java.io.Serializable{
 		colores    = new ArrayList<Integer>();
 		adyacentes = new ArrayList<NodoMateria>();
 		coloresPosibles = new ArrayList<Integer>();
+		
 		this.colores.add(c1);
 		this.colores.add(c2);
 		this.colores.add(c3);
@@ -44,12 +45,14 @@ public class NodoMateria implements java.io.Serializable{
 		
 		coloresPosibles.add(i);
 	}
+
 	public NodoMateria(int i, int k, int n) {
 		colores    = new ArrayList<Integer>();
 		adyacentes = new ArrayList<NodoMateria>();
 		coloresPosibles = new ArrayList<Integer>();
 		Random randomGenerator = new Random();
 //		randomGenerator.nextInt(3) + 1
+
 		for(int j = 0; j < i + 1 ; j++){
 //			this.coloresPosibles.add(randomGenerator.nextInt(1000000));
 			this.coloresPosibles.add(j);
@@ -57,13 +60,13 @@ public class NodoMateria implements java.io.Serializable{
 		this.coloresPosibles.add(i);
 		
 	}
+
 	public NodoMateria(int i, boolean k) {
+		Random randomGenerator = new Random();
 		colores    = new ArrayList<Integer>();
 		adyacentes = new ArrayList<NodoMateria>();
 		coloresPosibles = new ArrayList<Integer>();
-		Random randomGenerator = new Random();
 		
-
 		int l = 0;
 		int p = i;
 		for(int j = Math.min(l, p) ; j < Math.max(l, p); j++){
@@ -81,6 +84,7 @@ public class NodoMateria implements java.io.Serializable{
 		this.colores.add(i);
 		this.colores.add(j);
 	}
+
 	public void addAdyacente(NodoMateria m) {
 		this.adyacentes.add(m);
 	}
@@ -124,6 +128,4 @@ public class NodoMateria implements java.io.Serializable{
 	public NodoPredicado getEstado(int i) {
 		return estados.get(i);
 	}
-	
-	
 }

@@ -22,9 +22,11 @@ public class Ejercicio4 {
 	public int getIteraciones() {
 		return iteraciones;
 	}
+
 	public int getMejoro() {
 		return mejoro;
 	}
+
 	public Ejercicio4(GrafoPredicados grafo) {
 		this.grafo = grafo;
 		ej3 = new Ejercicio3(grafo);
@@ -43,6 +45,7 @@ public class Ejercicio4 {
 		}
 		
 		coloreoActual = new Coloreo(grafo, colores);
+	
 		if (coloreoActual.esValido()) {
 			return coloreoActual;
 		} else {
@@ -60,6 +63,7 @@ public class Ejercicio4 {
 		}
 		
 		coloreoActual = new Coloreo(grafo, colores);
+		
 		if (coloreoActual.esValido()) {
 			return coloreoActual;
 		} else {
@@ -185,7 +189,6 @@ public class Ejercicio4 {
 			TreeSet<Integer> coloresOcupados = new TreeSet<Integer>();
 			NodoMateria nodoActual = grafo.getMateria(c.getId());
 			
-			
 			for(NodoMateria vecino : nodoActual.getAdyacentes()) {
 				List<Color> coloresSeteados = colores.getColores(); 
 				int color = coloresSeteados.get( vecino.getId() ).getColor();
@@ -244,6 +247,4 @@ public class Ejercicio4 {
 		
 		return mejorColoreo;
 	}
-		
-
 }

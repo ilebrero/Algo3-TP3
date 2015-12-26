@@ -1,0 +1,17 @@
+\tikzset{main node/.style={circle,fill=white!20,draw,minimum size=1cm,inner sep=0pt},}
+\begin{tikzpicture}
+    %\begin{scope}[xshift=4cm]
+
+    \node[main node] (1) {$V$};
+    \node[main node] (2) [right = 1cm of 1] {$¬V$};
+    \node[main node] (3) [above = 1cm of 1] {$F$};
+    \node[main node] (4) [right = 1cm of 3] {$¬F$};
+    ;
+    
+    \path[draw,thick]
+    (1) edge node {} (2)
+    (3) edge node {} (4)
+    ;
+    %\end{scope}
+\end{tikzpicture}
+

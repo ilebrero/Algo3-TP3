@@ -49,21 +49,26 @@ public class GrafoMaterias implements java.io.Serializable {
 				return true;
 			}
 		}
+	
 		return false;
 	}
+
 	public int findConflicts(int[] colores){
 		LinkedList<NodoMateria> cola = new LinkedList<NodoMateria>();
 		cola.add(grafoMateria.get(0));
 		Boolean[] visitado = new Boolean[grafoMateria.size()];
 		visitado[0] = true;
+		
 		for(int i = 1; i < visitado.length ; i++){
 			visitado[i] = false;
 		}
+		
 		int contradicciones = 0; NodoMateria actual;
+		
 		while(! cola.isEmpty()){
-			
 			actual = cola.pop();
 			List<NodoMateria> vecinos = actual.getAdyacentes();		
+			
 			for (int k = 0; k < vecinos.size() ; k++) {
 				NodoMateria vecinoActual = vecinos.get(k);
 				
@@ -78,9 +83,7 @@ public class GrafoMaterias implements java.io.Serializable {
 				}
 			}	
 		}
+
 		return contradicciones/2;	
 	}
-
-	
 }
-

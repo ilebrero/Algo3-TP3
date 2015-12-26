@@ -1,0 +1,38 @@
+\tikzset{main node/.style={circle,fill=white!20,draw,minimum size=1cm,inner sep=0pt},}
+
+
+
+\begin{tikzpicture}
+    %\begin{scope}[xshift=4cm]
+    
+
+    \node[main node] (1) {A$[V]$};
+    \node[main node] (2) [red][above = 1cm of 1] {\textcolor{white}{A$[¬V]$}};
+    \node[main node] (3) [red][above = 1cm of 2] {\textcolor{white}{A$[F]$}};
+    \node[main node] (4) [above = 1cm of 3] {A$[¬F]$};
+    
+    
+    \node[main node] (5) [right = 3cm of 1] {B$[F]$};
+    \node[main node] (6) [red][right = 3cm of 2] {\textcolor{white}{B$[¬F]$}};
+    \node[main node] (7) [red][right = 3cm of 3] {\textcolor{white}{B$[R]$}};
+    \node[main node] (8) [right = 3cm of 4] {B$[¬R]$};
+    
+    
+    
+    \path[draw,thick]
+        %intermedias
+        
+        %\chainin (4-5)
+        (4) edge node {} (5)
+        (6) edge node {} (3)
+        
+        %nodo1
+        (2) edge node {} (1)
+        (4) edge node {} (3)
+        
+        %nodo2
+        (6) edge node {} (5)
+        (8) edge node {} (7)
+    ;
+    %\end{scope}
+\end{tikzpicture}
